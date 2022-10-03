@@ -10,7 +10,7 @@ build-front-end-job:
   image: node:lts-bullseye
   variables:
     # PUBLIC_URL: https://dgb-galv.gitlab.io/apis-with-sql
-    PUBLIC_URL: https://gitlab.com/vander-weele-farms-llc/vander-weele-farms-llc
+    PUBLIC_URL: https://vander-weele-farms-llc.gitlab.io/vander-weele-farms-llc
     REACT_APP_API_HOST: https://vander-weele-farms-llc.herokuapp.com
   script:
     - cd ghi
