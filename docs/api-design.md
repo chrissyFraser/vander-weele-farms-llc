@@ -527,6 +527,7 @@ person_name = {
           "product_name": string,
           "picture_url": string,
           "description": string,
+          "is_available": True,
           
           
         }
