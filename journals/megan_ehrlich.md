@@ -26,3 +26,6 @@ Today I worked on:
     - https://fastapi.tiangolo.com/tutorial/security/simple-oauth2/#oauth2passwordrequestform
   - Then I found out that was best saved for later
   I followed the fastapi tutorial for OAuth2 authentication, and got a test version to run on http://127.0.0.1:8000/docs#/default. After playing around with it I understand some of what is happening and feel good putting it aside until we get some more information.
+
+  10.05
+  
