@@ -1,4 +1,6 @@
-# volumes:
+volumes:
+  vw-data:
+    external: true
 services:
   fastapi:
     build:
@@ -8,6 +10,14 @@ services:
       - 8000:8000
     volumes:
       - ./sample_service:/app
+  monolith_service:
+    build:
+      context: monolith_service
+      dockerfile: Dockerfile.dev
+    ports:
+      - 8080:8000
+    volumes:
+      - ./monolith_service:/app
   
   ghi:
     image: node:lts-bullseye
