@@ -18,18 +18,30 @@ services:
       - 8080:8000
     volumes:
       - ./monolith_service:/app
+    environment:
+      DATABASE_URL: postgresql://monolith:monolith@db/monolith
   db:
     build:
       context: data
       dockerfile: Dockerfile.dev
     volumes:
-      - vw-data:/var/lib/postgresql/data
+      - vw-data:/var/lib/postgresql/data/
     environment:
       POSTGRES_PASSWORD: VW
       POSTGRES_USER: VW
-      POSTGRES_DB: vw-data
+      POSTGRES_DB: farm
     ports:
-      - "8100:8000"
+      - "15432:5432"
+  # pg-admin:
+  #   image: dpage/pgadmin4
+  #   volumes:
+  #     - pg-admin:/var/lib/pgadmin
+  #   ports:
+  #     - 8082:80
+  #   environment:
+  #     PGADMIN_DEFAULT_EMAIL: me@me.com
+  #     PGADMIN_DEFAULT_PASSWORD: password
+  #     PGADMIN_DISABLE_POSTFIX: 1
   
   ghi:
     image: node:lts-bullseye
