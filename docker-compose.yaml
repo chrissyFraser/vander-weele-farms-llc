@@ -24,6 +24,10 @@ services:
       dockerfile: Dockerfile.dev
     volumes:
       - vw-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: VW
+      POSTGRES_USER: VW
+      POSTGRES_DB: vw-data
     ports:
       - "8100:8000"
   
