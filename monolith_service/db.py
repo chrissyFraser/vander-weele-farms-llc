@@ -1,7 +1,7 @@
 import os
 from psycopg_pool import ConnectionPool
 
-pool = ConnectionPool(conninfo= os.environ["DATABASE_URL"])
+# pool = ConnectionPool(conninfo= os.environ["DATABASE_URL"])
 
 class ProductQueries:
     def create_product(self, product):
@@ -34,3 +34,5 @@ class ProductQueries:
                 id = row[0]
         # if id is not None:
         #     return self.get_product(id)
+
+        
