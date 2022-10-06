@@ -19,9 +19,7 @@ services:
     volumes:
       - ./monolith_service:/app
     environment:
-      DATABASE_URL: postgresql://monolith:monolith@db/monolith
-      POSTGRES_PASSWORD: VW
-      POSTGRES_USER: VW
+      DATABASE_URL: postgresql://VW:VW@db/farm
   db:
     build:
       context: data

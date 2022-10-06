@@ -3,13 +3,13 @@ from urllib import response
 from fastapi import APIRouter, Depends, Response
 from pydantic import BaseModel
 
-from db import ProductQueries
+from db import ProduceQueries
 
 
 router = APIRouter()
 
 
-class Product_create(BaseModel):
+class Produce_create(BaseModel):
     product_name: str
     picture_file: Union[str, None] = None
     available: bool
@@ -18,7 +18,7 @@ class Product_create(BaseModel):
     width: int
     
 
-class Products_get(BaseModel):
+class Produce_get(BaseModel):
     id: int
     product_name: str
     picture_file: Union[str, None] = None
@@ -28,14 +28,14 @@ class Products_get(BaseModel):
     width: int
 
 
-@router.get("/api/products/", response_model = Products_get)
-def get_products(queries: ProductQueries = Depends()):
-    return{"products": queries.get_products}
+@router.get("/api/produce/", response_model = Produce_get)
+def get_produce(queries: ProduceQueries = Depends()):
+    return{"produce": queries.get_produce}
 
 
-@router.post("/api/products/", response_model = Products_get)
-def create_product(
-    product: Product_create,
-    queries: ProductQueries = Depends()
+@router.post("/api/produce/", response_model = Produce_get)
+def create_produce(
+    produce: Produce_create,
+    queries: ProduceQueries = Depends()
 ):
-    return queries.create_product(product)
+    return queries.create_produce(produce)

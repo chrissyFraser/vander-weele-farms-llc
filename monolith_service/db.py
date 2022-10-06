@@ -4,52 +4,55 @@ from psycopg_pool import ConnectionPool
 
 pool = ConnectionPool(conninfo= os.environ["DATABASE_URL"])
 
-class ProductQueries:
-    def create_product(self, product):
+class ProduceQueries:
+    def create_produce(self, produce):
         id = None
         with pool.connection() as conn:
             with conn.cursor() as cur:
                 cur.execute(
                     """
-                    INSERT INTO products(
+                    INSERT INTO produce(
                         product_name,
                         picture_file,
                         available,
                         height,
                         length,
-                        width,
+                        width
                     )
                     VALUES(%s, %s, %s, %s, %s, %s)
                     RETURNING id
                     """,
                     [
-                        product.product_name,
-                        product.picture_file,
-                        product.available,
-                        product.height,
-                        product.length,
-                        product.width,
-                    ],
-                )
-                row = cur.fetchcone()
+                        produce.product_name,
+                        produce.picture_file,
+                        produce.available,
+                        produce.height,
+                        produce.length,
+                        produce.width
+                    ]
+                        ),
+                
+                row = cur.fetchone()
                 id = row[0]
         if id is not None:
-            return self.get_product(id)
-    def get_products(self):
+            return self.get_produce(id)
+        
+        
+    def get_produce(self):
         with pool.connection() as conn:
             with conn.cursor() as cur:
                 cur.execute(
                     """
                     SELECT 
-                    product.id, 
-                    product.product_name,
-                    product.available,
-                    product.height,
-                    product.length,
-                    product.width,
-                    FROM product
+                    produce.id, 
+                    produce.product_name,
+                    produce.available,
+                    produce.height,
+                    produce.length,
+                    produce.width,
+                    FROM produce
                     """,
                 )
-                products = []
+                produce = []
                 # rows = cur.fetchall()
-                return products
+                return produce
