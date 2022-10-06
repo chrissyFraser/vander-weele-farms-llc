@@ -11,7 +11,7 @@ CREATE TABLE produce(
 );
 
 CREATE TABLE customer (
-    id SERIAL PRIMARY KEY NOT NULL UNIQUE,
+    id SERIAL PRIMARY KEY NOT NULL,
     customer_name VARCHAR(1000) NOT NULL,
     customer_address VARCHAR(1000),
     customer_email VARCHAR(500),
