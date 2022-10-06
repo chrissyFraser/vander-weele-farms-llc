@@ -54,6 +54,7 @@ class CustomerRepository:
             return {"message": "could not get all customers"}
 
     def create_customer(self, customer: CustomerIn) -> CustomerOut:
+        print(customer)
         with pool.connection() as conn:
             with conn.cursor() as db:
                 result = db.execute(
@@ -96,72 +97,74 @@ class CustomerRepository:
 
 
 
-    # def get_one_customer(self, customer_id: int) -> Optional[CustomerOut]:
-    #     try:
-    #         with pool.connection() as conn:
-    #             with conn.cursor() as db:
-    #                 result = db.execute(
-    #                     """
-    #                     SELECT id
-    #                         , customer_name
-    #                         , customer_address
-    #                         , customer_email
-    #                         , driver_id
-    #                         , priority_id
-    #                     FROM customer
-    #                     WHERE id = %s
-    #                     """,
-    #                     [customer_id]
-    #                 )
-    #                 record = result.fetchone()
-    #                 if record is None:
-    #                     return None
-    #                 return self.record_to_customer_out(record)
-    #     except Exception as e:
-    #         print(e)
-    #         return {"message": "Could not get that customer"}
+    def get_one_customer(self, customer_id: int) -> Optional[CustomerOut]:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    result = db.execute(
+                        """
+                        SELECT id
+                            , customer_name
+                            , customer_address
+                            , customer_email
+                            , driver_id
+                            , priority_id
+                        FROM customer
+                        WHERE id = %s
+                        """,
+                        [customer_id]
+                    )
+                    record = result.fetchone()
+                    if record is None:
+                        return None
+                    return self.record_to_customer_out(record)
+        except Exception as e:
+            print(e)
+            return {"message": "Could not get that customer"}
     
-    # def delete_customer(self, customer_id: int) -> bool:
-    #     try:
-    #         with pool.connection() as conn:
-    #             with conn.cursor() as db:
-    #                 db.execute(
-    #                     """
-    #                     DELETE FROM customer
-    #                     WHERE id = %s
-    #                     """,
-    #                     [customer_id]
-    #                 )
-    #                 return True
-    #     except  Exception as e:
-    #         print(e)
-    #         return False
+    def delete_customer(self, customer_id: int) -> bool:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    db.execute(
+                        """
+                        DELETE FROM customer
+                        WHERE id = %s
+                        """,
+                        [customer_id]
+                    )
+                    return True
+        except  Exception as e:
+            print(e)
+            return False
 
-    # def update_customer(self, customer_id: int, customer: CustomerIn) -> Union[CustomerOut, Error]:
-    #     try:
-    #         with pool.connection() as conn:
-    #             # get a cursor (something to run SQL with)
-    #             with conn.cursor() as db:
-    #                 db.execute(
-    #                     """
-    #                     UPDATE customer
-    #                     SET customer_name = %s
-    #                       , customer_address = %s
-    #                       , customer_email = %s
-    #                       , thoughts = %s
-    #                     WHERE id = %s
-    #                     """,
-    #                     [
-    #                         customer.customer_name,
-    #                         customer.customer_address,
-    #                         customer.customer_email,
-    #                         customer.driver_id,
-    #                         customer.priority_id
-    #                     ]
-    #                 )
-    #                 # old_data = customer.dict()
-    #                 # return CustomerOut(id=customer_id, **old_data)
-    #                 return self.customer_in_to_out(customer_id, customer)
-    #     except Exception as e:
-    #         print(e)
-    #         return {"message": "Could not update that customer"}
+    def update_customer(self, customer_id: int, customer: CustomerIn) -> Union[CustomerOut, Error]:
+        try:
+            with pool.connection() as conn:
+                # get a cursor (something to run SQL with)
+                with conn.cursor() as db:
+                    db.execute(
+                        """
+                        UPDATE customer
+                        SET customer_name = %s
+                          , customer_address = %s
+                          , customer_email = %s
+                          , driver_id = %s
+                          , priority_id = %s
+                        WHERE id = %s
+                        """,
+                        [
+                            customer.customer_name,
+                            customer.customer_address,
+                            customer.customer_email,
+                            customer.driver_id,
+                            customer.priority_id,
+                            customer_id
+                        ]
+                    )
+                    # old_data = customer.dict()
+                    # return CustomerOut(id=customer_id, **old_data)
+                    return self.customer_in_to_out(customer_id, customer)
+        except Exception as e:
+            print(e)
+            return {"message": "Could not update that customer"}

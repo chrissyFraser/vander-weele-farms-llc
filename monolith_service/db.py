@@ -1,5 +1,8 @@
-from itertools import product
+
+from optparse import Values
 import os
+from tkinter import INSERT
+from routers.produce import Produce_get
 from psycopg_pool import ConnectionPool
 
 pool = ConnectionPool(conninfo= os.environ["DATABASE_URL"])
@@ -28,31 +31,46 @@ class ProduceQueries:
                         produce.available,
                         produce.height,
                         produce.length,
-                        produce.width
+                        produce.width,
                     ]
                         ),
                 
                 row = cur.fetchone()
                 id = row[0]
-        if id is not None:
-            return self.get_produce(id)
+                
+        # if id is not None:
+        #     return self.get_produce(id)
         
         
-    def get_produce(self):
+    def get_all_produce(self):
         with pool.connection() as conn:
-            with conn.cursor() as cur:
-                cur.execute(
+            with conn.cursor() as db:
+                result = db.execute(
                     """
                     SELECT 
-                    produce.id, 
-                    produce.product_name,
-                    produce.available,
-                    produce.height,
-                    produce.length,
-                    produce.width,
+                    id, 
+                    product_name,
+                    available,
+                    height,
+                    length,
+                    width,
                     FROM produce
                     """,
                 )
-                produce = []
+                
                 # rows = cur.fetchall()
-                return produce
+                return [
+                    self.record_to_produce_out(record)
+                    for record in result
+                ]
+            
+    def record_to_produce_out(self, record):
+        return Produce_get(
+            id = record[0],
+            product_name = record[1],
+            picture_file = record[2],
+            available = record[3],
+            height= record[4],
+            length = record[5],
+            width = record[6]
+        )
