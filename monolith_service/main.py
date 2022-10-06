@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import os
-from routers import produce
+from routers import produce, customers
 app = FastAPI()
 
 
@@ -10,3 +10,4 @@ def is_working():
     return {"message": "Hello World"}
 
 app.include_router(produce.router)
+app.include_router(customers.router)
