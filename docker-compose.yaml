@@ -20,6 +20,8 @@ services:
       - ./monolith_service:/app
     environment:
       DATABASE_URL: postgresql://monolith:monolith@db/monolith
+      POSTGRES_PASSWORD: VW
+      POSTGRES_USER: VW
   db:
     build:
       context: data

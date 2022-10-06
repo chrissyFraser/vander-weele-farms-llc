@@ -1,3 +1,4 @@
+from itertools import product
 import os
 from psycopg_pool import ConnectionPool
 
@@ -32,5 +33,23 @@ class ProductQueries:
                 )
                 row = cur.fetchcone()
                 id = row[0]
-        # if id is not None:
-        #     return self.get_product(id)
+        if id is not None:
+            return self.get_product(id)
+    def get_products(self):
+        with pool.connection() as conn:
+            with conn.cursor() as cur:
+                cur.execute(
+                    """
+                    SELECT 
+                    product.id, 
+                    product.product_name,
+                    product.available,
+                    product.height,
+                    product.length,
+                    product.width,
+                    FROM product
+                    """,
+                )
+                products = []
+                # rows = cur.fetchall()
+                return products
