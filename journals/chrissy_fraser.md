@@ -1,3 +1,10 @@
+## Oct 6, 2022
+* Fast API, began driver db table, routers & queries.
+
+## Oct 5, 2022
+* Fast API videos
+* Fixed issue with date/time rendering on localhost:3000 page.
+
 ## Oct 4, 2022
 
 * Research and notes on Authentication, OAuth2
