@@ -1,4 +1,5 @@
 DROP TABLE IF EXISTS produce;
+DROP TABLE IF EXISTS customer;
 
 CREATE TABLE produce(
     id SERIAL NOT NULL UNIQUE,
@@ -9,3 +10,13 @@ CREATE TABLE produce(
     length INTEGER NOT NULL,
     width INTEGER NOT NULL
 )
+
+
+CREATE TABLE customer (
+    id SERIAL PRIMARY KEY NOT NULL UNIQUE,
+    customer_name VARCHAR(1000) NOT NULL,
+    customer_address VARCHAR(1000),
+    customer_email VARCHAR(500),
+    driver_id INTEGER,
+    priority_id INTEGER
+);

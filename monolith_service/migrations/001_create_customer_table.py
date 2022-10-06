@@ -1,7 +1,7 @@
 steps = [
     [
         """
-        CREATE TABLE customers (
+        CREATE TABLE customer (
             id SERIAL PRIMARY KEY NOT NULL,
             customer_name VARCHAR(1000) NOT NULL,
             customer_address VARCHAR(1000),
@@ -11,7 +11,7 @@ steps = [
         );
         """,
         """
-        DROP TABLE customers;
+        DROP TABLE customer;
         """
     ]
 ]
