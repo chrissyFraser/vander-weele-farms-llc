@@ -28,4 +28,8 @@ Today I worked on:
   I followed the fastapi tutorial for OAuth2 authentication, and got a test version to run on http://127.0.0.1:8000/docs#/default. After playing around with it I understand some of what is happening and feel good putting it aside until we get some more information.
 
   10.05
-  
+  Today I worked on:
+  - FAST API research
+  - We designated tasks for endpoint
+  - I will start on Customers tomorrow
+  I realized I missed an entire page (1.5 huors of videos) on Fast APIs and now things are making MUCH more sense! I should be able to dive into some productive coding tomorrow.

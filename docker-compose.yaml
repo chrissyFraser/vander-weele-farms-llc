@@ -19,7 +19,7 @@ services:
     volumes:
       - ./monolith_service:/app
     environment:
-      DATABASE_URL: postgresql://monolith:monolith@db/monolith
+      DATABASE_URL: postgresql://VW:VW@db/farm
   db:
     build:
       context: data
@@ -55,6 +55,6 @@ services:
       HOST_OS: ${OS}
       NODE_ENV: development
       HOST: "0.0.0.0"
-      REACT_APP_API_HOST: http://localhost:8000
+      REACT_APP_API_HOST: http://localhost:8000/
 
             
