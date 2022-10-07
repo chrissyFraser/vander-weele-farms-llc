@@ -4,7 +4,7 @@ from queries.customers import CustomerIn, CustomerOut, CustomerRepository, Error
 
 router = APIRouter()
 
-@router.post("/customers", response_model=Union[CustomerOut, Error])
+@router.post("/customers/", response_model=Union[CustomerOut, Error])
 def create_a_customer(
     customer: CustomerIn,
     response: Response,

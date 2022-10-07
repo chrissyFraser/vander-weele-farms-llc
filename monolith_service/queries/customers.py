@@ -53,18 +53,22 @@ class CustomerRepository:
         except Exception as e:
             return {"message": "could not get all customers"}
 
-    def create_customer(self, customer: CustomerIn) -> CustomerOut:
-        print(customer)
+    def create_customer(self, customer: CustomerIn) -> Union[CustomerOut, Error]:
+        id = None
         with pool.connection() as conn:
             with conn.cursor() as db:
                 result = db.execute(
                     """
-                    INSERT INTO customer
-                        (customer_name, customer_address, customer_email, driver_id, priority_id)
+                    INSERT INTO customer(
+                        customer_name, 
+                        customer_address, 
+                        customer_email, 
+                        driver_id, 
+                        priority_id
+                    )
                     VALUES
                         (%s, %s, %s, %s, %s)
                     RETURNING id;
-
                     """,
                     [
                         customer.customer_name,
