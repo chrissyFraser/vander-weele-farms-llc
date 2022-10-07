@@ -1,4 +1,5 @@
 DROP TABLE IF EXISTS produce;
+DROP TABLE IF EXISTS customer;
 
 CREATE TABLE produce(
     id SERIAL NOT NULL UNIQUE,

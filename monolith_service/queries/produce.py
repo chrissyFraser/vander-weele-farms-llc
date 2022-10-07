@@ -1,11 +1,31 @@
-
+from typing import Union, List, Optional
 from optparse import Values
 import os
 from tkinter import INSERT
-from routers.produce import Produce_get
+from pydantic import BaseModel
 from psycopg_pool import ConnectionPool
-
 pool = ConnectionPool(conninfo= os.environ["DATABASE_URL"])
+
+class Produce_create(BaseModel):
+    product_name: str
+    picture_file: Union[str, None] = None
+    available: bool
+    height: int
+    length: int
+    width: int
+    
+
+class Produce_get(BaseModel):
+    id: int
+    product_name: str
+    picture_file: Union[str, None] = None
+    available: bool
+    height: int
+    length: int
+    width: int
+
+
+
 
 class ProduceQueries:
     def create_produce(self, produce):
