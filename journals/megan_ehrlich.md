@@ -44,5 +44,5 @@ Today I worked on:
     - get_one_customer
     - update_customer
     - delete_customer
-    - create_customer - creates a customer, but gives a 400 Error: Bad Request
-It was good to finally get my hands on the code and start figuring out what things do. Everything tested and works, except the create customer error.
+    - create_customer (FIXED IT!!!)
+It was good to finally get my hands on the code and start figuring out what things do. Everything customer related tested and works! I accidentally set the status code to 400 - when I corrected to 200 it worked.
