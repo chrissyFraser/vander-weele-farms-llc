@@ -1,5 +1,6 @@
 DROP TABLE IF EXISTS produce;
 DROP TABLE IF EXISTS customer;
+DROP TABLE IF EXISTS driver;
 
 CREATE TABLE produce(
     id SERIAL NOT NULL UNIQUE,
@@ -21,4 +22,10 @@ CREATE TABLE customer (
     customer_email VARCHAR(500),
     driver_id INTEGER,
     priority_id INTEGER
+);
+
+CREATE TABLE driver (
+    id SERIAL NOT NULL UNIQUE,
+    driver_name VARCHAR(100) NOT NULL,
+    driver_id INTEGER
 );
