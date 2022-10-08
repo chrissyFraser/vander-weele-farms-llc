@@ -1,7 +1,7 @@
 from typing import Literal, Union
 from urllib import response
 from fastapi import APIRouter, Depends, Response
-from pydantic import BaseModel
+
 from queries.produce import ProduceQueries, Produce_get, Produce_create
 
 

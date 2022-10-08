@@ -3,8 +3,7 @@ from optparse import Values
 import os
 from tkinter import INSERT
 from pydantic import BaseModel
-from psycopg_pool import ConnectionPool
-pool = ConnectionPool(conninfo= os.environ["DATABASE_URL"])
+from queries.pool import pool
 
 class Produce_create(BaseModel):
     product_name: str
@@ -56,7 +55,7 @@ class ProduceQueries:
                         ),
                 
                 row = cur.fetchone()
-                id = row[0]
+                return self.produce_in_to_out(id, produce)
                 
         # if id is not None:
         #     return self.get_produce(id)
@@ -94,3 +93,7 @@ class ProduceQueries:
             length = record[5],
             width = record[6]
         )
+        
+    def produce_in_to_out(self, id: int, produce: Produce_create):
+        old_data = produce.dict()
+        return Produce_get(id =id **old_data)
