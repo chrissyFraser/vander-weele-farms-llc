@@ -46,3 +46,14 @@ Today I worked on:
     - delete_customer
     - create_customer (FIXED IT!!!)
 It was good to finally get my hands on the code and start figuring out what things do. Everything customer related tested and works! I accidentally set the status code to 400 - when I corrected to 200 it worked.
+
+10.07
+Today I worked on:
+- Drivers
+- created endpoints for:
+  - get_all_drivers
+  - get_one_driver
+  - update_driver
+  - delete_driver
+  - create_driver
+I got bored and wanted to try running through these all again. Seems to have worked!
