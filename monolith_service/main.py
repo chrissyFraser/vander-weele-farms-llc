@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import os
-from routers import produce, customers
+from routers import produce, customers, drivers
 app = FastAPI()
 
 
@@ -11,3 +11,4 @@ def is_working():
 
 app.include_router(produce.router)
 app.include_router(customers.router)
+app.include_router(drivers.router)

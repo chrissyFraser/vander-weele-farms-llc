@@ -10,13 +10,13 @@ def create_a_customer(
     response: Response,
     repo: CustomerRepository = Depends()
 ):
-    response.status_code = 400
+    response.status_code = 200
     return repo.create_customer(customer)
 
 
 
 
-@router.get("/customers/", response_model=Union[List[CustomerOut], Error])
+@router.get("/customers", response_model=Union[List[CustomerOut], Error])
 def get_all_customers(
     repo: CustomerRepository = Depends(),
 ):
