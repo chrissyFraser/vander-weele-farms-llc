@@ -10,9 +10,10 @@ router = APIRouter()
 
 
 
-@router.get("/api/produce/", response_model = Produce_get)
-def get_all_produce(queries: ProduceQueries = Depends()):
-    return{"produce": queries.get_all_produce}
+@router.get("/api/produce/", response_model = list[Produce_get]) 
+def get_all_produce(
+    queries: ProduceQueries = Depends()):
+    return queries.get_all_produce()
 
 
 @router.post("/api/produce/", response_model = Produce_get)

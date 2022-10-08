@@ -7,7 +7,7 @@ from queries.pool import pool
 
 class Produce_create(BaseModel):
     product_name: str
-    picture_file: Union[str, None] = None
+    picture_file: Optional[str]
     available: bool
     height: int
     length: int
@@ -17,7 +17,7 @@ class Produce_create(BaseModel):
 class Produce_get(BaseModel):
     id: int
     product_name: str
-    picture_file: Union[str, None] = None
+    picture_file: Optional[str]
     available: bool
     height: int
     length: int
@@ -27,11 +27,10 @@ class Produce_get(BaseModel):
 
 
 class ProduceQueries:
-    def create_produce(self, produce):
-        id = None
+    def create_produce(self, produce: Produce_create) -> Produce_get:
         with pool.connection() as conn:
             with conn.cursor() as cur:
-                cur.execute(
+                result = cur.execute(
                     """
                     INSERT INTO produce(
                         product_name,
@@ -52,16 +51,16 @@ class ProduceQueries:
                         produce.length,
                         produce.width,
                     ]
-                        ),
-                
-                row = cur.fetchone()
+                )
+                id = result.fetchone()[0]
+                print(id)
                 return self.produce_in_to_out(id, produce)
                 
         # if id is not None:
         #     return self.get_produce(id)
         
         
-    def get_all_produce(self):
+    def get_all_produce(self)-> list[Produce_get]:
         with pool.connection() as conn:
             with conn.cursor() as db:
                 result = db.execute(
@@ -69,19 +68,34 @@ class ProduceQueries:
                     SELECT 
                     id, 
                     product_name,
+                    picture_file,
                     available,
                     height,
                     length,
-                    width,
+                    width
                     FROM produce
-                    """,
+                    ORDER BY id;
+                    """
                 )
-                
+                result = []
+                for record in db:
+                    produce = Produce_get(
+                        id = record[0],
+                        product_name = record[1],
+                        picture_file = record[2],
+                        available = record[3],
+                        height= record[4],
+                        length = record[5],
+                        width = record[6]
+                    )
+                    result.append(produce)
+                print(produce)
+                return result
                 # rows = cur.fetchall()
-                return [
-                    self.record_to_produce_out(record)
-                    for record in result
-                ]
+                # return [
+                #     self.record_to_produce_out(record)
+                #     for record in db
+                # ]
             
     def record_to_produce_out(self, record):
         return Produce_get(
@@ -96,4 +110,4 @@ class ProduceQueries:
         
     def produce_in_to_out(self, id: int, produce: Produce_create):
         old_data = produce.dict()
-        return Produce_get(id =id **old_data)
+        return Produce_get(id =id, **old_data)
