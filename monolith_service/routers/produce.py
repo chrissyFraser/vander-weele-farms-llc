@@ -1,35 +1,43 @@
-from typing import Literal
+from typing import Literal, Union
 from urllib import response
 from fastapi import APIRouter, Depends, Response
 from pydantic import BaseModel
 
-from db import ProductQueries
+from db import ProduceQueries
 
 
 router = APIRouter()
 
 
-class Product_create(BaseModel):
+class Produce_create(BaseModel):
     product_name: str
-    picture_file: str
+    picture_file: Union[str, None] = None
     available: bool
     height: int
     length: int
     width: int
     
 
-class Products_get(BaseModel):
+class Produce_get(BaseModel):
     id: int
     product_name: str
-    picture_file: str
+    picture_file: Union[str, None] = None
     available: bool
     height: int
     length: int
     width: int
-    
-@router.post("/api/products/", response_model = Products_get)
-def create_product(
-    product: Product_create,
-    queries: ProductQueries = Depends()
+
+
+
+
+@router.get("/api/produce/", response_model = Produce_get)
+def get_all_produce(queries: ProduceQueries = Depends()):
+    return{"produce": queries.get_all_produce}
+
+
+@router.post("/api/produce/", response_model = Produce_get)
+def create_produce(
+    produce: Produce_create,
+    queries: ProduceQueries = Depends()
 ):
-    return queries.create_product(product)
+    return queries.create_produce(produce)

@@ -33,3 +33,16 @@ Today I worked on:
   - We designated tasks for endpoint
   - I will start on Customers tomorrow
   I realized I missed an entire page (1.5 huors of videos) on Fast APIs and now things are making MUCH more sense! I should be able to dive into some productive coding tomorrow.
+
+
+  10.06
+  Today I worked on:
+  - Customers
+  - ALL the customers (!)
+  - created:
+    - get_all_customers
+    - get_one_customer
+    - update_customer
+    - delete_customer
+    - create_customer (FIXED IT!!!)
+It was good to finally get my hands on the code and start figuring out what things do. Everything customer related tested and works! I accidentally set the status code to 400 - when I corrected to 200 it worked.
