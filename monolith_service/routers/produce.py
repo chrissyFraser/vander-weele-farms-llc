@@ -32,6 +32,7 @@ class Produce_get(BaseModel):
 
 @router.get("/api/produce/", response_model = Produce_get)
 def get_all_produce(queries: ProduceQueries = Depends()):
+    
     return{"produce": queries.get_all_produce}
 
 
