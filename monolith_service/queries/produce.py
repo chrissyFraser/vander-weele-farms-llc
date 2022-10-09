@@ -105,9 +105,30 @@ class ProduceQueries:
             available = record[3],
             height= record[4],
             length = record[5],
-            width = record[6]
+            width = record[6],
         )
         
     def produce_in_to_out(self, id: int, produce: Produce_create):
         old_data = produce.dict()
         return Produce_get(id =id, **old_data)
+    
+    
+    def get_single_produce_item(self, produce_id: int) -> Optional[Produce_get]:
+        with pool.connection() as conn:
+            with conn.cursor() as db:
+                result = db.execute(
+                    """
+                    SELECT id
+                    , product_name
+                    , picture_file
+                    , available
+                    , height
+                    , length
+                    , width
+                    FROM produce
+                    WHERE id = %s
+                    """,
+                    [produce_id]
+                )
+                record = result.fetchone()
+                return self.record_to_produce_out(record)
