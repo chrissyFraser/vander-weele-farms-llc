@@ -2,6 +2,7 @@ from pydantic import BaseModel
 from typing import Optional, List, Union
 from queries.pool import pool
 
+
 class CustomerIn(BaseModel):
     customer_name: str
     customer_address: str
@@ -10,18 +11,20 @@ class CustomerIn(BaseModel):
     driver_id: Optional[int]
 
 class CustomerOut(BaseModel):
-    id: int
-    customer_name: str
-    customer_address: str
-    customer_email: str
-    priority_id: Optional[int]
-    driver_id: Optional[int]
-    driver_name: Optional[str]
+    id: int|None = None
+    customer_name: str|None = None
+    customer_address: str|None = None
+    customer_email: str|None = None
+    priority_id: Optional[int]|None = None
+    driver_id: Optional[int]|None = None
+    driver_name: Optional[str]|None = None
 
 class Error(BaseModel):
     message: str
     
-# class Customer_Patch(BaseModel):
+class Customer_Patch(BaseModel):
+    priority_id: Optional[int]|None = None
+    driver_id: Optional[int]|None = None
     
 
 
@@ -193,3 +196,26 @@ class CustomerRepository:
         except Exception as e:
             print(e)
             return {"message": "Could not update that customer"}
+        
+        
+    def update_customer_ids(self, customer_id: int, customer: Customer_Patch) -> CustomerOut:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    lst = [item[0] for item in dict(customer).items() if item[1] is not None]
+                    columns = " = %s, ".join(lst) + " = %s"
+                    lst_params = [item for item in dict(customer).values() if item is not None]
+                    lst_params.append(customer_id)
+                    db.execute(
+                        f"""
+                        UPDATE customer
+                        SET {columns}
+                        WHERE id = %s
+                        """,
+                        lst_params
+                        )
+                    conn.commit()
+                    return self.get_one_customer(customer_id)
+        except Exception as e:
+            print(e)
+            return {"message": "Could not update that produce"}

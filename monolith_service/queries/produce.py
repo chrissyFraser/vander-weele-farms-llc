@@ -53,12 +53,6 @@ class Produce_update_available(BaseModel):
     
     
     
-# def get_columns(produce):
-#     result = " "
-#     for key in dict(produce).keys():
-    
-#     lst = [k for k, v in dict(produce) if v]
-#     columns = " = %s, ".join(lst) + " = %s"
 
 
 class ProduceQueries:
@@ -224,8 +218,10 @@ class ProduceQueries:
             with pool.connection() as conn:
                 with conn.cursor() as db:
                     lst = [item[0] for item in dict(produce).items() if item[1] is not None]
+                    print(lst)
                     columns = " = %s, ".join(lst) + " = %s"
                     lst_params = [item for item in dict(produce).values() if item is not None]
+                    print(lst_params)
                     lst_params.append(produce_id)
                     db.execute(
                         f"""
