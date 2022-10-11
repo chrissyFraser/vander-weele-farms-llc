@@ -20,6 +20,9 @@ class CustomerOut(BaseModel):
 
 class Error(BaseModel):
     message: str
+    
+# class Customer_Patch(BaseModel):
+    
 
 
 class CustomerRepository:

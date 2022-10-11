@@ -52,3 +52,10 @@ def delete_customer(
     repo: CustomerRepository = Depends(),
 ) -> bool:
     return repo.delete_customer(customer_id)
+
+# @router.patch("/customers/{customer_id}", response_model = CustomerOut)
+# def updata_customer_ids(
+#     customer_id: int,
+#     customer: Customer_Patch,
+#     repo: CustomerRepository = Depends(),
+# ):
