@@ -151,10 +151,10 @@ class CustomerRepository:
                         """
                         UPDATE customer
                         SET customer_name = %s
-                          , customer_address = %s
-                          , customer_email = %s
-                          , driver_id = %s
-                          , priority_id = %s
+                            , customer_address = %s
+                            , customer_email = %s
+                            , driver_id = %s
+                            , priority_id = %s
                         WHERE id = %s
                         """,
                         [

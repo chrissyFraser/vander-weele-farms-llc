@@ -4,6 +4,24 @@ import os
 from tkinter import INSERT
 from pydantic import BaseModel
 from queries.pool import pool
+from dataclasses import dataclass
+
+
+
+
+@dataclass
+class ProduceDataClass:
+    data: int
+
+    def __getitem__(self, item):
+        return getattr(self, item)
+
+@dataclass
+class ProduceRequest:
+    Produce_get: dict
+        
+    def __getitem__(self, key):
+        return super().__getattribute__(key)
 
 class Produce_create(BaseModel):
     product_name: str
@@ -26,6 +44,19 @@ class Produce_get(BaseModel):
 class Error(BaseModel):
     message: str
 
+class Produce_update_available(BaseModel):
+    available: Optional[bool]
+    # height: Optional[int]
+    # length: Optional[int]
+    # width: Optional[int]
+    
+# class Produce_update_dimensions(BaseModel):
+    
+#     height: Optional[int]
+#     length: Optional[int]
+#     width: Optional[int]
+
+
 
 class ProduceQueries:
     def create_produce(self, produce: Produce_create) -> Produce_get:
@@ -35,6 +66,7 @@ class ProduceQueries:
                     """
                     INSERT INTO produce(
                         product_name,
+                        
                         picture_file,
                         available,
                         height,
@@ -90,7 +122,6 @@ class ProduceQueries:
                         width = record[6]
                     )
                     result.append(produce)
-                print(produce)
                 return result
                 # rows = cur.fetchall()
                 # return [
@@ -187,3 +218,54 @@ class ProduceQueries:
         except Exception as e:
             print(e)
             return False
+        
+        
+        
+        
+        
+    def update_produce_available(self, produce_id: int, produce: Produce_update_available) -> Produce_get:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    db.execute(
+                        """
+                        UPDATE produce
+                        SET available = %s
+                        WHERE id = %s
+                        """,
+                        [
+                            produce.available,
+                            # produce.height,
+                            # produce.length,
+                            # produce.width,
+                            produce_id
+                        ]
+                        )
+                    return self.get_single_produce_item(produce_id)
+        except Exception as e:
+            print(e)
+            return {"message": "Could not update that produce"}
+        
+        
+        
+# def update_produce_dimensions(self, produce_id: int, produce: Produce_update_dimensions) -> Produce_get:
+#         try:
+#             with pool.connection() as conn:
+#                 with conn.cursor() as db:
+#                     db.execute(
+#                         """
+#                         UPDATE produce
+#                         SET  height = %s, length = %s, width = %s,
+#                         WHERE id = %s
+#                         """,
+#                         [
+#                             produce.height,
+#                             produce.length,
+#                             produce.width,
+#                             produce_id
+#                         ]
+#                         )
+#                     return self.get_single_produce_item() , (produce_id)
+#         except Exception as e:
+#             print(e)
+#             return {"message": "Could not update that produce"}
