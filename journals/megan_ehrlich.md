@@ -57,3 +57,8 @@ Today I worked on:
   - delete_driver
   - create_driver
 I got bored and wanted to try running through these all again. Seems to have worked!
+
+10.08
+Today I worked on:
+- Creating a relationship between customer driver_id and driver(id and driver_name)
+I didn't know how to create a foreign key, but I was able to figure it out and as far as I have tested it seems to be working!

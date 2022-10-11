@@ -15,17 +15,21 @@ CREATE TABLE produce(
 -- INSERT INTO produce Values
 -- (1, 'Potatoes', null, true, 10, 20, 15);;
 
+CREATE TABLE driver (
+    id SERIAL NOT NULL UNIQUE,
+    driver_name VARCHAR(100)
+);
+
 CREATE TABLE customer (
     id SERIAL PRIMARY KEY NOT NULL,
     customer_name VARCHAR(1000) NOT NULL,
     customer_address VARCHAR(1000),
     customer_email VARCHAR(500),
-    driver_id INTEGER,
-    priority_id INTEGER
+    priority_id INTEGER,
+    driver_id INTEGER REFERENCES driver ("id") ON DELETE CASCADE
+    
 );
 
-CREATE TABLE driver (
-    id SERIAL NOT NULL UNIQUE,
-    driver_name VARCHAR(100) NOT NULL,
-    driver_id INTEGER
-);
+INSERT INTO driver VALUES 
+    (0, 'Unassigned')
+    ;
