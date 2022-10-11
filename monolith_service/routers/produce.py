@@ -1,3 +1,4 @@
+
 from typing import Literal, Union, Optional
 from urllib import response
 from fastapi import APIRouter, Depends, Response
@@ -56,6 +57,7 @@ def update_produce_available(
     produce: Produce_update_available,
     queries: ProduceQueries = Depends(),
 ) -> Produce_get:
+    # print(produce)
     return queries.update_produce_available(produce_id, Produce_update_available(
         available = produce.available,
         height = produce.height, 

@@ -1,3 +1,4 @@
+from sqlite3 import Cursor
 from typing import Union, List, Optional
 from optparse import Values
 import os
@@ -33,24 +34,31 @@ class Produce_create(BaseModel):
     
 
 class Produce_get(BaseModel):
-    id: int
-    product_name: str
-    picture_file: Optional[str]
-    available: bool
-    height: int
-    length: int
-    width: int
+    id: int| None = None
+    product_name: str| None = None
+    picture_file: Optional[str]| None = None
+    available: bool| None = None
+    height: int| None = None
+    length: int| None = None
+    width: int| None = None
 
 class Error(BaseModel):
     message: str
 
 class Produce_update_available(BaseModel):
-    available: Optional[bool]
-    height: Optional[int]
-    length: Optional[int]
-    width: Optional[int]
+    available: Optional[bool]| None = None
+    height: Optional[int]| None = None
+    length: Optional[int]| None = None
+    width: Optional[int]| None = None
     
-
+    
+    
+# def get_columns(produce):
+#     result = " "
+#     for key in dict(produce).keys():
+    
+#     lst = [k for k, v in dict(produce) if v]
+#     columns = " = %s, ".join(lst) + " = %s"
 
 
 class ProduceQueries:
@@ -215,20 +223,19 @@ class ProduceQueries:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
+                    lst = [item[0] for item in dict(produce).items() if item[1] is not None]
+                    columns = " = %s, ".join(lst) + " = %s"
+                    lst_params = [item for item in dict(produce).values() if item is not None]
+                    lst_params.append(produce_id)
                     db.execute(
-                        """
+                        f"""
                         UPDATE produce
-                        SET available = %s, height = %s, length = %s, width = %s
+                        SET {columns}
                         WHERE id = %s
                         """,
-                        [
-                            produce.available,
-                            produce.height,
-                            produce.length,
-                            produce.width,
-                            produce_id
-                        ]
+                        lst_params
                         )
+                    conn.commit()
                     return self.get_single_produce_item(produce_id)
         except Exception as e:
             print(e)

@@ -11,3 +11,9 @@
 10.05:
 * Got the local database built, dockerize and pushed to the repo.
 * Got get and create products built but not yet working. I think that something is going on with the yml file, the user and password are not being recognized by the pool.
+
+10.06:
+* got the yml file configured correctly but couldn't get produce to work
+
+10.09:
+* got produce working, except patch isn't fully letting me leave a few fields empty.
