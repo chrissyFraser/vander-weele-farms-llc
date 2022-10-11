@@ -58,19 +58,8 @@ def update_produce_available(
 ) -> Produce_get:
     return queries.update_produce_available(produce_id, Produce_update_available(
         available = produce.available,
-        # height = produce.height, 
-        # length = produce.length, 
-        # width = produce.width,
+        height = produce.height, 
+        length = produce.length, 
+        width = produce.width
         ))
 
-# @router.patch("/api/produce/{produce_id}/patch", response_model = Produce_get)
-# def update_produce_dimensions(
-#     produce_id: int,
-#     produce: Produce_update_dimensions,
-#     queries: ProduceQueries = Depends(),
-# ) -> Produce_get:
-#     return queries.update_produce_dimensions, (produce_id, Produce_update_dimensions(
-#         height = produce.height, 
-#         length = produce.length, 
-#         width = produce.width
-#         ))

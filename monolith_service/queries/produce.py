@@ -46,15 +46,10 @@ class Error(BaseModel):
 
 class Produce_update_available(BaseModel):
     available: Optional[bool]
-    # height: Optional[int]
-    # length: Optional[int]
-    # width: Optional[int]
+    height: Optional[int]
+    length: Optional[int]
+    width: Optional[int]
     
-# class Produce_update_dimensions(BaseModel):
-    
-#     height: Optional[int]
-#     length: Optional[int]
-#     width: Optional[int]
 
 
 
@@ -89,8 +84,6 @@ class ProduceQueries:
                 print(id)
                 return self.produce_in_to_out(id, produce)
                 
-        # if id is not None:
-        #     return self.get_produce(id)
         
         
     def get_all_produce(self)-> list[Produce_get]:
@@ -123,11 +116,6 @@ class ProduceQueries:
                     )
                     result.append(produce)
                 return result
-                # rows = cur.fetchall()
-                # return [
-                #     self.record_to_produce_out(record)
-                #     for record in db
-                # ]
             
     def record_to_produce_out(self, record):
         return Produce_get(
@@ -230,14 +218,14 @@ class ProduceQueries:
                     db.execute(
                         """
                         UPDATE produce
-                        SET available = %s
+                        SET available = %s, height = %s, length = %s, width = %s
                         WHERE id = %s
                         """,
                         [
                             produce.available,
-                            # produce.height,
-                            # produce.length,
-                            # produce.width,
+                            produce.height,
+                            produce.length,
+                            produce.width,
                             produce_id
                         ]
                         )
@@ -248,24 +236,3 @@ class ProduceQueries:
         
         
         
-# def update_produce_dimensions(self, produce_id: int, produce: Produce_update_dimensions) -> Produce_get:
-#         try:
-#             with pool.connection() as conn:
-#                 with conn.cursor() as db:
-#                     db.execute(
-#                         """
-#                         UPDATE produce
-#                         SET  height = %s, length = %s, width = %s,
-#                         WHERE id = %s
-#                         """,
-#                         [
-#                             produce.height,
-#                             produce.length,
-#                             produce.width,
-#                             produce_id
-#                         ]
-#                         )
-#                     return self.get_single_produce_item() , (produce_id)
-#         except Exception as e:
-#             print(e)
-#             return {"message": "Could not update that produce"}
