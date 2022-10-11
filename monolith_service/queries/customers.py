@@ -33,7 +33,7 @@ class CustomerRepository:
                         SELECT c.id as customer_id, c.customer_name, c.customer_address, c.customer_email, c.priority_id, 
                              d.id as driver_id, d.id, d.driver_name
                         FROM customer c
-                        JOIN driver d on(c.driver_id = d.driver_id)
+                        JOIN driver d on(c.driver_id = d.id)
                         """,
                     )
                     
@@ -107,16 +107,18 @@ class CustomerRepository:
 
     def customer_in_to_out(self, id: int, customer: CustomerIn):
         old_data = customer.dict()
+        print(old_data)
         return CustomerOut(id = id, **old_data)
     
     def record_to_customer_out(self, record):
+        print(record)
         return CustomerOut(
             id = record[0],
             customer_name = record[1],
             customer_address = record[2],
             customer_email = record[3],
             priority_id= record[4],
-            driver_id= record[5],
+            driver_id= record[6],
             driver_name= record[7]
         )
 
