@@ -1,7 +1,9 @@
+import {BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Construct from './Construct.js'
 import ErrorNotification from './ErrorNotification';
 import './App.css';
+import ProduceList from './ProduceList';
 
 function App() {
   const [launch_info, setLaunchInfo] = useState([]);
@@ -28,10 +30,17 @@ function App() {
 
 
   return (
+    <>
     <div>
       <ErrorNotification error={error} />
       <Construct info={launch_info} />
     </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path = "/produce-admin/" element = {<ProduceList />} />
+      </Routes>
+    </BrowserRouter>
+    </>
   );
 }
 

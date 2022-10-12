@@ -17,3 +17,11 @@
 
 10.09:
 * got produce working, except patch isn't fully letting me leave a few fields empty.
+
+10.10: 
+* worked on getting produce patch to work, still not successful.
+
+10.11:
+* produce patch is working
+* customer patch  working
+* getting started on watching videos and  maybe coding some on the front end. cf gtv fcv
