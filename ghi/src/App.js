@@ -1,16 +1,34 @@
 import { useEffect, useState } from 'react';
+
 import Construct from './Construct.js'
 import ErrorNotification from './ErrorNotification';
 import Header from './components/Header';
 import Main from './components/Main.js';
 import Basket from './components/Basket.js';
 import './App.css';
-import data from './produce_data_test.js'
 
 function App() {
-  const {produce} = data;
 
   const [cartItems, setCartItems] = useState([]);
+  const [produceList, setProduceList] = useState([]);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    async function getData() {
+      let url = `${process.env.REACT_APP_API_HOST}/api/produce/`;
+      let response = await fetch(url);
+      let data = await response.json();
+
+      if (response.ok) {
+        setProduceList(data.produce);
+      } else {
+        setError(data.message);
+      }
+    }
+    getData();
+  }, [])
+
+
   const onAdd = (produce) => {
     const exist = cartItems.find((x) => x.id === produce.id);
     if(exist) {
@@ -40,7 +58,7 @@ function App() {
     <div>
       <Header countCartItems={cartItems.reduce((a,v) => a = a + v.qty, 0)}></Header>
       <div className="row">
-        <Main onAdd={onAdd} produce={produce}/>
+        <Main onAdd={onAdd} produce={data.produce}/>
         <Basket
         onAdd={onAdd} 
         onRemove={onRemove}  
