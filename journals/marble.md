@@ -17,6 +17,6 @@
 
 10/12/22
 
-    planning implementation of cart to project, must retrieve from API endpoints.
-    created cart-specific branch, added cart modules to project, cannot successfully run npm start.
-    
+    - planning implementation of cart to project, must retrieve from API endpoints.
+    - created cart-specific branch, added cart modules to project, cannot successfully run npm start.
+    - created docker db, ran docker-compose build & docker-compose up, do not need to run npm start. 
