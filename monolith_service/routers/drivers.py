@@ -40,6 +40,7 @@ def update_driver(
 ) -> Union[Error, DriverOut]:
     return repo.update_driver(driver_id, driver)
 
+
 @router.delete("/drivers/{driver_id}", response_model=bool)
 def delete_driver(
     driver_id: int,

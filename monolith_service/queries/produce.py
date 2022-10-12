@@ -1,9 +1,28 @@
+from sqlite3 import Cursor
 from typing import Union, List, Optional
 from optparse import Values
 import os
 from tkinter import INSERT
 from pydantic import BaseModel
 from queries.pool import pool
+from dataclasses import dataclass
+
+
+
+
+@dataclass
+class ProduceDataClass:
+    data: int
+
+    def __getitem__(self, item):
+        return getattr(self, item)
+
+@dataclass
+class ProduceRequest:
+    Produce_get: dict
+        
+    def __getitem__(self, key):
+        return super().__getattribute__(key)
 
 class Produce_create(BaseModel):
     product_name: str
@@ -15,16 +34,25 @@ class Produce_create(BaseModel):
     
 
 class Produce_get(BaseModel):
-    id: int
-    product_name: str
-    picture_file: Optional[str]
-    available: bool
-    height: int
-    length: int
-    width: int
+    id: int| None = None
+    product_name: str| None = None
+    picture_file: Optional[str]| None = None
+    available: bool| None = None
+    height: int| None = None
+    length: int| None = None
+    width: int| None = None
 
 class Error(BaseModel):
     message: str
+
+class Produce_update_available(BaseModel):
+    available: Optional[bool]| None = None
+    height: Optional[int]| None = None
+    length: Optional[int]| None = None
+    width: Optional[int]| None = None
+    
+    
+    
 
 
 class ProduceQueries:
@@ -35,6 +63,7 @@ class ProduceQueries:
                     """
                     INSERT INTO produce(
                         product_name,
+                        
                         picture_file,
                         available,
                         height,
@@ -57,8 +86,6 @@ class ProduceQueries:
                 print(id)
                 return self.produce_in_to_out(id, produce)
                 
-        # if id is not None:
-        #     return self.get_produce(id)
         
         
     def get_all_produce(self)-> list[Produce_get]:
@@ -90,13 +117,7 @@ class ProduceQueries:
                         width = record[6]
                     )
                     result.append(produce)
-                print(produce)
                 return result
-                # rows = cur.fetchall()
-                # return [
-                #     self.record_to_produce_out(record)
-                #     for record in db
-                # ]
             
     def record_to_produce_out(self, record):
         return Produce_get(
@@ -187,3 +208,34 @@ class ProduceQueries:
         except Exception as e:
             print(e)
             return False
+        
+        
+        
+        
+        
+    def update_produce_available(self, produce_id: int, produce: Produce_update_available) -> Produce_get:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    lst = [item[0] for item in dict(produce).items() if item[1] is not None]
+                    print(lst)
+                    columns = " = %s, ".join(lst) + " = %s"
+                    lst_params = [item for item in dict(produce).values() if item is not None]
+                    print(lst_params)
+                    lst_params.append(produce_id)
+                    db.execute(
+                        f"""
+                        UPDATE produce
+                        SET {columns}
+                        WHERE id = %s
+                        """,
+                        lst_params
+                        )
+                    conn.commit()
+                    return self.get_single_produce_item(produce_id)
+        except Exception as e:
+            print(e)
+            return {"message": "Could not update that produce"}
+        
+        
+        

@@ -5,13 +5,11 @@ from queries.pool import pool
 
 class DriverIn(BaseModel):
     driver_name: str
-    driver_id: int
 
 
 class DriverOut(BaseModel):
     id: int
     driver_name: str
-    driver_id: int
     
 
 class Error(BaseModel):
@@ -26,7 +24,7 @@ class DriverRepository:
                 with conn.cursor() as db:
                     result = db.execute(
                         """
-                        SELECT id, driver_name, driver_id
+                        SELECT id, driver_name
                         FROM driver
                         """
                     )
@@ -44,16 +42,14 @@ class DriverRepository:
                 result = db.execute(
                     """
                     INSERT INTO driver(
-                        driver_name,
-                        driver_id
+                        driver_name
                     )
                     VALUES
-                        (%s, %s)
+                        (%s)
                         RETURNING id;
                     """,
                     [
-                        driver.driver_name,
-                        driver.driver_id
+                        driver.driver_name
                     ]
                 )
                 id = result.fetchone()[0]
@@ -66,8 +62,7 @@ class DriverRepository:
     def record_to_driver_out(self, record):
         return DriverOut(
             id = record[0],
-            driver_name = record[1],
-            driver_id = record[2],
+            driver_name = record[1]
         )
 
     def get_one_driver(self, driver_id: int) -> Optional[DriverOut]:
@@ -77,8 +72,7 @@ class DriverRepository:
                     result = db.execute(
                         """
                         SELECT id,
-                            driver_name,
-                            driver_id
+                            driver_name
                         FROM driver
                         WHERE id = %s
                         """,
@@ -116,13 +110,11 @@ class DriverRepository:
                         db.execute(
                             """
                             UPDATE driver
-                            SET driver_name = %s,
-                                driver_id = %s
+                            SET driver_name = %s
                             WHERE id = %s
                             """,
                             [
                                 driver.driver_name,
-                                driver.driver_id,
                                 driver_id
                             ]
                         )
