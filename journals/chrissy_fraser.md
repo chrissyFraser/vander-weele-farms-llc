@@ -1,3 +1,11 @@
+## Oct 11, 2022
+* Completed working front-end cart
+* Resolved badge quantity issue with an anonymous function
+
+## Oct 10, 2022
+* Cart research and cart creation demo videos
+* Created Cart branch
+
 ## Oct 6, 2022
 * Fast API, began driver db table, routers & queries.
 
