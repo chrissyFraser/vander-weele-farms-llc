@@ -14,3 +14,9 @@
 
     beginning attempts at integrating shopping cart to project.
     fixed cart header to display actual count of items in cart (thanks Chrissy!)
+
+10/12/22
+
+    planning implementation of cart to project, must retrieve from API endpoints.
+    created cart-specific branch, added cart modules to project, cannot successfully run npm start.
+    
