@@ -1,6 +1,6 @@
 from typing import Union, List, Optional
 from fastapi import APIRouter, Depends, Response
-from queries.customers import CustomerIn, CustomerOut, CustomerRepository, Error
+from queries.customers import CustomerIn, CustomerOut, CustomerRepository, Error, Customer_Patch
 
 router = APIRouter()
 
@@ -53,9 +53,13 @@ def delete_customer(
 ) -> bool:
     return repo.delete_customer(customer_id)
 
-# @router.patch("/customers/{customer_id}", response_model = CustomerOut)
-# def updata_customer_ids(
-#     customer_id: int,
-#     customer: Customer_Patch,
-#     repo: CustomerRepository = Depends(),
-# ):
+@router.patch("/customers/{customer_id}", response_model = CustomerOut)
+def updata_customer_ids(
+    customer_id: int,
+    customer: Customer_Patch,
+    repo: CustomerRepository = Depends(),
+) -> CustomerOut:
+    return repo.update_customer_ids(customer_id, Customer_Patch(
+        priority_id = customer.priority_id,
+        driver_id = customer.driver_id
+    ))
