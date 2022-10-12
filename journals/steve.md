@@ -9,3 +9,9 @@
 
 10.06.2022
     Assisted my team member Scott(Marble) with FastAPI understanding and beginning work on data endpoints & complex models & trying to debug produce.py
+
+10.10.2022
+    Beginning research on the Shopping Cart component
+
+10.11.2022
+    Finishing a codealong for a shopping cart example and beginning the implementation of shopping cart with or code base 
