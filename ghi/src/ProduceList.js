@@ -1,12 +1,21 @@
 import { useEffect, useState } from 'react';
-import { BrowserRouter, NavLink, Route, Routes } from "react-router-dom";
+import { BrowserRouter, NavLink, Route, Routes, useNavigate } from "react-router-dom";
+
 
 
 function ProduceList(props){
-    console.log(props)
-    console.log("firing")
+
+    let navigate = useNavigate(); 
+    const routeChange = () =>{ 
+    let path = "/produce-create"; 
+    navigate(path);
+    }
+
+
     return(
         // <h1> Is this Working </h1>
+        <>
+        <button type="button" class="btn btn-primary" id = "create-new button" onClick = {routeChange}>Create New</button>
         <div className="columns is-centered">
         <div className="column is-narrow">
             <table className="table is-striped">
@@ -34,5 +43,6 @@ function ProduceList(props){
             </table>
         </div>
         </div>
+        </>
 )}
 export default ProduceList

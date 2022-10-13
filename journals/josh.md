@@ -24,4 +24,7 @@
 10.11:
 * produce patch is working
 * customer patch  working
-* getting started on watching videos and  maybe coding some on the front end. cf gtv fcv
+* getting started on watching videos and  maybe coding some on the front end.
+* 
+10.12:
+* Got data to render on the front end for produce admin, going to start on post, put and delete.

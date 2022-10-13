@@ -5,11 +5,13 @@ import Construct from './Construct.js'
 import ErrorNotification from './ErrorNotification';
 import './App.css';
 import ProduceList from './ProduceList';
+import ProduceCreate from './ProduceCreate.js';
 
 function App() {
   const [launch_info, setLaunchInfo] = useState([]);
   const [error, setError] = useState(null);  
   const [get_all_produce, setProduce] = useState([]);
+  const [create_produce, setCreateProduce] = useState([])
 
   useEffect(() => {
     async function getData() {
@@ -27,8 +29,6 @@ function App() {
       //   setError(data.message);
       // }
 
-
-      
       let url = `${process.env.REACT_APP_API_HOST_MONOLITH}/api/produce/`;
       console.log("url", url)
       let response = await fetch(url);
@@ -41,6 +41,10 @@ function App() {
         console.log("drat! something happened");
         setError(data.message);
       }
+
+      
+
+      // url = `${process.env.REACT_APP_API_HOST_MONOLITH}/api/produce/`;
 
 
     }
@@ -58,11 +62,13 @@ function App() {
             <div className="tabs is-centered">
               <ul>
                 <li><NavLink to="/produce-admin">Produce</NavLink></li>
+                {/* <li><NavLink to="/produce-create">Produce</NavLink></li> */}
               </ul>
             </div>
             <ErrorNotification error={error} />
             <Routes>
               <Route path="/produce-admin" element={<ProduceList get_all_produce={get_all_produce} />} />
+              <Route path="/produce-create" element={<ProduceCreate get_all_produce={get_all_produce} />} />
             </Routes>
           </div>
         </BrowserRouter>
