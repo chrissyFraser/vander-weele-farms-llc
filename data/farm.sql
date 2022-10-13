@@ -12,8 +12,8 @@ CREATE TABLE produce(
     width INTEGER NOT NULL
 );
 
--- INSERT INTO produce Values
--- (1, 'Potatoes', null, true, 10, 20, 15);;
+INSERT INTO produce Values
+(1, 'Potatoes', null, true, 10, 20, 15);;
 
 CREATE TABLE customer (
     id SERIAL PRIMARY KEY NOT NULL,
