@@ -1,4 +1,7 @@
-const [cartItems, setCartItems] = useState([]);
+
+function Cart() {
+
+    const [cartItems, setCartItems] = useState([]);
     const onAdd = (produce) => {
         const exist = cartItems.find((x) => x.id === produce.id);
         if (exist) {
@@ -38,3 +41,5 @@ const [cartItems, setCartItems] = useState([]);
         </div>
     </>
 }
+
+export default Cart;
