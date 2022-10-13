@@ -1,6 +1,6 @@
 
 function Cart() {
-
+    const {produce} = data;
     const [cartItems, setCartItems] = useState([]);
     const onAdd = (produce) => {
         const exist = cartItems.find((x) => x.id === produce.id);
