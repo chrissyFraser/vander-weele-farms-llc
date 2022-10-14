@@ -1,7 +1,17 @@
 
-function Cart() {
-    const {produce} = data;
+import { useEffect, useState } from 'react';
+import { BrowserRouter, NavLink, Route, Routes } from "react-router-dom";
+import ErrorNotification from './ErrorNotification';
+import Header from './components/Header';
+import Main from './components/Main.js';
+import Basket from './components/Basket.js';
+
+
+
+function Cart(props) {
+    const {produce} = props.get_all_produce;
     const [cartItems, setCartItems] = useState([]);
+    console.log("YO", props)
     const onAdd = (produce) => {
         const exist = cartItems.find((x) => x.id === produce.id);
         if (exist) {
@@ -31,7 +41,7 @@ function Cart() {
         <div>
             <Header countCartItems={cartItems.reduce((a, v) => a = a + v.qty, 0)}></Header>
             <div className="row">
-                <Main onAdd={onAdd} produce={produce} />
+                <Main onAdd={onAdd} produce={props.get_all_produce} />
                 <Basket
                     onAdd={onAdd}
                     onRemove={onRemove}
