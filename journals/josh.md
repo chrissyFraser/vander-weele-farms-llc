@@ -28,3 +28,4 @@
 * 
 10.12:
 * Got data to render on the front end for produce admin, going to start on post, put and delete.
+* post is working but I am not getting my image files, I may need to refigure the database to hold the image, looking into that tomorrow, my brain is dead.

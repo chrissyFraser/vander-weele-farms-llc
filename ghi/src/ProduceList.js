@@ -40,14 +40,15 @@ function ProduceList(props){
                     {produce.available ? 'Yes' : 'No'}
                     </td>
                     <td>
-                    <img
-                        src={produce.picture_file}
-                        // src = {URL.createObjectURL(blob)}
-                        id="image"
-                        alt="Thumbnail"
-                        className="user-post"
-                        width={100}
-                        />
+                    {/* <img */}
+                        {/* // src= */}
+                        {produce.picture_file}
+                        {/* // src = {URL.createObjectURL(blob)}
+                        // id="image"
+                        // alt="Thumbnail"
+                        // className="user-post"
+                        // width={100}
+                        // /> */}
                     </td>
                 </tr>
                 ))}
