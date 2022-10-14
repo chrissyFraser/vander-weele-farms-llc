@@ -6,6 +6,7 @@ import ErrorNotification from './ErrorNotification';
 import './App.css';
 import ProduceList from './ProduceList';
 import ProduceCreate from './ProduceCreate.js';
+import Fileupload from './Fileupload.js';
 
 function App() {
   const [launch_info, setLaunchInfo] = useState([]);
@@ -62,6 +63,8 @@ function App() {
             <div className="tabs is-centered">
               <ul>
                 <li><NavLink to="/produce-admin">Produce</NavLink></li>
+                <li><NavLink to="/test">test</NavLink></li>
+
                 {/* <li><NavLink to="/produce-create">Produce</NavLink></li> */}
               </ul>
             </div>
@@ -69,6 +72,7 @@ function App() {
             <Routes>
               <Route path="/produce-admin" element={<ProduceList get_all_produce={get_all_produce} />} />
               <Route path="/produce-create" element={<ProduceCreate get_all_produce={get_all_produce} />} />
+              <Route path="/test" element={<Fileupload  />} />
             </Routes>
           </div>
         </BrowserRouter>
