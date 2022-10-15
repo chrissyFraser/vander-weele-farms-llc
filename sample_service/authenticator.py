@@ -9,12 +9,12 @@ from queries.accounts import AccountQueries, AccountOut, AccountOutWithPassword
 class MyAuthenticator(Authenticator):
     async def get_account_data(
         self,
-        username: str,
+        email: str,
         accounts: AccountQueries,
     ):
         # Use your repo to get the account based on the
         # username (which could be an email)
-        return accounts.get(username)
+        return accounts.get(email)
 
     def get_account_getter(
         self,
@@ -28,7 +28,7 @@ class MyAuthenticator(Authenticator):
         # account object
         return account.hashed_password
 
-    def get_account_data_for_cookie(self, account: AccountOut):
+    def get_account_data_for_cookie(self, account: AccountOutWithPassword):
         # Return the username and the data for the cookie.
         # You must return TWO values from this method.
         return account.email, AccountOutWithPassword(**account.dict())
