@@ -1,5 +1,5 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
+# ghi/src/keys.py
 # dependencies
 /node_modules
 /.pnp
@@ -23,3 +23,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+const S3_BUCKET = vwimageuploads,
+const REGION = US West (Oregon) us-west-2,
+const ACCESS_KEY = AKIAYG3CDL3SUFP5FD5L,
+const SECRET_ACCESS_KEY = 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,

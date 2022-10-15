@@ -6,6 +6,7 @@ import ErrorNotification from './ErrorNotification';
 import './App.css';
 import ProduceList from './ProduceList';
 import ProduceCreate from './ProduceCreate.js';
+import UploadImageToS3WithReactS3 from './UploadImageToS3WithReactS3.js';
 
 function App() {
   const [launch_info, setLaunchInfo] = useState([]);
@@ -30,11 +31,11 @@ function App() {
       // }
 
       let url = `${process.env.REACT_APP_API_HOST_MONOLITH}/api/produce/`;
-      console.log("url", url)
+      // console.log("url", url)
       let response = await fetch(url);
       let data = await response.json();
       if(response.ok){
-        console.log("got produce data")
+        // console.log("got produce data")
         setProduce(data)
         // console.log(data)
       }else {
@@ -62,6 +63,7 @@ function App() {
             <div className="tabs is-centered">
               <ul>
                 <li><NavLink to="/produce-admin">Produce</NavLink></li>
+                <li><NavLink to="/test">test</NavLink></li>
                 
 
                 {/* <li><NavLink to="/produce-create">Produce</NavLink></li> */}
@@ -71,7 +73,7 @@ function App() {
             <Routes>
               <Route path="/produce-admin" element={<ProduceList get_all_produce={get_all_produce} />} />
               <Route path="/produce-create" element={<ProduceCreate get_all_produce={get_all_produce} />} />
-              
+              <Route path="/test" element={<UploadImageToS3WithReactS3/>} />
             </Routes>
           </div>
         </BrowserRouter>

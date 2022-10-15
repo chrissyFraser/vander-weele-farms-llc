@@ -32,7 +32,7 @@ function ProduceCreate(props){
             body: JSON.stringify(data)
         }).then(() =>{
             console.log("new product created")
-            console.log(`${process.env.REACT_APP_API_HOST_MONOLITH}/api/produce/`)
+            // console.log(`${process.env.REACT_APP_API_HOST_MONOLITH}/api/produce/`)
         })
     };
     
