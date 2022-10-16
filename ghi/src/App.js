@@ -18,21 +18,21 @@ function App() {
 
   useEffect(() => {
     async function getData() {
-      let url = `${process.env.REACT_APP_API_HOST}/api/launch-details`;
-      console.log(url)
-      let response = await fetch(url);
-      console.log("------- hello? -------");
-      let data = await response.json();
-      if (response.ok) {
-        setLaunchInfo(data.launch_details);
-      } else {
-        console.log("drat! something happened");
-        setError(data.message);
-      }
+      // let url = `${process.env.REACT_APP_API_HOST}/api/launch-details`;
+      // console.log(url)
+      // let response = await fetch(url);
+      // console.log("------- hello? -------");
+      // let data = await response.json();
+      // if (response.ok) {
+      //   setLaunchInfo(data.launch_details);
+      // } else {
+      //   console.log("drat! something happened");
+      //   setError(data.message);
+      // }
 
-      url = `${process.env.REACT_APP_API_HOST_MONOLITH}/api/produce`;
-      response = await fetch(url);
-      data = await response.json();
+      let url = `${process.env.REACT_APP_API_HOST_MONOLITH}/api/produce/`;
+      let response = await fetch(url);
+      let data = await response.json();
       if(response.ok){
         setProduce(data)
         console.log(data)
@@ -69,8 +69,8 @@ function App() {
               <Route path="/produce-admin" element={<ProduceList get_all_produce={get_all_produce} />} />
               <Route path="/cart" element={<Cart get_all_produce={get_all_produce} />} />
               <Route path="/produce-create" element={<ProduceCreate get_all_produce={get_all_produce} keys = {keys} />} />
-              <Route path="/" element={<Construct info={launch_info}/>} />
-              <Route path="/error" element={<ErrorNotification error={error}/>} />
+              {/* <Route path="/" element={<Construct info={launch_info}/>} />
+              <Route path="/error" element={<ErrorNotification error={error}/>} /> */}
             </Routes>
           </div>
         </BrowserRouter>

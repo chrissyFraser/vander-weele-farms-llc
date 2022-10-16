@@ -4,7 +4,7 @@ export default function Produce(props) {
     const {produce, onAdd} = props;
     return (
         <div className="card">
-            <img className="small" src={produce.picture_file} alt={produce.product_name}/>
+            <img className="small" src={`https:vwimageuploads.s3.us-west-2.amazonaws.com/${produce.picture_file}`} alt={produce.product_name}/>
             <h3>{produce.product_name}</h3>
             <div>Availability:{produce.available}</div>
             <div>Height: {produce.height}</div>
