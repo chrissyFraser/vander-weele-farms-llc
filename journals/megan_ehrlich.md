@@ -58,7 +58,32 @@ Today I worked on:
   - create_driver
 I got bored and wanted to try running through these all again. Seems to have worked!
 
-10.08
+10.10
 Today I worked on:
 - Creating a relationship between customer driver_id and driver(id and driver_name)
 I didn't know how to create a foreign key, but I was able to figure it out and as far as I have tested it seems to be working!
+
+10.11
+Today I worked on:
+- Databases
+We need another database for our accounts/authorization service, and I can't figure out how to create another one.
+
+10.12
+Today I worked on:
+- Authorization
+Couldn't get the second database set up so I started looking into authorization.
+
+10.13
+Today I worked on:
+- Authorization
+Finally made some progress on authentication. I am getting the data mixed up at some point, but finally seeing the information, and cant post successfully, but it is going through so I can get all. Something iss going wrong with the hashed password.
+
+10.14
+Today I worked on:
+- Authorization
+I finally found that I was trying to return the wrong form of AccountOut, and once corrected was able to successfully post. I can only login using the id though, which is a problem. I need to figure out where that is getting mixed up.
+
+10.15:
+Today I fixed:
+- Authorixzation
+I was selecting the id instead of email from the table, so it was only allowing me to login with the id, not the email.

@@ -7,6 +7,7 @@ import './App.css';
 import ProduceList from './ProduceList';
 import ProduceCreate from './ProduceCreate.js';
 
+import Cart from './Cart.js'
 
 function App() {
   const [launch_info, setLaunchInfo] = useState([]);
@@ -66,6 +67,7 @@ function App() {
             <ErrorNotification error={error} />
             <Routes>
               <Route path="/produce-admin" element={<ProduceList get_all_produce={get_all_produce} />} />
+              <Route path="/cart" element={<Cart get_all_produce={get_all_produce} />} />
               <Route path="/produce-create" element={<ProduceCreate get_all_produce={get_all_produce} keys = {keys} />} />
               <Route path="/" element={<Construct info={launch_info}/>} />
               <Route path="/error" element={<ErrorNotification error={error}/>} />
