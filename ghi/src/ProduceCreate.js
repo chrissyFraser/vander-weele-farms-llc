@@ -54,7 +54,6 @@ const handleUpload = async (file) => {
             height,
             length,
             width };
-            console.log(data)
 
         fetch(`${process.env.REACT_APP_API_HOST_MONOLITH}/api/produce/`, {
             method: "POST",
