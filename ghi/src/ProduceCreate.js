@@ -7,6 +7,7 @@ window.Buffer = window.Buffer || require("buffer").Buffer;
 
 
 function ProduceCreate(props){
+    console.log(props)
     const [product_name, setProductName] = useState('');
     const [picture_file, setPictureFile] = useState('');
     const [available, setAvailable] = useState(false);
