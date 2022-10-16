@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { BrowserRouter, NavLink, Route, Routes, useNavigate } from "react-router-dom";
-import axios from 'axios';
 import {} from "react-router-dom";
+import { uploadFile } from 'react-s3'; 
+window.Buffer = window.Buffer || require("buffer").Buffer;
 
 
 
@@ -12,7 +13,35 @@ function ProduceCreate(props){
     const [height, setHeight] = useState('');
     const [length, setLength] = useState('');
     const [width, setWidth] = useState('');
+    const [image, setImage] = useState('');
+    const [selectedFile, setSelectedFile] = useState('');
 
+const S3_BUCKET = props.keys.name
+    const REGION = props.keys.region
+    const ACCESS_KEY = props.keys.key
+    const SECRET_ACCESS_KEY = props.keys.secret
+
+
+    const config = {
+        bucketName: S3_BUCKET,
+        region: REGION,
+        accessKeyId: ACCESS_KEY,
+        secretAccessKey: SECRET_ACCESS_KEY,
+}
+const handleFileInput = (e) => {
+    setSelectedFile(e.target.files[0]);
+    const reader = new FileReader();
+    reader.addEventListener("load", () => {
+        setImage(reader.result);
+        setPictureFile(e.target.files[0]["name"])
+    });
+    reader.readAsDataURL(e.target.files[0]);
+    }
+
+const handleUpload = async (file) => {
+    uploadFile(file, config);
+        
+}
 
     const handleSubmit = e => {
         e.preventDefault();
@@ -32,39 +61,28 @@ function ProduceCreate(props){
             body: JSON.stringify(data)
         }).then(() =>{
             console.log("new product created")
-            // console.log(`${process.env.REACT_APP_API_HOST_MONOLITH}/api/produce/`)
         })
     };
-    
     function toggle(value){
         return !value;
         }
-
     return(
         <>
-        
-        <h1> Is this working</h1>
-        <form className='FormSubmit' onSubmit={handleSubmit}>
+        <form className='FormSubmit' onSubmit={handleSubmit} >
             <div className="mb-3">
                 <label htmlFor="product_name" className='form-label'>Product Name</label>
                 <input value={product_name} onChange={pn => setProductName(pn.target.value)} type="text" className="form-control" id="product_name" placeholder="Product Name" />
             </div>
-            -------
-            <div className="mb-3">
-                <label className="form-label" htmlFor="picture_file">Choose a Picture</label>
-                <input value={picture_file} onChange={pf => setPictureFile(pf.target.value)} type="file" 
-                className="form-control" id="picture_file" />
+                <input type="file" onChange={handleFileInput} />
                 <div id="preview">
-                <img
-                src={picture_file}
-                id="image"
-                alt="Thumbnail"
-                className="user-post"
-                width={100}
-                />
-            </div>
-            </div>
-            ----------
+                    <img
+                    src={image}
+                    id="picture_file"
+                    alt="Thumbnail"
+                    className="user-post"
+                    width={100}
+                    />
+                </div>
             <div className="form-check">
                 <input type="checkbox" className="form-check-input" id="available" value={available} onChange={() => setAvailable(toggle)} />
                 <label className="form-check-label" htmlFor="available">available</label>
@@ -81,7 +99,7 @@ function ProduceCreate(props){
                 <label htmlFor="width">Width</label>
                 <input value={width} onChange={w => setWidth(w.target.value)} placeholder="width" required type="number" name="width" id="year" className="form-control" />
             </div>
-            <button type="submit" className="button"  id = "submit">Submit</button>
+            <button onClick={() => handleUpload(selectedFile)}>Submit</button>
         </form>
         </>
     )

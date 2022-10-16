@@ -2,7 +2,7 @@
 __pycache__/
 *.py[cod]
 *$py.class
-
+monolith/keys.py
 # C extensions
 *.so
 
