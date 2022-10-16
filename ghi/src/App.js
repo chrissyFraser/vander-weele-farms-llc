@@ -5,7 +5,7 @@ import Construct from './Construct.js'
 import ErrorNotification from './ErrorNotification';
 import './App.css';
 import ProduceList from './ProduceList';
-import ProduceCreate from './ProduceCreate.js';
+import ProduceCreate from './ProduceCreate';
 
 import Cart from './Cart.js'
 
