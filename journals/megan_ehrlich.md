@@ -83,7 +83,14 @@ Today I worked on:
 - Authorization
 I finally found that I was trying to return the wrong form of AccountOut, and once corrected was able to successfully post. I can only login using the id though, which is a problem. I need to figure out where that is getting mixed up.
 
-10.15:
+10.15
 Today I fixed:
 - Authorixzation
 I was selecting the id instead of email from the table, so it was only allowing me to login with the id, not the email.
+
+10.17
+Today I worked on:
+- Databases
+- Tokens across microservices
+- Renamed 'sample_service' to accounts_service
+I figured out I was trying to make creating multiple databases WAY more complicated than necessary. I started trying to figure out how to communicate that a user has a token across microservices.
