@@ -1,19 +1,21 @@
 volumes:
   vw-data:
     external: true
+  vw-data-a:
+    external: true
+
 services:
-  fastapi:
+  accounts_service:
     build:
-      context: sample_service
+      context: accounts_service
       dockerfile: Dockerfile.dev
     ports:
       - 8000:8000
     volumes:
-      - ./sample_service:/app
+      - ./accounts_service:/app
     environment:
-      DATABASE_URL: postgresql://VW:VW@db/farm
+      DATABASE_URL: postgresql://VW:VW@db-a/accounts
       SIGNING_KEY: 87fe4a3fcfb60092dbaeb854a196bc3d9b190aed7930c734749e85245de698420c25f8e6899c421b4494e99459e01058de5daa9d49584cd62ec975da9aea33da
-
 
   monolith_service:
     build:
@@ -37,17 +39,20 @@ services:
       POSTGRES_DB: farm
     ports:
       - "15432:5432"
-  # pg-admin:
-  #   image: dpage/pgadmin4
-  #   volumes:
-  #     - pg-admin:/var/lib/pgadmin
-  #   ports:
-  #     - 8082:80
-  #   environment:
-  #     PGADMIN_DEFAULT_EMAIL: me@me.com
-  #     PGADMIN_DEFAULT_PASSWORD: password
-  #     PGADMIN_DISABLE_POSTFIX: 1
-  
+
+  db-a:
+    build:
+      context: data_a
+      dockerfile: Dockerfile.dev
+    volumes:
+      - vw-data-a:/var/lib/postgresql/data_a/
+    environment:
+      POSTGRES_PASSWORD: VW
+      POSTGRES_USER: VW
+      POSTGRES_DB: accounts
+    ports:
+      - "15400:5432"
+
   ghi:
     image: node:lts-bullseye
     command: /bin/bash run.sh
@@ -64,4 +69,14 @@ services:
       REACT_APP_API_HOST_MONOLITH: http://localhost:8080
       REACT_APP_REACT_HOST: http://localhost:3000
     
-
+  # pg-admin:
+  #   image: dpage/pgadmin4
+  #   volumes:
+  #     - pg-admin:/var/lib/pgadmin
+  #   ports:
+  #     - 8082:80
+  #   environment:
+  #     PGADMIN_DEFAULT_EMAIL: me@me.com
+  #     PGADMIN_DEFAULT_PASSWORD: password
+  #     PGADMIN_DISABLE_POSTFIX: 1
+  

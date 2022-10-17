@@ -1,14 +1,21 @@
 from typing import Union, List, Optional
 from fastapi import APIRouter, Depends, Response
 from queries.drivers import DriverIn, DriverOut, DriverRepository, Error
+# from accounts_service.authenticator import authenticator
+
 
 router = APIRouter()
 
+
+
+
 @router.post("/drivers", response_model = Union[DriverOut, Error])
-def create_a_driver(
+async def create_a_driver(
+    
     driver: DriverIn,
     response: Response,
     repo: DriverRepository = Depends()
+    
 ):
     response.status_code = 200
     return repo.create_driver(driver)
