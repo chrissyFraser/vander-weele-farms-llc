@@ -1,33 +1,13 @@
 import { useEffect, useState } from 'react';
-import { BrowserRouter, NavLink, Route, Routes, useNavigate } from "react-router-dom";
+import { BrowserRouter, NavLink, Route, Routes, useNavigate, useParams } from "react-router-dom";
 import ProduceItem from './ProduceItem';
 
 
-
-
 function ProduceList(props){
-    console.log(props)
-    const [produce_item, setProduceItem] = useState({});
-    // console.log("my props", props.get_all_produce[1])
     let navigate = useNavigate(); 
     const createProduce = "/produce-create"; 
-    // {props.get_all_produce.map(produce => (
-    // const getProduceItem = `/produce-item/${produce.id}`
-    // console.log(props.get_all_produce)
-    // ))}
-    
-   
-    
-    
-    // const routeChange = () =>{ 
-    //     // {props.get_all_produce.map(produce => (
-            
-    //     navigate(`/produce-item/${produce_item}`)
-        // ))}
-// }
-    
-    
 
+    let {ID} = useParams();
 
     return(
         <>
@@ -53,7 +33,7 @@ function ProduceList(props){
                     </td>
                     <td>
                     <img
-                        src= {`https:vwimageuploads.s3.us-west-2.amazonaws.com/${produce.picture_file}`}
+                        src= {`https://vwimageuploads.s3.us-west-2.amazonaws.com/${produce.picture_file}`}
                         id="image"
                         alt="Thumbnail"
                         className="user-post"
@@ -61,8 +41,12 @@ function ProduceList(props){
                         />
                     </td>
                     <td><button type="button" className="btn btn-primary" id = "get_item button"
-                    produce_item = {produce.id.id} onChange={pi  => setProduceItem(pi.target.value)}
-                    onClick = {() =>navigate(`/produce-item/${produce.id}`)}>view Item</button>
+                    produce_id = {produce.id} 
+                    // onChange = {pi => props.setProduceId(pi.target.value)}
+                    onClick = {() => {navigate(`/produce-admin/${produce.id}`);
+                    props.setProduceId(produce.id)
+                    }}
+                    >view Item</button>
                     
                     </td>
                 </tr>

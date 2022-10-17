@@ -1,9 +1,63 @@
 import { useEffect, useState } from 'react';
 import { BrowserRouter, NavLink, Route, Routes, useNavigate } from "react-router-dom";
 
+// useEffect(() => {
+//     async function getProduceItem() {
+//         let url = `${process.env.REACT_APP_API_HOST_MONOLITH}/api/produce/${produce_id}`;
+//         console.log("url", url)
+//         let response = await fetch(url);
+//         console.log("response", response)
+//         let data = await response.json();
+//         if(response.ok){
+//             setProduceId(data)
+//         // console.log(data)
+//       }
+//     getProduceItem();
+//     }
+//   }, [])
 
 function ProduceItem(props){
-    <h1>is this working?</h1>
-    console.log(props)
+        const [item, setItem] = useState([]);
+        useEffect(() => {
+            async function getProduceItem() {
+                let url = `${process.env.REACT_APP_API_HOST_MONOLITH}/api/produce/${props.produce_id}`;
+                let response = await fetch(url);
+                let data = await response.json();
+                if(response.ok){
+                    setItem(data);
+            }
+        }
+            getProduceItem();
+        
+            }, [])
+    return(
+        <table className="table is-striped">
+            <thead>
+                <tr>
+                <th>Name</th>
+                <th>Available</th>
+                <th>Picture</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{item.product_name}
+                    </td>
+                    <td className="has-text-centered">
+                    {item.available ? 'Yes' : 'No'}
+                    </td>
+                    <td>
+                    <img
+                        src= {`https:vwimageuploads.s3.us-west-2.amazonaws.com/${item.picture_file}`}
+                        id="image"
+                        alt="Thumbnail"
+                        className="user-post"
+                        width={100}
+                        />
+                    </td>
+                </tr>
+            </tbody>
+            </table>
+    )
 }
 export default ProduceItem
