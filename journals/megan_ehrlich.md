@@ -94,3 +94,12 @@ Today I worked on:
 - Tokens across microservices
 - Renamed 'sample_service' to accounts_service
 I figured out I was trying to make creating multiple databases WAY more complicated than necessary. I started trying to figure out how to communicate that a user has a token across microservices.
+
+10.18
+Today I worked on:
+- Added roles to the authorization token
+- Restricted access to "admin" methods to only users with "admin", on their token
+- Restricted access to some methods to only logged in users
+Questions I still have:
+- Will this method work when polling for the data from accounts?
+- What do I need if the user doesnt meet authorization criterea?
