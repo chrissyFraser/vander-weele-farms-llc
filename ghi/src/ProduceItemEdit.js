@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { BrowserRouter, NavLink, Route, Routes, useNavigate } from "react-router-dom";
+import { BrowserRouter, Navigate, NavLink, Route, Routes, useNavigate } from "react-router-dom";
 import {} from "react-router-dom";
 import { uploadFile } from 'react-s3'; 
 window.Buffer = window.Buffer || require("buffer").Buffer;
@@ -29,6 +29,8 @@ const S3_BUCKET = props.keys.name
         secretAccessKey: SECRET_ACCESS_KEY,
 }
 
+const navigate = useNavigate();
+
 const handleFileInput = (e) => {
     setSelectedFile(e.target.files[0]);
     const reader = new FileReader();
@@ -50,8 +52,14 @@ useEffect(() => {
         let data = await response.json();
         if(response.ok){
             setItem(data);
-            console.log(data.picture_file)
+            // console.log(data.picture_file)
             setdataLength(data.length)
+            setProductName(data.product_name)
+            setPictureFile(data.picture_file)
+            // setAvailable(data.available)
+            setHeight(data.height)
+            setLength(data.length)
+            setWidth(data.width)
     }
 }
     getProduceItem();
@@ -60,7 +68,7 @@ useEffect(() => {
 
     const handleSubmit = e => {
         e.preventDefault();
-    
+        // const data = item
         const data = { 
             product_name,
             picture_file,
@@ -69,21 +77,24 @@ useEffect(() => {
             length,
             width 
         };
-
+        
         fetch(`${process.env.REACT_APP_API_HOST_MONOLITH}/api/produce/${props.produce_id}/patch`, {
             method: "PATCH",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data)
         }).then(() =>{
             console.log("PRODUCT UPDATED")
+            navigate('/produce-admin');
+            window.location.reload();
+            
         })
+    
     };
     function toggle(value){
         return !value;
         }
     return( 
         <>
-        <h1>Is this working? item num: {props.produce_id}</h1>
         <form className='FormSubmit' onSubmit={handleSubmit} >
             <div className="mb-3">
                 <label htmlFor="product_name" className='form-label'>Product Name</label>
@@ -100,7 +111,7 @@ useEffect(() => {
                     />
                 </div>
             <div className="form-check">
-                <input type="checkbox" className="form-check-input" id="available" defaultValue={item.available} onChange={() => setAvailable(toggle)} />
+                <input type="checkbox" className="form-check-input" id="available"  onChange={() => setAvailable(toggle)} />
                 <label className="form-check-label" htmlFor="available">available</label>
             </div>
             <div className="form-floating mb-3">

@@ -29,6 +29,8 @@ const S3_BUCKET = props.keys.name
         accessKeyId: ACCESS_KEY,
         secretAccessKey: SECRET_ACCESS_KEY,
 }
+const navigate = useNavigate();
+
 const handleFileInput = (e) => {
     setSelectedFile(e.target.files[0]);
     const reader = new FileReader();
@@ -41,7 +43,8 @@ const handleFileInput = (e) => {
 
 const handleUpload = async (file) => {
     uploadFile(file, config);
-        
+    navigate('/produce-admin');
+    window.location.reload();
 }
 
     const handleSubmit = e => {
@@ -61,6 +64,9 @@ const handleUpload = async (file) => {
             body: JSON.stringify(data)
         }).then(() =>{
             console.log("new product created")
+            handleUpload(selectedFile)
+            // navigate('/produce-admin');
+            // window.location.reload();
         })
     };
     function toggle(value){
@@ -99,7 +105,8 @@ const handleUpload = async (file) => {
                 <label htmlFor="width">Width</label>
                 <input value={width} onChange={w => setWidth(w.target.value)} placeholder="width" required type="number" name="width" id="year" className="form-control" />
             </div>
-            <button onClick={() => handleUpload(selectedFile)}>Submit</button>
+            {/* <button onClick={() => handleUpload(selectedFile)}>Submit</button> */}
+            <button onClick={() => handleSubmit}>Submit</button>
         </form>
         </>
     )
