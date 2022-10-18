@@ -23,5 +23,14 @@
 
 10/13/22
 
-    -attempting new cart approach, working with Chrissy and Steve on a single cart rather than 3 separate 
+    - attempting new cart approach, working with Chrissy and Steve on a single cart rather than 3 separate 
     attempts.
+
+10/17/22
+
+    - overall rough day, not much was done
+    - began working on CI/CD and testing
+
+10/18/22
+
+    - working on CI/CD and testing with "The Elliots", databases are having errors when trying to build
