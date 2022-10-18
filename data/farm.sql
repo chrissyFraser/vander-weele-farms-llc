@@ -44,5 +44,6 @@ CREATE TABLE orders(
     width INTEGER REFERENCES produce ("width"),
     customer_address VARCHAR(1000) REFERENCES customer ("address"),
     priority_id INTEGER REFERENCES customer ("priority_id"),
-    driver_id INTEGER REFERENCES driver ("id")
+    driver_id INTEGER REFERENCES driver ("id"),
+    printed BOOLEAN DEFAULT false
 );

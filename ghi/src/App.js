@@ -9,7 +9,7 @@ import ProduceCreate from './ProduceCreate';
 import HomePage from './HomePage.js';
 import Cart from './Cart.js'
 import Orders from './Orders.js';
-import GetOne from './GetOne.js';
+
 
 
 function App() {
@@ -79,7 +79,6 @@ function App() {
               {/* <Route path="/" element={<Construct info={launch_info}/>} />
               <Route path="/error" element={<ErrorNotification error={error}/>} /> */}
               <Route path="/orders" element={<Orders get_all_produce={get_all_produce} />} />
-              {/* <Route path="/get-one" element={<GetOne oneProduct={oneProduct} />} /> */}
             </Routes>
           </div>
         </BrowserRouter>
