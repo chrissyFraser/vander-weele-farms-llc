@@ -1,8 +1,8 @@
 volumes:
   vw-data:
-    external: true
+    #external: true
   vw-data-a:
-    external: true
+    #external: true
 
 services:
   accounts_service:
