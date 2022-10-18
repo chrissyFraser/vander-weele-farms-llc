@@ -21,6 +21,7 @@ function ProduceList(props){
                 <th>Available</th>
                 <th>Picture</th>
                 <th>Get Item</th>
+                <th>Edit Item</th>
                 </tr>
             </thead>
             <tbody>
@@ -42,12 +43,16 @@ function ProduceList(props){
                     </td>
                     <td><button type="button" className="btn btn-primary" id = "get_item button"
                     produce_id = {produce.id} 
-                    // onChange = {pi => props.setProduceId(pi.target.value)}
                     onClick = {() => {navigate(`/produce-admin/${produce.id}`);
                     props.setProduceId(produce.id)
-                    }}
-                    >view Item</button>
-                    
+                    }}>view Item</button>
+                    </td>
+                    <td>
+                    <button type="button" className="btn btn-primary" id = "get_item button"
+                    produce_id = {produce.id} 
+                    onClick = {() => {navigate(`/produce-admin/${produce.id}/patch`);
+                    props.setProduceId(produce.id)
+                    }}>Edit</button>
                     </td>
                 </tr>
                 ))}

@@ -46,6 +46,8 @@ class Error(BaseModel):
     message: str
 
 class Produce_update_available(BaseModel):
+    product_name: str| None = None
+    picture_file: Optional[str]| None = None
     available: Optional[bool]| None = None
     height: Optional[int]| None = None
     length: Optional[int]| None = None

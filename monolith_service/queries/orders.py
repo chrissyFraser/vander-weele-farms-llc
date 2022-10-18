@@ -45,9 +45,9 @@ class Orders_Patch(BaseModel):
     priority_id
     driver_id
 
-class CustomerRepository:
+class OrderRepository:
 
-    def get_all_customers(self) -> Union[Error, List[CustomerOut]]:
+    def get_all_orders(self) -> Union[Error, List[OrdersOut]]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
