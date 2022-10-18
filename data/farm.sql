@@ -42,7 +42,7 @@ CREATE TABLE orders(
     height INTEGER REFERENCES produce ("height"),
     length INTEGER REFERENCES produce ("length"),
     width INTEGER REFERENCES produce ("width"),
-    customer_address VARCHAR(1000) REFERENCES customer ("address"),
+    customer_address VARCHAR(1000) REFERENCES customer ("customer_address"),
     priority_id INTEGER REFERENCES customer ("priority_id"),
     driver_id INTEGER REFERENCES driver ("id"),
     printed BOOLEAN DEFAULT false
