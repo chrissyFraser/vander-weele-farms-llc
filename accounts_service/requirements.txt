@@ -2,3 +2,5 @@ fastapi[all]==0.81.0
 uvicorn[standard]==0.17.6
 psycopg[binary,pool]==3.0.14
 jwtdown_fastapi==0.3.0
+jwtdown-fastapi==0.3.0
+SQLAlchemy==2.0.0b1

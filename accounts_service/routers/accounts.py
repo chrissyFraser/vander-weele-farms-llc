@@ -19,18 +19,23 @@ from queries.accounts import (
 )
 from queries.accounts import AccountOutWithPassword
 
+
 class AccountForm(BaseModel):
     username: str
     password: str
 
+
 class AccountToken(Token):
     account: AccountOut
+
 
 class HttpError(BaseModel):
     detail: str
 
+
 class AccountStatus(BaseModel):
     status: bool
+
 
 router = APIRouter()
 
@@ -56,8 +61,6 @@ async def create_account(
     # form = AccountForm(username=info.email, password=info.password)
     # token = await authenticator.login(response, request, form, accounts)
     # return AccountToken(account=account, **token.dict())
-    
-
 
 
 @router.get("/api/accounts/{account_id}", response_model=Optional[AccountOut])
