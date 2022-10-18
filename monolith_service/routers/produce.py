@@ -59,6 +59,8 @@ def update_produce_available(
 ) -> Produce_get:
     # print(produce)
     return queries.update_produce_available(produce_id, Produce_update_available(
+        product_name = produce.product_name,
+        picture_file = produce.picture_file,
         available = produce.available,
         height = produce.height, 
         length = produce.length, 

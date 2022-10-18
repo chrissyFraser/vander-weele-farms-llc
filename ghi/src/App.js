@@ -7,6 +7,7 @@ import './App.css';
 import ProduceList from './ProduceList';
 import ProduceCreate from './ProduceCreate';
 import ProduceItem from './ProduceItem';
+import ProduceItemEdit from './ProduceItemEdit';
 import Cart from './Cart.js'
 
 function App() {
@@ -56,8 +57,9 @@ function App() {
               <Route path="/produce-create" element={<ProduceCreate get_all_produce={get_all_produce} keys = {keys}  />} />
               <Route path="/cart" element={<Cart cart={cart}/>} />
               <Route path= {`/produce-admin/:ID`}
-              element= {<ProduceItem  produce_id={produce_id} /> } 
-              />
+              element= {<ProduceItem  produce_id={produce_id} /> } />
+              <Route path= {`/produce-admin/:ID/patch`}
+              element= {<ProduceItemEdit  produce_id={produce_id} get_all_produce={get_all_produce} keys = {keys} /> } />
             </Routes>
           </div>
         </BrowserRouter>
