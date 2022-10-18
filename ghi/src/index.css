@@ -60,14 +60,23 @@ a {
     border: 1px solid #ffea31;
   }
 
-  img {
+  .produce-pic {
     width: 200px;
     min-height: 200px;
     border-radius: 25px;
   }
 
+.logo {
+    width: 100px
+  }
+
+.cart-icon {
+  width: 50px
+  
+}
+
   h1, h2, h3 {
-    color: rgb(0, 0, 0);
+    color: rgb(172, 45, 45);
   }
 
 .link {
