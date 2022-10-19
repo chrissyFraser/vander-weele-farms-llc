@@ -1,5 +1,5 @@
 from typing import Union, List, Optional
-from fastapi import APIRouter, Depends, Response
+from fastapi import APIRouter, Depends, Response, HTTPException, status
 from queries.customers import (
     CustomerIn,
     CustomerOut,
@@ -12,15 +12,6 @@ from authenticator import authenticator
 router = APIRouter()
 
 
-# @router.get("/api/things")
-# async def get_things(
-#     account_data: Optional[dict] = Depends(authenticator.try_get_current_account_data),
-# ):
-#     if account_data:
-#         return personalized_list
-#     return general_list
-
-
 @router.post("/customers", response_model=Union[CustomerOut, Error])
 def create_a_customer(
     customer: CustomerIn,
@@ -29,12 +20,14 @@ def create_a_customer(
     account_data: Optional[dict] = Depends(authenticator.get_current_account_data),
 ):
     if "admin" in account_data.get("roles"):
-        print("Yay!!!!!!!!!!!!!!!!!!", account_data)
         response.status_code = 200
         return repo.create_customer(customer)
     else:
-        response.status_code = 404
-        return "Unauthorized"
+        raise HTTPException(
+                    status_code=status.HTTP_401_UNAUTHORIZED,
+                    detail="Invalid token",
+                    headers={"WWW-Authenticate": "Bearer"},
+                )
 
 
 @router.get("/customers", response_model=Union[List[CustomerOut], Error])
@@ -44,6 +37,12 @@ def get_all_customers(
 ):
     if "admin" in account_data.get("roles"):
         return repo.get_all_customers()
+    else:
+        raise HTTPException(
+                    status_code=status.HTTP_401_UNAUTHORIZED,
+                    detail="Invalid token",
+                    headers={"WWW-Authenticate": "Bearer"},
+                )
 
 
 @router.get("/customers/{customer_id}", response_model=Optional[CustomerOut])
@@ -58,6 +57,12 @@ def get_one_customer(
         if customer is None:
             response.status_code = 404
         return customer
+    else:
+        raise HTTPException(
+                    status_code=status.HTTP_401_UNAUTHORIZED,
+                    detail="Invalid token",
+                    headers={"WWW-Authenticate": "Bearer"},
+                )
 
 
 @router.put("/customers/{customer_id}", response_model=Union[CustomerOut, Error])
@@ -69,6 +74,12 @@ def update_customer(
 ) -> Union[Error, CustomerOut]:
     if "admin" in account_data.get("roles"):
         return repo.update_customer(customer_id, customer)
+    else:
+        raise HTTPException(
+                    status_code=status.HTTP_401_UNAUTHORIZED,
+                    detail="Invalid token",
+                    headers={"WWW-Authenticate": "Bearer"},
+                )
 
 
 @router.delete("/customers/{customer_id}", response_model=bool)
@@ -79,6 +90,12 @@ def delete_customer(
 ) -> bool:
     if "admin" in account_data.get("roles"):
         return repo.delete_customer(customer_id)
+    else:
+        raise HTTPException(
+                    status_code=status.HTTP_401_UNAUTHORIZED,
+                    detail="Invalid token",
+                    headers={"WWW-Authenticate": "Bearer"},
+                )
 
 
 @router.patch("/customers/{customer_id}", response_model=CustomerOut)
@@ -95,3 +112,9 @@ def updata_customer_ids(
                 priority_id=customer.priority_id, driver_id=customer.driver_id
             ),
         )
+    else:
+        raise HTTPException(
+                    status_code=status.HTTP_401_UNAUTHORIZED,
+                    detail="Invalid token",
+                    headers={"WWW-Authenticate": "Bearer"},
+                )

@@ -1,16 +1,7 @@
 DROP TABLE IF EXISTS produce;
 DROP TABLE IF EXISTS customer;
 DROP TABLE IF EXISTS driver;
-DROP TABLE IF EXISTS accounts;
 
-CREATE TABLE accounts (
-    id SERIAL PRIMARY KEY NOT NULL,
-    username VARCHAR(1000) NOT NULL,
-    email VARCHAR(500),
-    hashed_password VARCHAR(500),
-    roles VARCHAR(100)
-    
-);
 
 CREATE TABLE produce(
     id SERIAL NOT NULL UNIQUE,
@@ -43,7 +34,4 @@ CREATE TABLE customer (
 INSERT INTO driver VALUES 
     (0, 'Unassigned')
     ;
-
-INSERT INTO accounts VALUES 
-    (0, 'admin', 'admin', '$2b$12$RUU4gsTdXA94EDi.rXCm1..SLdfBRYRTUObVhUR81zfkdJ6MqFBwq', 'admin')
-    ;
+    

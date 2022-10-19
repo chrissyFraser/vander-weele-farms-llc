@@ -105,3 +105,11 @@ Questions I still have:
 - What do I need if the user doesnt meet authorization criterea?
 I made a lot of progress today, and figured out a way to restrict access from the backend. I did have to put my accounts information into the monolith for now, because I don't know how to poll for the token from the other service. I need to check if my method will work when I seperate them again. (and figure out how to seperate them)
 ????? 28:00 in video: return vacations.get_account_vacations(account_data) ?????
+
+
+10.19
+Today I worked on:
+- Splitting the monolith and account 
+- Add 401 Error for unauthorized account levels
+- Cleaned up code
+Was able to create a concrete class/method for the Authenticator, and used that to verify account information through the cookie instead of needing a poller. Added proper 401 Error message for unauthorized user levels.

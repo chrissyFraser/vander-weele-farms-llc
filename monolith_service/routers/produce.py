@@ -1,7 +1,7 @@
 
 from typing import Literal, Union, Optional
 from urllib import response
-from fastapi import APIRouter, Depends, Response
+from fastapi import APIRouter, Depends, Response, HTTPException, status
 from fastapi.encoders import jsonable_encoder
 from queries.produce import Error, Produce_update_available, ProduceQueries, Produce_get, Produce_create, ProduceDataClass, ProduceRequest
 from authenticator import authenticator
@@ -23,6 +23,12 @@ def create_produce(
 ):
     if "admin" in account_data.get("roles"):
         return queries.create_produce(produce)
+    else:
+        raise HTTPException(
+                    status_code=status.HTTP_401_UNAUTHORIZED,
+                    detail="Invalid token",
+                    headers={"WWW-Authenticate": "Bearer"},
+                )
 
 @router.get("/api/produce/{produce_id}", response_model = Optional[Produce_get])
 def get_single_produce_item(
@@ -44,6 +50,12 @@ def update_produce(
 ) -> Union[Produce_get, Error]:
     if "admin" in account_data.get("roles"):
         return queries.update_produce(produce_id, produce)
+    else:
+        raise HTTPException(
+                    status_code=status.HTTP_401_UNAUTHORIZED,
+                    detail="Invalid token",
+                    headers={"WWW-Authenticate": "Bearer"},
+                )
 
 @router.delete("/api/produce/{produce_id}/delete", response_model = bool)
 def delete_produce(
@@ -53,6 +65,12 @@ def delete_produce(
 )-> bool:
     if "admin" in account_data.get("roles"):
         return queries.delete_produce(produce_id)
+    else:
+        raise HTTPException(
+                    status_code=status.HTTP_401_UNAUTHORIZED,
+                    detail="Invalid token",
+                    headers={"WWW-Authenticate": "Bearer"},
+                )
 
 
 @router.patch("/api/produce/{produce_id}/patch", response_model = Produce_get)
@@ -70,4 +88,10 @@ def update_produce_available(
             length = produce.length, 
             width = produce.width
             ))
+    else:
+        raise HTTPException(
+                    status_code=status.HTTP_401_UNAUTHORIZED,
+                    detail="Invalid token",
+                    headers={"WWW-Authenticate": "Bearer"},
+                )
 
