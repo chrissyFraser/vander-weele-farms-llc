@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
-import { BrowserRouter, NavLink, Route, Routes, useNavigate } from "react-router-dom";
+
+// removed BrowserRouter, NavLink, Route, Routes from this import
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -13,10 +15,11 @@ function ProduceItem(props){
                 let data = await response.json();
                 if(response.ok){
                     setItem(data);
+                }
             }
-        }
             getProduceItem();
-            }, [])
+            //eslint-disable-next-line
+        }, [])
 
             const navigate = useNavigate();
 

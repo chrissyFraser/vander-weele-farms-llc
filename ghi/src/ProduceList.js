@@ -1,13 +1,17 @@
-import { useEffect, useState } from 'react';
-import { BrowserRouter, NavLink, Route, Routes, useNavigate, useParams } from "react-router-dom";
-import ProduceItem from './ProduceItem';
+// commenting out these imports, imported but never used
+// import ProduceItem from './ProduceItem';
+// import { useEffect, useState } from 'react';
+
+// removed BrowserRouter, NavLink, Route, Routes, useParams from this import
+import { useNavigate } from "react-router-dom";
 
 
 function ProduceList(props){
     let navigate = useNavigate(); 
     const createProduce = "/produce-create"; 
 
-    let {ID} = useParams();
+    // ID was unused, commenting out until it needs to be used
+    // let {ID} = useParams();
 
     return(
         <>
