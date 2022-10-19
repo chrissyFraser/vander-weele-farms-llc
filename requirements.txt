@@ -1,0 +1,13 @@
+boto3==1.24.94
+botocore==1.27.94
+colorama==0.4.5
+jmespath==1.0.1
+loguru==0.6.0
+psycopg2==2.9.4
+pydantic==1.10.2
+python-dateutil==2.8.2
+s3transfer==0.6.0
+six==1.16.0
+typing_extensions==4.4.0
+urllib3==1.26.12
+win32-setctime==1.1.0
