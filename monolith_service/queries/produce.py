@@ -48,10 +48,15 @@ class Error(BaseModel):
 
 
 class Produce_update_available(BaseModel):
-    available: Optional[bool] | None = None
-    height: Optional[int] | None = None
-    length: Optional[int] | None = None
-    width: Optional[int] | None = None
+    product_name: str| None = None
+    picture_file: Optional[str]| None = None
+    available: Optional[bool]| None = None
+    height: Optional[int]| None = None
+    length: Optional[int]| None = None
+    width: Optional[int]| None = None
+    
+    
+    
 
 
 class ProduceQueries:

@@ -1,3 +1,13 @@
+## Oct 17, 2022
+* Worked on front-end React & CSS
+  * added cart icon to Shop Produce Page
+  * added farm logo to Header
+  * revamped layout/rendered info for Shop Produce
+  * Started Home Page
+* Added Nav Links
+* Started Orders page
+* Created Orders table in farm.sql
+
 ## Oct 11, 2022
 * Completed working front-end cart
 * Resolved badge quantity issue with an anonymous function

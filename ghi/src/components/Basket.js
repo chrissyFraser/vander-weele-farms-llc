@@ -1,6 +1,7 @@
 import React from "react";
 
 export default function Basket (props) {
+    console.log("cart", props)
     const {cartItems, onAdd, onRemove} = props;
     return (
     <aside className="block col-1">
@@ -27,7 +28,7 @@ export default function Basket (props) {
             <hr/>
             <div className="row">
                 <button onClick={() => alert("Implement Checkout")}>
-                    Checkout
+                    Submit
                 </button>
             </div>
             
