@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react';
-import { BrowserRouter, NavLink, Route, Routes, useNavigate } from "react-router-dom";
+// removed useEffect
+import { useState } from 'react';
 import {} from "react-router-dom";
-import { uploadFile } from 'react-s3'; 
+import { uploadFile } from 'react-s3';
+import { useNavigate } from "react-router-dom"; 
 window.Buffer = window.Buffer || require("buffer").Buffer;
-
+// removed BrowserRouter, NavLink, Route, Routes from previous import
 
 
 function ProduceCreate(props){

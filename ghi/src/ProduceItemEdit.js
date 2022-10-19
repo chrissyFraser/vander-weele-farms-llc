@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react';
-import { BrowserRouter, Navigate, NavLink, Route, Routes, useNavigate } from "react-router-dom";
 import {} from "react-router-dom";
-import { uploadFile } from 'react-s3'; 
+import { uploadFile } from 'react-s3';
+import { useNavigate } from "react-router-dom"; 
 window.Buffer = window.Buffer || require("buffer").Buffer;
+// removed BrowserRouter, Navigate, NavLink, Route, Routes from previous import
+
+
 
 function ProduceItemEdit(props){
     const [product_name, setProductName] = useState('');
@@ -60,9 +63,10 @@ useEffect(() => {
             setHeight(data.height)
             setLength(data.length)
             setWidth(data.width)
+        }
     }
-}
     getProduceItem();
+    //eslint-disable-next-line
     }, [])
 
 

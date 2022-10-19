@@ -3,6 +3,7 @@ DROP TABLE IF EXISTS customer;
 DROP TABLE IF EXISTS driver;
 DROP TABLE IF EXISTS orders;
 
+
 CREATE TABLE produce(
     id SERIAL NOT NULL UNIQUE,
     product_name TEXT NOT NULL,
@@ -34,7 +35,7 @@ CREATE TABLE customer (
 INSERT INTO driver VALUES 
     (0, 'Unassigned')
     ;
-
+    
 CREATE TABLE orders(
     id SERIAL NOT NULL UNIQUE,
     customer_id INTEGER REFERENCES customer ("id"),

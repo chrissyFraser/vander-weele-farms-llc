@@ -7,12 +7,14 @@ class AccountIn(BaseModel):
     email: str
     password: str
     username: str
+    roles: str
 
 
 class AccountOut(BaseModel):
     id: str
     email: str
     username: str
+    roles: str
 
 
 class AccountOutWithPassword(AccountOut):
@@ -29,7 +31,7 @@ class AccountQueries:
             with conn.cursor() as db:
                 result = db.execute(
                     """
-                    SELECT u.email as user_email, u.id, u.username, u.hashed_password
+                    SELECT u.email as user_email, u.id, u.username, u.hashed_password, u.roles
                     FROM accounts u
                     """,
                 )
@@ -41,7 +43,7 @@ class AccountQueries:
             with conn.cursor() as db:
                 result = db.execute(
                     """
-                        SELECT u.email as user_email, u.id, u.username, u.hashed_password
+                        SELECT u.email as user_email, u.id, u.username, u.hashed_password, u.roles
                         FROM accounts u
                         WHERE u.email = %s
                         """,
@@ -56,7 +58,11 @@ class AccountQueries:
     def record_to_user_out(self, record):
         print("Record", record)
         return AccountOutWithPassword(
-            id=record[1], email=record[0], username=record[2], hashed_password=record[3]
+            id=record[1],
+            email=record[0],
+            username=record[2],
+            hashed_password=record[3],
+            roles=record[4],
         )
 
     def create(self, info: AccountIn, hashed_password: str) -> AccountOutWithPassword:
@@ -69,14 +75,15 @@ class AccountQueries:
                     INSERT INTO accounts(
                         email, 
                         username,
-                        hashed_password
+                        hashed_password,
+                        roles
 
                     )
                     VALUES
-                        (%s, %s, %s)
+                        (%s, %s, %s, %s)
                     RETURNING id;
                     """,
-                    [info.email, info.username, hashed_password],
+                    [info.email, info.username, hashed_password, info.roles],
                 )
                 id = result.fetchone()[0]
 

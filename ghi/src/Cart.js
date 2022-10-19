@@ -1,7 +1,5 @@
 
-import { useEffect, useState } from 'react';
-import { BrowserRouter, NavLink, Route, Routes } from "react-router-dom";
-import ErrorNotification from './ErrorNotification';
+import { useState } from 'react';
 import Header from './components/Header';
 import Main from './components/Main.js';
 import Basket from './components/Basket.js';
@@ -9,7 +7,6 @@ import Basket from './components/Basket.js';
 
 
 function Cart(props) {
-    const {produce} = props.get_all_produce;
     const [cartItems, setCartItems] = useState([]);
     console.log("YO", props)
     const onAdd = (produce) => {

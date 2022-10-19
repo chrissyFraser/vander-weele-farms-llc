@@ -18,7 +18,8 @@ function App() {
   
   const [get_all_produce, setProduce] = useState([]);
   const [produce_id, setProduceId] = useState([]);
-  const [cart, setCart] = useState([]);
+  // const [cart, setCart] = useState([]);
+  const [cart] = useState([]);
   const [keys, setKeys] = useState([]);
 
   useEffect(() => {

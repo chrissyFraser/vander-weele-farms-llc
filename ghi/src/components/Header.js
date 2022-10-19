@@ -4,7 +4,7 @@ export default function Header (props) {
     const {countCartItems} = props;
     return <div className="row center block">
         <div>
-         <img className="cart-icon" src="https://cdn-icons-png.flaticon.com/512/4290/4290854.png"/>
+            <img className="cart-icon" src="https://cdn-icons-png.flaticon.com/512/4290/4290854.png" alt="cart icon"/>
         </div>
         <div>
             <a href="#/">
@@ -12,7 +12,7 @@ export default function Header (props) {
             </a>
         </div>
 
-       
+
         <div>
             <a className="link" href="#/cart">
             Cart
