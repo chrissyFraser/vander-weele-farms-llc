@@ -63,17 +63,18 @@ async def create_account(
     # return AccountToken(account=account, **token.dict())
 
 
-@router.get("/api/accounts/{account_id}", response_model=Optional[AccountOut])
-def get_one_account(
-    account_id: str,
-    response: Response,
-    repo: AccountQueries = Depends(),
-) -> AccountOut:
-    account = repo.get(account_id)
-    if account is None:
-        response.status_code = 404
-    print("ACCOUNT", account_id)
-    return account
+
+@router.get("/token", response_model=AccountToken | None)
+async def get_token(
+    request: Request,
+    account: AccountOut = Depends(authenticator.try_get_current_account_data)
+) -> AccountToken | None:
+    if authenticator.cookie_name in request.cookies:
+        return {
+            "access_token": request.cookies[authenticator.cookie_name],
+            "type": "Bearer",
+            "account": account,
+        }
 
 
 @router.get("/api/accounts", response_model=List[AccountOut])

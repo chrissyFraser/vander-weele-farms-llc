@@ -1,6 +1,12 @@
 from typing import Union, List, Optional
 from fastapi import APIRouter, Depends, Response
-from queries.customers import CustomerIn, CustomerOut, CustomerRepository, Error, Customer_Patch
+from queries.customers import (
+    CustomerIn,
+    CustomerOut,
+    CustomerRepository,
+    Error,
+    Customer_Patch,
+)
 from authenticator import authenticator
 
 router = APIRouter()
@@ -28,7 +34,7 @@ def create_a_customer(
         return repo.create_customer(customer)
     else:
         response.status_code = 404
-        return ('Unauthorized')
+        return "Unauthorized"
 
 
 @router.get("/customers", response_model=Union[List[CustomerOut], Error])
@@ -53,6 +59,7 @@ def get_one_customer(
             response.status_code = 404
         return customer
 
+
 @router.put("/customers/{customer_id}", response_model=Union[CustomerOut, Error])
 def update_customer(
     customer_id: int,
@@ -73,7 +80,8 @@ def delete_customer(
     if "admin" in account_data.get("roles"):
         return repo.delete_customer(customer_id)
 
-@router.patch("/customers/{customer_id}", response_model = CustomerOut)
+
+@router.patch("/customers/{customer_id}", response_model=CustomerOut)
 def updata_customer_ids(
     customer_id: int,
     customer: Customer_Patch,
@@ -81,7 +89,9 @@ def updata_customer_ids(
     account_data: Optional[dict] = Depends(authenticator.get_current_account_data),
 ) -> CustomerOut:
     if "admin" in account_data.get("roles"):
-        return repo.update_customer_ids(customer_id, Customer_Patch(
-            priority_id = customer.priority_id,
-            driver_id = customer.driver_id
-        ))
+        return repo.update_customer_ids(
+            customer_id,
+            Customer_Patch(
+                priority_id=customer.priority_id, driver_id=customer.driver_id
+            ),
+        )
