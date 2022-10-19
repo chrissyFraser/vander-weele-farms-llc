@@ -37,13 +37,9 @@ INSERT INTO driver VALUES
 
 CREATE TABLE orders(
     id SERIAL NOT NULL UNIQUE,
-    customer_name VARCHAR(1000) REFERENCES customer ("customer_name"),
-    product_name TEXT REFERENCES produce ("product_name"),
-    height INTEGER REFERENCES produce ("height"),
-    length INTEGER REFERENCES produce ("length"),
-    width INTEGER REFERENCES produce ("width"),
-    customer_address VARCHAR(1000) REFERENCES customer ("address"),
-    priority_id INTEGER REFERENCES customer ("priority_id"),
+    customer_id INTEGER REFERENCES customer ("id"),
+    produce_id INTEGER REFERENCES produce ("id"),
     driver_id INTEGER REFERENCES driver ("id"),
+    order_date DATE, 
     printed BOOLEAN DEFAULT false
 );

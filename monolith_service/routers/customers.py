@@ -5,7 +5,7 @@ from queries.customers import CustomerIn, CustomerOut, CustomerRepository, Error
 router = APIRouter()
 
 @router.post("/customers", response_model=Union[CustomerOut, Error])
-def create_a_customer(
+def create_customer(
     customer: CustomerIn,
     response: Response,
     repo: CustomerRepository = Depends()
@@ -54,7 +54,7 @@ def delete_customer(
     return repo.delete_customer(customer_id)
 
 @router.patch("/customers/{customer_id}", response_model = CustomerOut)
-def updata_customer_ids(
+def update_customer_ids(
     customer_id: int,
     customer: Customer_Patch,
     repo: CustomerRepository = Depends(),

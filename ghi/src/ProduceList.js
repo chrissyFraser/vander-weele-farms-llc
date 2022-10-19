@@ -45,7 +45,7 @@ function ProduceList(props){
                     produce_id = {produce.id} 
                     onClick = {() => {navigate(`/produce-admin/${produce.id}`);
                     props.setProduceId(produce.id)
-                    }}>view Item</button>
+                    }}>View Item</button>
                     </td>
                     <td>
                     <button type="button" className="btn btn-primary" id = "get_item button"
