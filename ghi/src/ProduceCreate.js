@@ -17,18 +17,19 @@ function ProduceCreate(props){
     const [image, setImage] = useState('');
     const [selectedFile, setSelectedFile] = useState('');
 
-const S3_BUCKET = props.keys.name
-    const REGION = props.keys.region
-    const ACCESS_KEY = props.keys.key
-    const SECRET_ACCESS_KEY = props.keys.secret
+    // const S3_BUCKET = process.env.S3_BUCKET
+    // const REGION = process.env.REGION
+    // const ACCESS_KEY = process.env.ACCESS_KEY
+    // const SECRET_ACCESS_KEY = process.env.SECRET_ACCESS_KEY
 
 
     const config = {
-        bucketName: S3_BUCKET,
-        region: REGION,
-        accessKeyId: ACCESS_KEY,
-        secretAccessKey: SECRET_ACCESS_KEY,
+        S3_BUCKET: process.env.S3_BUCKET,
+        REGION: process.env.REGION,
+        ACCESS_KEY: process.env.ACCESS_KEY,
+        SECRET_ACCESS_KEY: process.env.SECRET_ACCESS_KEY
 }
+console.log(config)
 const navigate = useNavigate();
 
 const handleFileInput = (e) => {
@@ -43,8 +44,9 @@ const handleFileInput = (e) => {
 
 const handleUpload = async (file) => {
     uploadFile(file, config);
-    navigate('/produce-admin');
-    window.location.reload();
+    console.log("config", config)
+    // navigate('/produce-admin');
+    // window.location.reload();
 }
 
     const handleSubmit = e => {

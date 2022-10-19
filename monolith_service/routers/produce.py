@@ -1,14 +1,18 @@
 
 from typing import Literal, Union, Optional
 from urllib import response
-from fastapi import APIRouter, Depends, Response
+from fastapi import APIRouter, Depends, Response, UploadFile, File
 from fastapi.encoders import jsonable_encoder
 from queries.produce import Error, Produce_update_available, ProduceQueries, Produce_get, Produce_create, ProduceDataClass, ProduceRequest
+import requests
 
 
 router = APIRouter()
 
-
+url = 'https://vwimageuploads.s3.us-west-2.amazonaws.com'
+@router.post(url)
+async def root(file: UploadFile = File (...)):
+    return{"file_name": file.name}
 
 
 @router.get("/api/produce/", response_model = list[Produce_get]) 

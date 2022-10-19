@@ -61,7 +61,17 @@ services:
       - ./ghi:/app
     ports:
       - "3000:3000"
+    # env_file: .env
+      # - keys
+    # - "S3_BUCKET = ${S3_BUCKET}"
+    # - REGION
+    # - ACCESS_KEY
+    # - SECRET_ACCESS_KEY
     environment:
+      S3_BUCKET: os.environ.get('S3_BUCKET')
+      REGION: ${REGION}
+      ACCESS_KEY: ${ACCESS_KEY}
+      SECRET_ACCESS_KEY: ${SECRET_ACCESS_KEY}
       HOST_OS: ${OS}
       NODE_ENV: development
       HOST: "0.0.0.0"

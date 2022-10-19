@@ -2,6 +2,7 @@ DROP TABLE IF EXISTS produce;
 DROP TABLE IF EXISTS customer;
 DROP TABLE IF EXISTS driver;
 DROP TABLE IF EXISTS orders;
+DROP TABLE IF EXISTS keys;
 
 CREATE TABLE produce(
     id SERIAL NOT NULL UNIQUE,
@@ -46,4 +47,12 @@ CREATE TABLE orders(
     priority_id INTEGER REFERENCES customer ("priority_id"),
     driver_id INTEGER REFERENCES driver ("id"),
     printed BOOLEAN DEFAULT false
+);
+
+CREATE TABLE keys(
+    id SERIAL NOT NULL UNIQUE,
+    name TEXT NOT NULL,
+    location TEXT NOT NULL,
+    access TEXT NOT NULL,
+    secret_key TEXT NOT NULL
 );

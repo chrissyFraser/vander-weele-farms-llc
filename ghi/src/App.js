@@ -30,12 +30,12 @@ function App() {
         setProduce(data)
       }
       
-        url = `${process.env.REACT_APP_API_HOST_MONOLITH}/keys`;
-        response = await fetch(url)
-        data = await response.json();
-        if(response.ok){
-        setKeys(data);
-        }
+        // url = `${process.env.REACT_APP_API_HOST_MONOLITH}/keys`;
+        // response = await fetch(url)
+        // data = await response.json();
+        // if(response.ok){
+        // setKeys(data);
+        // }
     }
     getProduceData();
   }, [])
@@ -62,7 +62,7 @@ function App() {
               <Route path="/" element={<HomePage />} />
               <Route path="/produce-admin" element={<ProduceList get_all_produce={get_all_produce} produce_id = {produce_id} setProduceId={setProduceId} />} />
               <Route path="/cart" element={<Cart get_all_produce={get_all_produce} />} />
-              <Route path="/produce-create" element={<ProduceCreate get_all_produce={get_all_produce} keys = {keys}  />} />
+              <Route path="/produce-create" element={<ProduceCreate get_all_produce={get_all_produce}   />} />
               <Route path="/cart" element={<Cart cart={cart}/>} />
               <Route path= {`/produce-admin/:ID`}
               element= {<ProduceItem  produce_id={produce_id} /> } />
@@ -78,3 +78,4 @@ function App() {
 }
 
 export default App;
+// keys = {keys}
