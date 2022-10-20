@@ -8,7 +8,7 @@ router = APIRouter()
 
 
 ###############################################################################
-@router.post("/drivers", response_model=Union[DriverOut, Error])
+@router.post("/api/drivers", response_model=Union[DriverOut, Error])
 async def create_a_driver(
     driver: DriverIn,
     response: Response,
@@ -18,7 +18,7 @@ async def create_a_driver(
     return repo.create_driver(driver)
 
 
-# @router.post("/drivers", response_model=Union[DriverOut, Error])
+# @router.post("/api/drivers", response_model=Union[DriverOut, Error])
 # async def create_a_driver(
 #     driver: DriverIn,
 #     response: Response,
@@ -50,7 +50,7 @@ async def create_a_driver(
 #             headers={"WWW-Authenticate": "Bearer"},
 #         )
 
-@router.get("/drivers", response_model=Union[List[DriverOut], Error])
+@router.get("/api/drivers", response_model=Union[List[DriverOut], Error])
 def get_all_drivers(
     repo: DriverRepository = Depends(),
 ):
@@ -61,7 +61,7 @@ def get_all_drivers(
 ###############################################################################
 
 
-@router.get("/drivers/{driver_id}", response_model=Optional[DriverOut])
+@router.get("/api/drivers/{driver_id}", response_model=Optional[DriverOut])
 def get_one_driver(
     driver_id: int,
     response: Response,
@@ -81,7 +81,7 @@ def get_one_driver(
         )
 
 
-@router.put("/drivers/{driver_id}", response_model=Union[DriverOut, Error])
+@router.put("/api/drivers/{driver_id}", response_model=Union[DriverOut, Error])
 def update_driver(
     driver_id: int,
     driver: DriverIn,
@@ -98,7 +98,7 @@ def update_driver(
         )
 
 
-@router.delete("/drivers/{driver_id}", response_model=bool)
+@router.delete("/api/drivers/{driver_id}", response_model=bool)
 def delete_driver(
     driver_id: int,
     repo: DriverRepository = Depends(),

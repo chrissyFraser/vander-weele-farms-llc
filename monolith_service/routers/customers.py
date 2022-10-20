@@ -14,7 +14,7 @@ router = APIRouter()
 ###############################################################################
 
 
-@router.post("/customers", response_model=Union[CustomerOut, Error])
+@router.post("/api/customers", response_model=Union[CustomerOut, Error])
 def create_a_customer(
     customer: CustomerIn,
     response: Response,
@@ -24,7 +24,7 @@ def create_a_customer(
     return repo.create_customer(customer)
 
 
-# @router.post("/customers", response_model=Union[CustomerOut, Error])
+# @router.post("/api/customers", response_model=Union[CustomerOut, Error])
 # def create_a_customer(
 #     customer: CustomerIn,
 #     response: Response,
@@ -42,7 +42,7 @@ def create_a_customer(
 #                 )
 
 
-# @router.get("/customers", response_model=Union[List[CustomerOut], Error])
+# @router.get("/api/customers", response_model=Union[List[CustomerOut], Error])
 # def get_all_customers(
 #     repo: CustomerRepository = Depends(),
 #     account_data: Optional[dict] = Depends(authenticator.get_current_account_data),
@@ -56,7 +56,7 @@ def create_a_customer(
 #                     headers={"WWW-Authenticate": "Bearer"},
 #                 )
 
-@router.get("/customers", response_model=Union[List[CustomerOut], Error])
+@router.get("/api/customers", response_model=Union[List[CustomerOut], Error])
 def get_all_customers(
     repo: CustomerRepository = Depends(),
 ):
@@ -65,7 +65,7 @@ def get_all_customers(
 
 ###############################################################################
 
-@router.get("/customers/{customer_id}", response_model=Optional[CustomerOut])
+@router.get("/api/customers/{customer_id}", response_model=Optional[CustomerOut])
 def get_one_customer(
     customer_id: int,
     response: Response,
@@ -85,7 +85,7 @@ def get_one_customer(
                 )
 
 
-@router.put("/customers/{customer_id}", response_model=Union[CustomerOut, Error])
+@router.put("/api/customers/{customer_id}", response_model=Union[CustomerOut, Error])
 def update_customer(
     customer_id: int,
     customer: CustomerIn,
@@ -102,7 +102,7 @@ def update_customer(
                 )
 
 
-@router.delete("/customers/{customer_id}", response_model=bool)
+@router.delete("/api/customers/{customer_id}", response_model=bool)
 def delete_customer(
     customer_id: int,
     repo: CustomerRepository = Depends(),
@@ -118,7 +118,7 @@ def delete_customer(
                 )
 
 
-@router.patch("/customers/{customer_id}", response_model=CustomerOut)
+@router.patch("/api/customers/{customer_id}", response_model=CustomerOut)
 def updata_customer_ids(
     customer_id: int,
     customer: Customer_Patch,
