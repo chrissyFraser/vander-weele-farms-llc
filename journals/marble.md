@@ -43,8 +43,13 @@
       - 5 problems (2 errors 3 warnings) => 3 problems (3 warnings)
       - 3 problems (3 warnings) => 0 problems!
       - 0 problems, pipeline is functioning with 0 errors!
-    - site loads on heroku, no content, no links. attempting to fix. 
+    - site loads on heroku, no content, no links. attempting to fix.
+    - database not installed.
+    - installed and connected database. data not flowing
 
+10/20/22
 
-
-    - 
+    - began working on connecting heroku app and PostgreSQL database
+      - put code in app.js to link the two^
+      - webpack error: can't resolve pg in app/src
+      - wrote line in webpack.config.js to ignore webpack error

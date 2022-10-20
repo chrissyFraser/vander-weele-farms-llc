@@ -78,7 +78,7 @@ function App() {
   );
 }
 
-// this connects heroku app to heroku-postgresql db
+// this should connect heroku app to heroku-postgresql db
 
 const { Client } = require('pg');
 
