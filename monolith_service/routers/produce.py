@@ -1,10 +1,18 @@
-
+import os
+import boto3
 from typing import Literal, Union, Optional
 from urllib import response
-from fastapi import APIRouter, Depends, Response, HTTPException, status
-from fastapi.encoders import jsonable_encoder
+from fastapi import APIRouter, Depends, Response, HTTPException, status, UploadFile
+
 from queries.produce import Error, Produce_update_available, ProduceQueries, Produce_get, Produce_create, ProduceDataClass, ProduceRequest
 from authenticator import authenticator
+# from routers.keys import add_photo
+
+
+S3_BUCKET = os.environ["S3_BUCKET"]
+REGION = os.environ['REGION']
+ACCESS_KEY = os.environ['ACCESS_KEY']
+SECRET_ACCESS_KEY = os.environ['SECRET_ACCESS_KEY']
 
 router = APIRouter()
 
@@ -16,11 +24,21 @@ def get_all_produce(
 
 
 @router.post("/api/produce/", response_model = Produce_get)
-def create_produce(
+async def create_produce(
     produce: Produce_create,
+    picture_file =  UploadFile,
     queries: ProduceQueries = Depends(),
     account_data: dict = Depends(authenticator.get_current_account_data)
-):
+):  
+    s3 = boto3.resource("s3",
+        aws_access_key_id = ACCESS_KEY,
+        aws_secret_access_key = SECRET_ACCESS_KEY
+    )
+    bucket = s3.Bucket(S3_BUCKET)
+    bucket.upload_fileobj(picture_file.file, picture_file.filename, ExtraArgs={
+        "ACL": "public-read"
+        })
+    # url = f"https://{S3_BUCKET}.s3.{REGION}.amazonaws.com/{file.filename}"
     if "admin" in account_data.get("roles"):
         return queries.create_produce(produce)
     else:

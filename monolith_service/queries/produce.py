@@ -6,7 +6,13 @@ from tkinter import INSERT
 from pydantic import BaseModel
 from queries.pool import pool
 from dataclasses import dataclass
+from routers.keys import add_photo
 
+
+S3_BUCKET = os.environ["S3_BUCKET"]
+REGION = os.environ['REGION']
+ACCESS_KEY = os.environ['ACCESS_KEY']
+SECRET_ACCESS_KEY = os.environ['SECRET_ACCESS_KEY']
 
 @dataclass
 class ProduceDataClass:
@@ -60,15 +66,15 @@ class Produce_update_available(BaseModel):
 
 
 class ProduceQueries:
-    def create_produce(self, produce: Produce_create) -> Produce_get:
+    def create_produce(self, produce: Produce_create) -> Produce_get:   
+        url = f"https://{S3_BUCKET}.s3.{REGION}.amazonaws.com/{file.filename}"
         with pool.connection() as conn:
             with conn.cursor() as cur:
                 result = cur.execute(
                     """
                     INSERT INTO produce(
                         product_name,
-                        
-                        picture_file,
+                        picture_file  = url,
                         available,
                         height,
                         length,
