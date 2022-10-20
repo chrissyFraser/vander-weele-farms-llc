@@ -11,7 +11,7 @@ from authenticator import authenticator
 
 router = APIRouter()
 
-###############################################################################
+############################ Testing Versions #################################
 
 
 @router.post("/api/customers", response_model=Union[CustomerOut, Error])
@@ -23,7 +23,14 @@ def create_a_customer(
     response.status_code = 200
     return repo.create_customer(customer)
 
+@router.get("/api/customers", response_model=Union[List[CustomerOut], Error])
+def get_all_customers(
+    repo: CustomerRepository = Depends(),
+):
+    return repo.get_all_customers()
 
+
+###################### Password Protected Version ##############################
 # @router.post("/api/customers", response_model=Union[CustomerOut, Error])
 # def create_a_customer(
 #     customer: CustomerIn,
@@ -56,11 +63,6 @@ def create_a_customer(
 #                     headers={"WWW-Authenticate": "Bearer"},
 #                 )
 
-@router.get("/api/customers", response_model=Union[List[CustomerOut], Error])
-def get_all_customers(
-    repo: CustomerRepository = Depends(),
-):
-    return repo.get_all_customers()
 
 
 ###############################################################################
