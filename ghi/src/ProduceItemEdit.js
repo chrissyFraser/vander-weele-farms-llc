@@ -1,10 +1,7 @@
 import { useEffect, useState } from 'react';
 import {} from "react-router-dom";
-import { uploadFile } from 'react-s3';
 import { useNavigate } from "react-router-dom"; 
 window.Buffer = window.Buffer || require("buffer").Buffer;
-// removed BrowserRouter, Navigate, NavLink, Route, Routes from previous import
-
 
 
 function ProduceItemEdit(props){
@@ -19,19 +16,6 @@ function ProduceItemEdit(props){
     const [item, setItem] = useState([]);
     const [datalength, setdataLength] = useState('');
 
-const S3_BUCKET = props.keys.name
-    const REGION = props.keys.region
-    const ACCESS_KEY = props.keys.key
-    const SECRET_ACCESS_KEY = props.keys.secret
-
-
-    const config = {
-        bucketName: S3_BUCKET,
-        region: REGION,
-        accessKeyId: ACCESS_KEY,
-        secretAccessKey: SECRET_ACCESS_KEY,
-}
-
 const navigate = useNavigate();
 
 const handleFileInput = (e) => {
@@ -44,8 +28,24 @@ const handleFileInput = (e) => {
     reader.readAsDataURL(e.target.files[0]);
     }
 
-const handleUpload = async (file) => {
-    uploadFile(file, config);
+const handleUpload = (e) => {
+    const formData = new FormData();
+    formData.append(
+        "file",
+        selectedFile,
+        selectedFile.name
+    );
+
+    const requestOptions = {
+        method: 'POST',
+        body: formData
+    }
+    fetch(`${process.env.REACT_APP_API_HOST_MONOLITH}/photos`, requestOptions)
+    .then(response=> response.json())
+    .then(function(response){
+    console.log(response.json())})
+    navigate('/produce-admin');
+    window.location.reload();
         
 }
 useEffect(() => {
@@ -55,11 +55,9 @@ useEffect(() => {
         let data = await response.json();
         if(response.ok){
             setItem(data);
-            // console.log(data.picture_file)
             setdataLength(data.length)
             setProductName(data.product_name)
             setPictureFile(data.picture_file)
-            // setAvailable(data.available)
             setHeight(data.height)
             setLength(data.length)
             setWidth(data.width)
@@ -69,10 +67,8 @@ useEffect(() => {
     //eslint-disable-next-line
     }, [])
 
-
     const handleSubmit = e => {
         e.preventDefault();
-        // const data = item
         const data = { 
             product_name,
             picture_file,
@@ -87,9 +83,8 @@ useEffect(() => {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data)
         }).then(() =>{
+            handleUpload(selectedFile)
             console.log("PRODUCT UPDATED")
-            navigate('/produce-admin');
-            window.location.reload();
             
         })
     
@@ -130,17 +125,9 @@ useEffect(() => {
                 <label htmlFor="width">Width</label>
                 <input defaultValue={item.width} onChange={w => setWidth(w.target.value)} placeholder="width" required type="number" name="width" id="year" className="form-control" />
             </div>
-            <button onClick={() => handleUpload(selectedFile)}>Submit</button>
+            <button onClick={() => handleSubmit}>Submit</button>
         </form>
         </>
     )
-
-
-
-
-
-    // return(
-    //     <h1>Is this working? item num: {props.produce_id}</h1>
-    // )
 }
 export default ProduceItemEdit
