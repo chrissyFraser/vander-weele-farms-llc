@@ -45,7 +45,8 @@ const handleFileInput = (e) => {
 const handleUpload = async (file) => {
     uploadFile(file, config);
     navigate('/produce-admin');
-    window.location.reload();
+    // todo: uncomment after figuring everything out
+    // window.location.reload();
 }
 
     const handleSubmit = e => {
