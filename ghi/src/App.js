@@ -8,6 +8,7 @@ import ProduceList from './ProduceList';
 import ProduceCreate from './ProduceCreate';
 import HomePage from './HomePage.js';
 import ProduceItem from './ProduceItem';
+import ProduceItemEdit from './ProduceItemEdit';
 import Cart from './Cart.js'
 import Orders from './Orders.js';
 
@@ -17,7 +18,8 @@ function App() {
   
   const [get_all_produce, setProduce] = useState([]);
   const [produce_id, setProduceId] = useState([]);
-  const [cart, setCart] = useState([]);
+  // const [cart, setCart] = useState([]);
+  const [cart] = useState([]);
   const [keys, setKeys] = useState([]);
 
   useEffect(() => {
@@ -59,11 +61,14 @@ function App() {
             {/* <ErrorNotification error={error} /> */}
             <Routes>
               <Route path="/" element={<HomePage />} />
-              <Route path="/produce-admin" element={<ProduceList get_all_produce={get_all_produce} />} />
+              <Route path="/produce-admin" element={<ProduceList get_all_produce={get_all_produce} produce_id = {produce_id} setProduceId={setProduceId} />} />
               <Route path="/cart" element={<Cart get_all_produce={get_all_produce} />} />
-              <Route path="/produce-create" element={<ProduceCreate get_all_produce={get_all_produce} keys = {keys} />} />
-              {/* <Route path="/" element={<Construct info={launch_info}/>} />
-              <Route path="/error" element={<ErrorNotification error={error}/>} /> */}
+              <Route path="/produce-create" element={<ProduceCreate get_all_produce={get_all_produce} keys = {keys}  />} />
+              <Route path="/cart" element={<Cart cart={cart}/>} />
+              <Route path= {`/produce-admin/:ID`}
+              element= {<ProduceItem  produce_id={produce_id} /> } />
+              <Route path= {`/produce-admin/:ID/patch`}
+              element= {<ProduceItemEdit  produce_id={produce_id} get_all_produce={get_all_produce} keys = {keys} /> } />
               <Route path="/orders" element={<Orders get_all_produce={get_all_produce} />} />
             </Routes>
           </div>

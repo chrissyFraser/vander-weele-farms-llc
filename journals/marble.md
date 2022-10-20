@@ -23,5 +23,28 @@
 
 10/13/22
 
-    -attempting new cart approach, working with Chrissy and Steve on a single cart rather than 3 separate 
+    - attempting new cart approach, working with Chrissy and Steve on a single cart rather than 3 separate 
     attempts.
+
+10/17/22
+
+    - overall rough day, not much was done
+    - began working on CI/CD and testing
+
+10/18/22
+
+    - working on CI/CD and testing with "The Elliots", databases are having errors when trying to build
+    - found out the issue and didn't begin working on them until following day
+
+10/19/22
+
+    - began removing unused imports & fixing dependency issues in produce.js files. added image element alt prop for header.js
+      - 25 problems (0 errors, 25 warnings) => 5 problems (2 errors 3 warnings).
+      - 5 problems (2 errors 3 warnings) => 3 problems (3 warnings)
+      - 3 problems (3 warnings) => 0 problems!
+      - 0 problems, pipeline is functioning with 0 errors!
+    - site loads on heroku, no content, no links. attempting to fix. 
+
+
+
+    - 
