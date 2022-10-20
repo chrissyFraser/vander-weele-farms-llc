@@ -70,6 +70,7 @@ services:
       REACT_APP_API_HOST: http://localhost:8000
       REACT_APP_API_HOST_MONOLITH: http://localhost:8080
       REACT_APP_REACT_HOST: http://localhost:3000
+      
     
   # pg-admin:
   #   image: dpage/pgadmin4
