@@ -1,5 +1,5 @@
 import os
-import requests
+
 from fastapi.responses import JSONResponse
 from fastapi import FastAPI, Header, Response
 from fastapi.middleware.cors import CORSMiddleware
@@ -32,8 +32,3 @@ app.include_router(customers.router)
 app.include_router(drivers.router)
 app.include_router(authenticator.router)
 app.include_router(keys.router)
-
-# @app.get("/keys")
-# def keys():
-#     keys = {"key": ACCESS_KEY, "name": S3_BUCKET, "secret": SECRET_ACCESS_KEY, "region": REGION}
-#     return keys

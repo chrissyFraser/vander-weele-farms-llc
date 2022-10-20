@@ -1,11 +1,7 @@
-// removed useEffect
 import { useState } from 'react';
-import {} from "react-router-dom";
-import { uploadFile } from 'react-s3';
+// import {} from "react-router-dom";
 import { useNavigate } from "react-router-dom"; 
 window.Buffer = window.Buffer || require("buffer").Buffer;
-// removed BrowserRouter, NavLink, Route, Routes from previous import
-
 
 function ProduceCreate(props){
     const [product_name, setProductName] = useState('');
@@ -107,7 +103,6 @@ const handleUpload = (e) => {
                 <label htmlFor="width">Width</label>
                 <input value={width} onChange={w => setWidth(w.target.value)} placeholder="width" required type="number" name="width" id="year" className="form-control" />
             </div>
-            {/* <button onClick={() => handleUpload(selectedFile)}>Submit</button> */}
             <button onClick={() => handleSubmit}>Submit</button>
         </form>
         </>

@@ -1,9 +1,6 @@
-
-from typing import Literal, Union, Optional
-from urllib import response
+from typing import Union, Optional
 from fastapi import APIRouter, Depends, Response, HTTPException, status
-from fastapi.encoders import jsonable_encoder
-from queries.produce import Error, Produce_update_available, ProduceQueries, Produce_get, Produce_create, ProduceDataClass, ProduceRequest
+from queries.produce import Error, Produce_update_available, ProduceQueries, Produce_get, Produce_create
 from authenticator import authenticator
 
 router = APIRouter()

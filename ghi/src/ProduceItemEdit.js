@@ -1,10 +1,7 @@
 import { useEffect, useState } from 'react';
 import {} from "react-router-dom";
-import { uploadFile } from 'react-s3';
 import { useNavigate } from "react-router-dom"; 
 window.Buffer = window.Buffer || require("buffer").Buffer;
-// removed BrowserRouter, Navigate, NavLink, Route, Routes from previous import
-
 
 
 function ProduceItemEdit(props){
@@ -18,8 +15,6 @@ function ProduceItemEdit(props){
     const [selectedFile, setSelectedFile] = useState('');
     const [item, setItem] = useState([]);
     const [datalength, setdataLength] = useState('');
-
-
 
 const navigate = useNavigate();
 
@@ -71,7 +66,6 @@ useEffect(() => {
     getProduceItem();
     //eslint-disable-next-line
     }, [])
-
 
     const handleSubmit = e => {
         e.preventDefault();
@@ -131,18 +125,9 @@ useEffect(() => {
                 <label htmlFor="width">Width</label>
                 <input defaultValue={item.width} onChange={w => setWidth(w.target.value)} placeholder="width" required type="number" name="width" id="year" className="form-control" />
             </div>
-            {/* <button onClick={() => handleUpload(selectedFile)}>Submit</button> */}
             <button onClick={() => handleSubmit}>Submit</button>
         </form>
         </>
     )
-
-
-
-
-
-    // return(
-    //     <h1>Is this working? item num: {props.produce_id}</h1>
-    // )
 }
 export default ProduceItemEdit

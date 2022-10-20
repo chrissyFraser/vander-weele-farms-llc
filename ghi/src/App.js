@@ -1,5 +1,4 @@
 import {BrowserRouter, NavLink, Routes, Route } from 'react-router-dom';
-
 import { useEffect, useState } from 'react';
 // import Construct from './Construct.js'
 // import ErrorNotification from './ErrorNotification';
@@ -12,10 +11,7 @@ import ProduceItemEdit from './ProduceItemEdit';
 import Cart from './Cart.js'
 import Orders from './Orders.js';
 
-
-
 function App() {
-  
   const [get_all_produce, setProduce] = useState([]);
   const [produce_id, setProduceId] = useState([]);
   const [cart] = useState([]);
@@ -33,7 +29,6 @@ function App() {
   }, [])
 
 
-
   const domain = /https:\/\/[^/]+/;
   const basename = process.env.PUBLIC_URL.replace(domain, '');
   return (
@@ -49,7 +44,6 @@ function App() {
                 <li><NavLink to="/orders">Orders</NavLink></li>
               </ul>
             </div>
-            {/* <ErrorNotification error={error} /> */}
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/produce-admin" element={<ProduceList get_all_produce={get_all_produce} produce_id = {produce_id} setProduceId={setProduceId} />} />
