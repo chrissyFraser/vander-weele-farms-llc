@@ -52,4 +52,5 @@
     - began working on connecting heroku app and PostgreSQL database
       - put code in app.js to link the two^
       - webpack error: can't resolve pg in app/src
-      - wrote line in webpack.config.js to ignore webpack error
+      - ran npm install util, wrote line in webpack.config.js to ignore webpack error - util
+      - ran npm install net
