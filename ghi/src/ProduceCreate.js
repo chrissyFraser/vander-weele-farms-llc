@@ -8,7 +8,6 @@ window.Buffer = window.Buffer || require("buffer").Buffer;
 
 
 function ProduceCreate(props){
-    console.log(props)
     const [product_name, setProductName] = useState('');
     const [picture_file, setPictureFile] = useState('');
     const [available, setAvailable] = useState(false);
@@ -18,34 +17,36 @@ function ProduceCreate(props){
     const [image, setImage] = useState('');
     const [selectedFile, setSelectedFile] = useState('');
 
-const S3_BUCKET = props.keys.name
-    const REGION = props.keys.region
-    const ACCESS_KEY = props.keys.key
-    const SECRET_ACCESS_KEY = props.keys.secret
 
-
-    const config = {
-        bucketName: S3_BUCKET,
-        region: REGION,
-        accessKeyId: ACCESS_KEY,
-        secretAccessKey: SECRET_ACCESS_KEY,
-}
 const navigate = useNavigate();
 
 const handleFileInput = (e) => {
     setSelectedFile(e.target.files[0]);
+    setPictureFile(e.target.files[0]["name"])
     const reader = new FileReader();
     reader.addEventListener("load", () => {
+        console.log(reader.result)
         setImage(reader.result);
-        setPictureFile(e.target.files[0]["name"])
     });
     reader.readAsDataURL(e.target.files[0]);
     }
 
-const handleUpload = async (file) => {
-    uploadFile(file, config);
-    navigate('/produce-admin');
-    window.location.reload();
+const handleUpload = (e) => {
+    const formData = new FormData();
+    formData.append(
+        "file",
+        selectedFile,
+        selectedFile.name
+    );
+
+    const requestOptions = {
+        method: 'POST',
+        body: formData
+    }
+    fetch(`${process.env.REACT_APP_API_HOST_MONOLITH}/photos`, requestOptions)
+    .then(response=> response.json())
+    .then(function(response){
+    console.log(response.json())})
 }
 
     const handleSubmit = e => {
@@ -64,10 +65,10 @@ const handleUpload = async (file) => {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data)
         }).then(() =>{
-            console.log("new product created")
             handleUpload(selectedFile)
-            // navigate('/produce-admin');
-            // window.location.reload();
+            console.log("new product created")
+            navigate('/produce-admin');
+            window.location.reload();
         })
     };
     function toggle(value){

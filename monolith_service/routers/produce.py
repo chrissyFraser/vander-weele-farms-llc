@@ -91,16 +91,16 @@ def update_produce_available(
     queries: ProduceQueries = Depends(),
     account_data: dict = Depends(authenticator.get_current_account_data)
 ) -> Produce_get:
-    # print(produce)
+    print(produce)
     if "admin" in account_data.get("roles"):
         return queries.update_produce_available(produce_id, Produce_update_available(
-            product_name = produce.product_name,
-            picture_file = produce.picture_file,
-            available = produce.available,
-            height = produce.height, 
-            length = produce.length, 
-            width = produce.width
-            ))
+        product_name = produce.product_name,
+        picture_file = produce.picture_file,
+        available = produce.available,
+        height = produce.height, 
+        length = produce.length, 
+        width = produce.width
+        ))
     else:
         raise HTTPException(
                     status_code=status.HTTP_401_UNAUTHORIZED,
