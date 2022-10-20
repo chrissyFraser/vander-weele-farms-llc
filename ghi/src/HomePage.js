@@ -1,7 +1,11 @@
 
+import { useAuthContext } from "./Auth.js";
 
 
 function HomePage() {
+    const createProduce = "/produce-create"; 
+    const { token } = useAuthContext()
+    console.log(token)
     return(
         <div style={{textAlign: "center"}}>
         <h1 style={{textAlign: "center", }} >VanderWeele Farm</h1>
