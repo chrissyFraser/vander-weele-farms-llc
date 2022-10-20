@@ -2,6 +2,7 @@ DROP TABLE IF EXISTS produce;
 DROP TABLE IF EXISTS customer;
 DROP TABLE IF EXISTS driver;
 DROP TABLE IF EXISTS orders;
+DROP TABLE IF EXISTS photos;
 
 
 CREATE TABLE produce(
@@ -47,4 +48,10 @@ CREATE TABLE orders(
     priority_id INTEGER REFERENCES customer ("priority_id"),
     driver_id INTEGER REFERENCES driver ("id"),
     printed BOOLEAN DEFAULT false
+);
+
+CREATE TABLE photos(
+    id SERIAL NOT NULL UNIQUE,
+    photo_name TEXT,
+    photo_url TEXT
 );
