@@ -5,7 +5,7 @@ stages:
 
 
 ## BUILD
-build-front-end-job:
+build-Vander-Weele-Front-end:
   stage: build
   image: node:lts-bullseye
   variables:
@@ -22,7 +22,7 @@ build-front-end-job:
     paths:
       - ghi/build/
 
-build-fastapi-api-image-job:  # Build fastapi image
+build-Vander-Weele-api-Image:  # Build fastapi image
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
   stage: build
@@ -37,7 +37,7 @@ build-fastapi-api-image-job:  # Build fastapi image
     - docker push ${CI_REGISTRY_IMAGE}/fastapi_api:$CI_JOB_ID
     - docker push ${CI_REGISTRY_IMAGE}/fastapi_api:latest
 
-deploy-fastapi-api-image-job:  # Deploy fastapi image
+deploy-Vander-Weele-api-Image:  # Deploy fastapi image
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
   stage: deploy
@@ -53,7 +53,7 @@ deploy-fastapi-api-image-job:  # Deploy fastapi image
     - docker tag ${CI_REGISTRY_IMAGE}/fastapi_api:latest registry.heroku.com/$HEROKU_FASTAPI_APP/web:latest
     - docker push registry.heroku.com/$HEROKU_FASTAPI_APP/web:latest
 
-release-fastapi-api-image-job:  # deploy fastapi image
+release-Vander-Weele-api-Image:  # deploy fastapi image
   stage: deploy
   image: node:10.17-alpine
   needs:
