@@ -10,7 +10,8 @@ function LogoutComponent() {
             console.log("token found")
             const url = `${process.env.REACT_APP_API_HOST}/token`;
             await fetch(url, { method: "delete", credentials: "include" });
-            let internalToken = null;
+            // internalToken = null;
+            // let internalToken = null;
             setToken(null);
             //   navigate("/");
         }
