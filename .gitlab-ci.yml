@@ -41,9 +41,9 @@ deploy-fastapi-api-image-job:  # Deploy fastapi image
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
   stage: deploy
-  image: docker:20.10.16
   needs:
     - build-fastapi-api-image-job
+  image: docker:20.10.16
   services:
     - docker:20.10.16-dind
   script:
@@ -53,7 +53,7 @@ deploy-fastapi-api-image-job:  # Deploy fastapi image
     - docker tag ${CI_REGISTRY_IMAGE}/fastapi_api:latest registry.heroku.com/$HEROKU_FASTAPI_APP/web:latest
     - docker push registry.heroku.com/$HEROKU_FASTAPI_APP/web:latest
 
-release-fastapi-api-image-job:  # deploy fastapi image
+release-fastapi-api-image-job:  # Release fastapi image
   stage: deploy
   image: node:10.17-alpine
   needs:
