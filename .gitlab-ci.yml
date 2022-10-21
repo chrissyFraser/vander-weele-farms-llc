@@ -74,9 +74,9 @@ pages:  # THIS STEP MUST BE NAME PAGES
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
   dependencies:
-    - build-front-end-job
+    - build-Vander-Weele-Front-end
   needs:
-    - build-front-end-job
+    - build-Vander-Weele-Front-end
   script:
     # THE FIRST PART OF THIS COMMAND MUST BE THE DIRECTORY
     # THAT YOU cd INTO TO BUILD IT PLUS THE build/ AT THE
