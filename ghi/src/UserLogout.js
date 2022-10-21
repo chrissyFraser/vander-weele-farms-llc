@@ -1,9 +1,9 @@
 import {  useAuthContext } from './Auth';
-let internalToken = null;
+
 
 
 function LogoutComponent() {
-
+    let internalToken = null;
     const { token, setToken } = useAuthContext();
     async function logout() {
         if (token) {
