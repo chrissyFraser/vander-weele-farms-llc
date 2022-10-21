@@ -92,3 +92,4 @@ class AccountQueries:
                 return AccountOutWithPassword(
                     id=id, hashed_password=hashed_password, **old_data
                 )
+    

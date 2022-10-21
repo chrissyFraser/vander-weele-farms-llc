@@ -8,7 +8,7 @@ export function getToken() {
 }
 
 export async function getTokenInternal() {
-  const url = `${process.env.REACT_APP_API_HOST}/token/`;
+  const url = `${process.env.REACT_APP_API_HOST}/token/get`;
   try {
     const response = await fetch(url, {
       credentials: "include",
@@ -76,16 +76,19 @@ export function useToken() {
 
   async function logout() {
     if (token) {
-      const url = `${process.env.REACT_APP_API_HOST}/logout/`;
+      console.log("token found")
+      const url = `${process.env.REACT_APP_API_HOST}/token`;
       await fetch(url, { method: "delete", credentials: "include" });
       internalToken = null;
       setToken(null);
       navigate("/");
+    } else {
+      console.log("ERROR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
     }
   }
 
   async function login(username, password) {
-    const url = `${process.env.REACT_APP_API_HOST}/token/`;
+    const url = `${process.env.REACT_APP_API_HOST}/token`;
     const form = new FormData();
     form.append("username", username);
     form.append("password", password);
@@ -95,6 +98,7 @@ export function useToken() {
       body: form,
     });
     if (response.ok) {
+  
       const token = await getTokenInternal();
       setToken(token);
       return;
@@ -103,16 +107,17 @@ export function useToken() {
     return handleErrorMessage(error);
   }
 
-  async function signup(username, password, email, firstName, lastName) {
+  async function signup(email, password, username, roles) {
     const url = `${process.env.REACT_APP_API_HOST}/api/accounts/`;
     const response = await fetch(url, {
       method: "post",
       body: JSON.stringify({
-        username,
-        password,
         email,
-        first_name: firstName,
-        last_name: lastName,
+        password,
+        username,
+        roles
+        // first_name: firstName,
+        // last_name: lastName,
       }),
       headers: {
         "Content-Type": "application/json",
@@ -120,6 +125,7 @@ export function useToken() {
     });
     if (response.ok) {
       await login(username, password);
+      console.log(username, password, email, roles)
     }
     return false;
   }
@@ -140,7 +146,8 @@ export function useToken() {
       },
     });
     if (response.ok) {
-      await login(username, password);
+      response.status_code = 200
+      // await login(username, password);
     }
     return false;
   }

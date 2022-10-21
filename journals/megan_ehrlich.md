@@ -113,3 +113,13 @@ Today I worked on:
 - Add 401 Error for unauthorized account levels
 - Cleaned up code
 Was able to create a concrete class/method for the Authenticator, and used that to verify account information through the cookie instead of needing a poller. Added proper 401 Error message for unauthorized user levels.
+
+10.20
+Today I worked on:
+- Authorization on frontend
+
+10.21
+Today I worked on:
+-Added Signup
+-Added Logout
+Lots of cosmetic work to be done, but technically it works!

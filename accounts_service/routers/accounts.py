@@ -76,7 +76,7 @@ def get_one_account(
     return account
 
 
-@router.get("/token", response_model=AccountToken | None)
+@router.get("/token/get", response_model=AccountToken | None)
 async def get_token(
     request: Request,
     account: AccountOut = Depends(authenticator.try_get_current_account_data)
@@ -88,6 +88,17 @@ async def get_token(
             "account": account,
         }
 
+# @router.delete("/token/delete", response_model=bool)
+# async def delete_token(
+#     request: Request,
+#     account: AccountOut = Depends(authenticator.try_get_current_account_data)
+# ) -> bool:
+#     if authenticator.cookie_name in request.cookies:
+#         return account.delete_token()
+@router.post("/logout")
+async def logout(response: Response,):
+    response.delete_cookie("bearer")
+    return {"status":"success"}
 
 @router.get("/api/accounts", response_model=List[AccountOut])
 def get_all_accounts(
