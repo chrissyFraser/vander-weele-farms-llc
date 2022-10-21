@@ -43,7 +43,7 @@ deploy-Vander-Weele-api-Image:  # Deploy fastapi image
   stage: deploy
   image: docker:20.10.16
   needs:
-    - build-fastapi-api-image-job
+    - build-Vander-Weele-api-Image
   services:
     - docker:20.10.16-dind
   script:
@@ -57,7 +57,7 @@ release-Vander-Weele-api-Image:  # deploy fastapi image
   stage: deploy
   image: node:10.17-alpine
   needs:
-    - deploy-fastapi-api-image-job
+    - deploy-Vander-Weele-api-Image
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
   before_script:
