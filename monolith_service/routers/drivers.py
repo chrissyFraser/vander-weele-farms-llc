@@ -7,7 +7,7 @@ from authenticator import authenticator
 router = APIRouter()
 
 
-###############################################################################
+######################### Testing Version #################################
 @router.post("/api/drivers", response_model=Union[DriverOut, Error])
 async def create_a_driver(
     driver: DriverIn,
@@ -17,7 +17,14 @@ async def create_a_driver(
     response.status_code = 200
     return repo.create_driver(driver)
 
+@router.get("/api/drivers", response_model=Union[List[DriverOut], Error])
+def get_all_drivers(
+    repo: DriverRepository = Depends(),
+):
+    return repo.get_all_drivers()
+  
 
+###################### Password Protected Version ############################
 # @router.post("/api/drivers", response_model=Union[DriverOut, Error])
 # async def create_a_driver(
 #     driver: DriverIn,
@@ -49,13 +56,6 @@ async def create_a_driver(
 #             detail="Invalid token",
 #             headers={"WWW-Authenticate": "Bearer"},
 #         )
-
-@router.get("/api/drivers", response_model=Union[List[DriverOut], Error])
-def get_all_drivers(
-    repo: DriverRepository = Depends(),
-):
-    return repo.get_all_drivers()
-  
 
 
 ###############################################################################

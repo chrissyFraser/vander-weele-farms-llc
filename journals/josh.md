@@ -29,3 +29,25 @@
 10.12:
 * Got data to render on the front end for produce admin, going to start on post, put and delete.
 * post is working but I am not getting my image files, I may need to refigure the database to hold the image, looking into that tomorrow, my brain is dead.
+
+10.13:
+* started working on posting from the front end
+
+10.14:
+* still working on posting produce
+
+10.15:
+* finnally got post to work, starting on put.
+
+10.17:
+* finnished the put, and got delete working:
+
+10.18:
+* tried hiding the api key and realized I need to post image from backend, working on that
+
+10.19:
+* Got the image to post to s3 from backend, intigrateing it with frontend tomorrow.
+
+10.20:
+* I can choose an image and it posts to the backend and from there to the s3 bucket, now I am going to make this pass it's pipeline then either work on tests or with auth.
+

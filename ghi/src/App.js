@@ -1,5 +1,4 @@
 import {BrowserRouter, NavLink, Routes, Route } from 'react-router-dom';
-
 import { useEffect, useState } from 'react';
 // import Construct from './Construct.js'
 // import ErrorNotification from './ErrorNotification';
@@ -23,12 +22,10 @@ function GetToken() {
 }
 
 function App() {
-  // other stuff, here
+  
   const [get_all_produce, setProduce] = useState([]);
   const [produce_id, setProduceId] = useState([]);
-  // const [cart, setCart] = useState([]);
   const [cart] = useState([]);
-  const [keys, setKeys] = useState([]);
 
   useEffect(() => {
     async function getProduceData() {
@@ -38,17 +35,9 @@ function App() {
       if(response.ok){
         setProduce(data)
       }
-      
-        url = `${process.env.REACT_APP_API_HOST_MONOLITH}/keys`;
-        response = await fetch(url)
-        data = await response.json();
-        if(response.ok){
-        setKeys(data);
-        }
     }
     getProduceData();
   }, [])
-
 
 
   const domain = /https:\/\/[^/]+/;
@@ -70,6 +59,7 @@ function App() {
                   <li><NavLink to="/login">Login</NavLink></li>
                   <li><NavLink to="/logout">Logout</NavLink></li>
                   <li><NavLink to="/signup">Signup</NavLink></li>
+                
                 </ul>
               </div>
               {/* <ErrorNotification error={error} /> */}
@@ -87,13 +77,9 @@ function App() {
                 <Route path="/login" element={<LoginComponent LoginComponent={LoginComponent} />} />
                 <Route path="/logout" element={<LogoutComponent LogoutComponent={LogoutComponent} />} />
                 <Route path="/signup" element={<SignupComponent SignupComponent={SignupComponent} />} />
-
               </Routes>
             </div>
-          
       </div>
-      
-
       </AuthProvider>
     </BrowserRouter>
   );
