@@ -13,8 +13,6 @@ function SignupComponent() {
                 password,
                 username,
                 roles
-                // first_name: firstName,
-                // last_name: lastName,
             }),
             headers: {
                 "Content-Type": "application/json",
@@ -33,7 +31,6 @@ function SignupComponent() {
     const [password, setPassword] = useState()
     const [email, setEmail] = useState()
     const [roles, setRoles] = useState()
-    //   const [lastName, setLastName] = useState()
 
 
 

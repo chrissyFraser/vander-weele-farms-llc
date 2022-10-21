@@ -14,8 +14,6 @@ function LogoutComponent() {
             internalToken = null;
             setToken(null);
             //   navigate("/");
-        } else {
-            console.log("ERROR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
         }
     }
 
