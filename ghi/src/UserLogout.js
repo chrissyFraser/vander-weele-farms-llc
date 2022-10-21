@@ -1,5 +1,4 @@
-import { useToken, setToken, getToken, getTokenInternal, useAuthContext } from './Auth';
-import { useState } from 'react';
+import {  useAuthContext } from './Auth';
 let internalToken = null;
 
 

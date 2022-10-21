@@ -1,5 +1,3 @@
-import { useToken } from './Auth';
-import { signup } from './Auth';
 import { useState } from 'react';
 
 
