@@ -59,4 +59,4 @@
 
 10/22/22
 
-    -
+    - Working on database stuff with Josh. Pulled from main and merged into my working branch, Josh will be copying my branch.
