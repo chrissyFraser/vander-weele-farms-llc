@@ -11,57 +11,38 @@ from authenticator import authenticator
 
 router = APIRouter()
 
-############################ Testing Versions #################################
-
 
 @router.post("/api/customers", response_model=Union[CustomerOut, Error])
 def create_a_customer(
     customer: CustomerIn,
     response: Response,
     repo: CustomerRepository = Depends(),
+    account_data: Optional[dict] = Depends(authenticator.get_current_account_data),
 ):
-    response.status_code = 200
-    return repo.create_customer(customer)
+    if "admin" in account_data.get("username"):
+        response.status_code = 200
+        return repo.create_customer(customer)
+    else:
+        raise HTTPException(
+                    status_code=status.HTTP_401_UNAUTHORIZED,
+                    detail="Invalid token",
+                    headers={"WWW-Authenticate": "Bearer"},
+                )
+
 
 @router.get("/api/customers", response_model=Union[List[CustomerOut], Error])
 def get_all_customers(
     repo: CustomerRepository = Depends(),
+    account_data: Optional[dict] = Depends(authenticator.get_current_account_data),
 ):
-    return repo.get_all_customers()
-
-
-###################### Password Protected Version ##############################
-# @router.post("/api/customers", response_model=Union[CustomerOut, Error])
-# def create_a_customer(
-#     customer: CustomerIn,
-#     response: Response,
-#     repo: CustomerRepository = Depends(),
-#     account_data: Optional[dict] = Depends(authenticator.get_current_account_data),
-# ):
-#     if "admin" in account_data.get("roles"):
-#         response.status_code = 200
-#         return repo.create_customer(customer)
-#     else:
-#         raise HTTPException(
-#                     status_code=status.HTTP_401_UNAUTHORIZED,
-#                     detail="Invalid token",
-#                     headers={"WWW-Authenticate": "Bearer"},
-#                 )
-
-
-# @router.get("/api/customers", response_model=Union[List[CustomerOut], Error])
-# def get_all_customers(
-#     repo: CustomerRepository = Depends(),
-#     account_data: Optional[dict] = Depends(authenticator.get_current_account_data),
-# ):
-#     if "admin" in account_data.get("roles"):
-#         return repo.get_all_customers()
-#     else:
-#         raise HTTPException(
-#                     status_code=status.HTTP_401_UNAUTHORIZED,
-#                     detail="Invalid token",
-#                     headers={"WWW-Authenticate": "Bearer"},
-#                 )
+    if "admin" in account_data.get("username"):
+        return repo.get_all_customers()
+    else:
+        raise HTTPException(
+                    status_code=status.HTTP_401_UNAUTHORIZED,
+                    detail="Invalid token",
+                    headers={"WWW-Authenticate": "Bearer"},
+                )
 
 
 
@@ -74,7 +55,7 @@ def get_one_customer(
     repo: CustomerRepository = Depends(),
     account_data: Optional[dict] = Depends(authenticator.get_current_account_data),
 ) -> CustomerOut:
-    if "admin" in account_data.get("roles"):
+    if "admin" in account_data.get("username"):
         customer = repo.get_one_customer(customer_id)
         if customer is None:
             response.status_code = 404
@@ -94,7 +75,7 @@ def update_customer(
     repo: CustomerRepository = Depends(),
     account_data: Optional[dict] = Depends(authenticator.get_current_account_data),
 ) -> Union[Error, CustomerOut]:
-    if "admin" in account_data.get("roles"):
+    if "admin" in account_data.get("username"):
         return repo.update_customer(customer_id, customer)
     else:
         raise HTTPException(
@@ -110,7 +91,7 @@ def delete_customer(
     repo: CustomerRepository = Depends(),
     account_data: Optional[dict] = Depends(authenticator.get_current_account_data),
 ) -> bool:
-    if "admin" in account_data.get("roles"):
+    if "admin" in account_data.get("username"):
         return repo.delete_customer(customer_id)
     else:
         raise HTTPException(
@@ -127,7 +108,7 @@ def updata_customer_ids(
     repo: CustomerRepository = Depends(),
     account_data: Optional[dict] = Depends(authenticator.get_current_account_data),
 ) -> CustomerOut:
-    if "admin" in account_data.get("roles"):
+    if "admin" in account_data.get("username"):
         return repo.update_customer_ids(
             customer_id,
             Customer_Patch(
