@@ -1,11 +1,11 @@
 import { useState } from 'react';
 // import {} from "react-router-dom";
 import { useNavigate } from "react-router-dom"; 
-import { useAuthContext } from './Auth';
+// import { useAuthContext } from './Auth';
 window.Buffer = window.Buffer || require("buffer").Buffer;
 
 function ProduceCreate(props){
-    const { token } = useAuthContext();
+    // const { token } = useAuthContext();
     const [product_name, setProductName] = useState('');
     const [picture_file, setPictureFile] = useState('');
     const [available, setAvailable] = useState(false);
@@ -72,7 +72,7 @@ const handleUpload = (e) => {
     function toggle(value){
         return !value;
         }
-    if (token) {
+    // if (token) {
         return(
             <>
             <form className='FormSubmit' onSubmit={handleSubmit} >
@@ -110,13 +110,13 @@ const handleUpload = (e) => {
             </form>
             </>
         );
-    } else {
-        return(
-            <>
-                <h1>You do not have permission to view this page.</h1>
-            </>
-        );
-    }
+    // } else {
+    //     return(
+    //         <>
+    //             <h1>You do not have permission to view this page.</h1>
+    //         </>
+    //     );
+    // }
 
 }
 export default ProduceCreate
