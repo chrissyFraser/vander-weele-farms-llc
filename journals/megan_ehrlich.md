@@ -125,3 +125,8 @@ Today I worked on:
 -Added Signup
 -Added Logout
 Lots of cosmetic work to be done, but technically it works!
+
+10.22
+Today I worked on:
+- Authorization
+Restricted access to admin views to only logged in users. Still need to restrict by level, but a good start.
