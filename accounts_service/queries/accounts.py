@@ -7,14 +7,12 @@ class AccountIn(BaseModel):
     email: str
     password: str
     username: str
-    roles: str
 
 
 class AccountOut(BaseModel):
     id: str
     email: str
     username: str
-    roles: str
 
 
 class AccountOutWithPassword(AccountOut):
@@ -31,7 +29,7 @@ class AccountQueries:
             with conn.cursor() as db:
                 result = db.execute(
                     """
-                    SELECT u.email as user_email, u.id, u.username, u.hashed_password, u.roles
+                    SELECT u.email as user_email, u.id, u.username, u.hashed_password
                     FROM accounts u
                     """,
                 )
@@ -43,7 +41,7 @@ class AccountQueries:
             with conn.cursor() as db:
                 result = db.execute(
                     """
-                        SELECT u.email as user_email, u.id, u.username, u.hashed_password, u.roles
+                        SELECT u.email as user_email, u.id, u.username, u.hashed_password
                         FROM accounts u
                         WHERE u.email = %s
                         """,
@@ -61,8 +59,7 @@ class AccountQueries:
             id=record[1],
             email=record[0],
             username=record[2],
-            hashed_password=record[3],
-            roles=record[4],
+            hashed_password=record[3]
         )
 
     def create(self, info: AccountIn, hashed_password: str) -> AccountOutWithPassword:
@@ -75,15 +72,14 @@ class AccountQueries:
                     INSERT INTO accounts(
                         email, 
                         username,
-                        hashed_password,
-                        roles
+                        hashed_password
 
                     )
                     VALUES
-                        (%s, %s, %s, %s)
+                        (%s, %s, %s)
                     RETURNING id;
                     """,
-                    [info.email, info.username, hashed_password, info.roles],
+                    [info.email, info.username, hashed_password],
                 )
                 id = result.fetchone()[0]
 
@@ -92,3 +88,4 @@ class AccountQueries:
                 return AccountOutWithPassword(
                     id=id, hashed_password=hashed_password, **old_data
                 )
+    

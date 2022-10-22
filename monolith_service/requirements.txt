@@ -4,3 +4,6 @@ psycopg[binary,pool]==3.0.14
 jwtdown-fastapi==0.3.0
 SQLAlchemy==2.0.0b1
 python-jose[cryptography]==3.3.0
+boto3==1.24.94
+botocore==1.27.94
+psycopg2==2.9.4

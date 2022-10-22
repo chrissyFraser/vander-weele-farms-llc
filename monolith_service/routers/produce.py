@@ -1,9 +1,6 @@
-
-from typing import Literal, Union, Optional
-from urllib import response
+from typing import Union, Optional
 from fastapi import APIRouter, Depends, Response, HTTPException, status
-from fastapi.encoders import jsonable_encoder
-from queries.produce import Error, Produce_update_available, ProduceQueries, Produce_get, Produce_create, ProduceDataClass, ProduceRequest
+from queries.produce import Error, Produce_update_available, ProduceQueries, Produce_get, Produce_create
 from authenticator import authenticator
 
 router = APIRouter()
@@ -21,7 +18,7 @@ def create_produce(
     queries: ProduceQueries = Depends(),
     account_data: dict = Depends(authenticator.get_current_account_data)
 ):
-    if "admin" in account_data.get("roles"):
+    if "admin" in account_data.get("username"):
         return queries.create_produce(produce)
     else:
         raise HTTPException(
@@ -48,7 +45,7 @@ def update_produce(
     queries: ProduceQueries = Depends(),
     account_data: dict = Depends(authenticator.get_current_account_data)
 ) -> Union[Produce_get, Error]:
-    if "admin" in account_data.get("roles"):
+    if "admin" in account_data.get("username"):
         return queries.update_produce(produce_id, produce)
     else:
         raise HTTPException(
@@ -63,7 +60,7 @@ def delete_produce(
     queries: ProduceQueries = Depends(),
     account_data: dict = Depends(authenticator.get_current_account_data)
 )-> bool:
-    if "admin" in account_data.get("roles"):
+    if "admin" in account_data.get("username"):
         return queries.delete_produce(produce_id)
     else:
         raise HTTPException(
@@ -80,16 +77,16 @@ def update_produce_available(
     queries: ProduceQueries = Depends(),
     account_data: dict = Depends(authenticator.get_current_account_data)
 ) -> Produce_get:
-    # print(produce)
-    if "admin" in account_data.get("roles"):
+    print(produce)
+    if "admin" in account_data.get("username"):
         return queries.update_produce_available(produce_id, Produce_update_available(
-            product_name = produce.product_name,
-            picture_file = produce.picture_file,
-            available = produce.available,
-            height = produce.height, 
-            length = produce.length, 
-            width = produce.width
-            ))
+        product_name = produce.product_name,
+        picture_file = produce.picture_file,
+        available = produce.available,
+        height = produce.height, 
+        length = produce.length, 
+        width = produce.width
+        ))
     else:
         raise HTTPException(
                     status_code=status.HTTP_401_UNAUTHORIZED,
