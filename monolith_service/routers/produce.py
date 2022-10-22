@@ -12,31 +12,20 @@ def get_all_produce(
     return queries.get_all_produce()
 
 
-############################ Testing Version ################################
-
 @router.post("/api/produce/", response_model = Produce_get)
 def create_produce(
     produce: Produce_create,
     queries: ProduceQueries = Depends(),
+    account_data: dict = Depends(authenticator.get_current_account_data)
 ):
-    return queries.create_produce(produce)
-
-#################### Password Protected Version ###################################
-
-# @router.post("/api/produce/", response_model = Produce_get)
-# def create_produce(
-#     produce: Produce_create,
-#     queries: ProduceQueries = Depends(),
-#     account_data: dict = Depends(authenticator.get_current_account_data)
-# ):
-#     if "admin" in account_data.get("roles"):
-#         return queries.create_produce(produce)
-#     else:
-#         raise HTTPException(
-#                     status_code=status.HTTP_401_UNAUTHORIZED,
-#                     detail="Invalid token",
-#                     headers={"WWW-Authenticate": "Bearer"},
-#                 )
+    if "admin" in account_data.get("username"):
+        return queries.create_produce(produce)
+    else:
+        raise HTTPException(
+                    status_code=status.HTTP_401_UNAUTHORIZED,
+                    detail="Invalid token",
+                    headers={"WWW-Authenticate": "Bearer"},
+                )
 
 @router.get("/api/produce/{produce_id}", response_model = Optional[Produce_get])
 def get_single_produce_item(
@@ -56,7 +45,7 @@ def update_produce(
     queries: ProduceQueries = Depends(),
     account_data: dict = Depends(authenticator.get_current_account_data)
 ) -> Union[Produce_get, Error]:
-    if "admin" in account_data.get("roles"):
+    if "admin" in account_data.get("username"):
         return queries.update_produce(produce_id, produce)
     else:
         raise HTTPException(
@@ -71,7 +60,7 @@ def delete_produce(
     queries: ProduceQueries = Depends(),
     account_data: dict = Depends(authenticator.get_current_account_data)
 )-> bool:
-    if "admin" in account_data.get("roles"):
+    if "admin" in account_data.get("username"):
         return queries.delete_produce(produce_id)
     else:
         raise HTTPException(
@@ -89,7 +78,7 @@ def update_produce_available(
     account_data: dict = Depends(authenticator.get_current_account_data)
 ) -> Produce_get:
     print(produce)
-    if "admin" in account_data.get("roles"):
+    if "admin" in account_data.get("username"):
         return queries.update_produce_available(produce_id, Produce_update_available(
         product_name = produce.product_name,
         picture_file = produce.picture_file,

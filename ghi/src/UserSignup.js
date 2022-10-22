@@ -45,7 +45,6 @@ function SignupComponent() {
                     <input type="text" name="email" placeholder="Email" value={email} onChange={(event) => setEmail(event.target.value)} /><br />
                     <input type="password" name="password" placeholder="Password" value={password} onChange={(event) => setPassword(event.target.value)} /><br />
                     <input type="text" name="username" placeholder="Name" value={username} onChange={(event) => setUsername(event.target.value)} /><br />
-                    <input type="text" name="roles" placeholder="*Temp Solution* Admin" value={roles} onChange={(event) => setRoles(event.target.value)} /><br />
                     <input type="submit" name="submit" />
                 </form>
             </center>

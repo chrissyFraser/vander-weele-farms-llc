@@ -16,7 +16,6 @@ import LogoutComponent from './UserLogout';
 import SignupComponent from './UserSignup';
 
 function GetToken() {
-    // Get token from JWT cookie (if already logged in)
     useToken();
     return null
 }

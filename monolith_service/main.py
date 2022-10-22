@@ -3,7 +3,6 @@ import os
 from fastapi.responses import JSONResponse
 from fastapi import FastAPI, Header, Response
 from fastapi.middleware.cors import CORSMiddleware
-
 from routers import produce, customers, drivers, keys
 from typing import Any, Callable, Optional
 from authenticator import authenticator

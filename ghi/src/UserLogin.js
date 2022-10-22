@@ -5,7 +5,6 @@ import { useState } from 'react';
 function LoginComponent() {
 
   const [token, login] = useToken();
-  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const [username, setUsername] = useState()
   const [password, setPassword] = useState()
@@ -17,6 +16,7 @@ function LoginComponent() {
     e.preventDefault();
 
   }
+  
 
   return (
     <div>
