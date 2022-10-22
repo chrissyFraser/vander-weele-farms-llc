@@ -3,7 +3,7 @@
 // import { useEffect, useState } from 'react';
 
 // removed BrowserRouter, NavLink, Route, Routes, useParams from this import
-import { useAuthContext } from './Auth';
+// import { useAuthContext } from './Auth';
 import { useNavigate } from "react-router-dom";
 
 
