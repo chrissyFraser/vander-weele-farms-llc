@@ -28,7 +28,8 @@ function SignupComponent() {
     const [username, setUsername] = useState()
     const [password, setPassword] = useState()
     const [email, setEmail] = useState()
-    const [roles, setRoles] = useState()
+    const [roles] = useState()
+    // const [roles, setRoles] = useState()
 
 
 
