@@ -40,7 +40,7 @@ class AccountStatus(BaseModel):
 router = APIRouter()
 
 
-@router.post("/api/accounts", response_model=AccountStatus | HttpError)
+@router.post("api/accounts", response_model=AccountStatus | HttpError)
 async def create_account(
     info: AccountIn,
     request: Request,
