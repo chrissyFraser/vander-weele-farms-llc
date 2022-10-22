@@ -23,7 +23,7 @@ function SignupComponent() {
         return false;
     }
 
-    const [isSubmitted, setIsSubmitted] = useState(false);
+    // const [isSubmitted, setIsSubmitted] = useState(false);
 
     const [username, setUsername] = useState()
     const [password, setPassword] = useState()

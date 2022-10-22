@@ -12,7 +12,7 @@ function ProduceItemEdit(props){
     const [length, setLength] = useState('');
     const [width, setWidth] = useState('');
     const [image, setImage] = useState('');
-    const [selectedFile, setSelectedFile] = useState('');
+    const [selectedFile, setSelectedFile] = useState(null);
     const [item, setItem] = useState([]);
     const [datalength, setdataLength] = useState('');
 
@@ -30,23 +30,29 @@ const handleFileInput = (e) => {
 
 const handleUpload = (e) => {
     const formData = new FormData();
+    if(selectedFile == null){
+        navigate('/produce-admin');
+        window.location.reload();
+    }
+    else{
     formData.append(
         "file",
         selectedFile,
         selectedFile.name
     );
-
+    
     const requestOptions = {
         method: 'POST',
         body: formData
     }
     fetch(`${process.env.REACT_APP_API_HOST_MONOLITH}/photos`, requestOptions)
     .then(response=> response.json())
-    .then(function(response){
+    .then(function(response)
+    {
     console.log(response.json())})
     navigate('/produce-admin');
     window.location.reload();
-        
+    }
 }
 useEffect(() => {
     async function getProduceItem() {

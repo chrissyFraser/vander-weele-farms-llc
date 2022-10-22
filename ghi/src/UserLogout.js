@@ -1,16 +1,17 @@
 import {  useAuthContext } from './Auth';
-let internalToken = null;
+
 
 
 function LogoutComponent() {
-
+    // let internalToken = null;
     const { token, setToken } = useAuthContext();
     async function logout() {
         if (token) {
             console.log("token found")
             const url = `${process.env.REACT_APP_API_HOST}/token`;
             await fetch(url, { method: "delete", credentials: "include" });
-            internalToken = null;
+            // internalToken = null;
+            // let internalToken = null;
             setToken(null);
             //   navigate("/");
         }

@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 function LoginComponent() {
 
-  const [token, login] = useToken();
+  const [login] = useToken();
 
   const [username, setUsername] = useState()
   const [password, setPassword] = useState()
