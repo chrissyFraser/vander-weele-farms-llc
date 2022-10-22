@@ -60,3 +60,6 @@
 10/22/22
 
     - Working on database stuff with Josh. Pulled from main and merged into my working branch, Josh will be copying my branch.
+    - Josh didn't actually copy my branch. 
+    - Pushing to end the day. Figured out the lack of connection to postgres/postgres commands weren't working was because I didn't have postgres downloaded. Attempted to create empty or filled table, failed miserably. Was able to get it to try migration, it did connect, but it didn't like the migration file I passed in with cat <file_name> | heroku pg:psql. 
+      - https://medium.com/@ronmartin89/heroku-how-to-seeding-a-postgresql-database-with-node-js-742bcf034d3e url for source of code
