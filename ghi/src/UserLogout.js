@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom"; 
 import {  useAuthContext } from './Auth';
-let internalToken = null;
+// let internalToken = null;
 
 
 function LogoutComponent() {
@@ -11,7 +11,7 @@ function LogoutComponent() {
             console.log("token found")
             const url = `${process.env.REACT_APP_API_HOST}/token`;
             await fetch(url, { method: "delete", credentials: "include" });
-            internalToken = null;
+            let internalToken = null;
             setToken(null);
             navigate("/");
         } else {

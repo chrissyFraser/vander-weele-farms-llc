@@ -5,7 +5,8 @@ import { useState } from 'react';
 
 function LoginComponent() {
   const navigate = useNavigate();
-  const [token, login] = useToken();
+  // const [token, login] = useToken();
+  const [login] = useToken();
 
   const [username, setUsername] = useState()
   const [password, setPassword] = useState()
