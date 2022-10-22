@@ -15,7 +15,7 @@ function ProduceList(props){
 
     // ID was unused, commenting out until it needs to be used
     // let {ID} = useParams();
-    if (token) {
+    // if (token) {
         return(
             <>
             <button type="button" className="btn btn-primary" id = "create-new button" onClick = {() =>navigate(createProduce)}>Create New</button>
@@ -69,12 +69,12 @@ function ProduceList(props){
             </div>
             </>
     )
-    } else {
-        return(
-            <>
-                <h2>You do not have access to this page</h2>
-            </>
-    )
-    }
+    // } else {
+    //     return(
+    //         <>
+    //             <h2>You do not have access to this page</h2>
+    //         </>
+    // )
+    // }
 }
 export default ProduceList
