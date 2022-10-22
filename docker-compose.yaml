@@ -15,7 +15,7 @@ services:
       - ./accounts_service:/app
     environment:
       DATABASE_URL: ${DATABASE_URL}
-      SIGNING_KEY: 87fe4a3fcfb60092dbaeb854a196bc3d9b190aed7930c734749e85245de698420c25f8e6899c421b4494e99459e01058de5daa9d49584cd62ec975da9aea33da
+      SIGNING_KEY: ${SIGNING_KEY}
 
   monolith_service:
     build:
@@ -31,7 +31,7 @@ services:
       ACCESS_KEY: ${ACCESS_KEY}
       SECRET_ACCESS_KEY: ${SECRET_ACCESS_KEY}
       DATABASE_URL: ${DATABASE_URL}
-      SIGNING_KEY: 87fe4a3fcfb60092dbaeb854a196bc3d9b190aed7930c734749e85245de698420c25f8e6899c421b4494e99459e01058de5daa9d49584cd62ec975da9aea33da
+      SIGNING_KEY: ${SIGNING_KEY}
 
   db:
     build:
