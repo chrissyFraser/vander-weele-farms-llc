@@ -1,8 +1,13 @@
 import { useState } from 'react';
+// import { useToken } from './Auth';
+import { useNavigate } from "react-router-dom"; 
 
 
 function SignupComponent() {
+    const navigate = useNavigate();
+    // const [login] = useToken();
     async function signup(email, password, username, roles) {
+        
         const url = `${process.env.REACT_APP_API_HOST}/api/accounts/`;
         const response = await fetch(url, {
             method: "post",
@@ -19,6 +24,7 @@ function SignupComponent() {
         if (response.ok) {
             // await login(username, password);
             console.log(username, password, email, roles)
+            navigate("/login");
         }
         return false;
     }

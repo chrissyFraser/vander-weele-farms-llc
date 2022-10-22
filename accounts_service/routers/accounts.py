@@ -87,3 +87,11 @@ async def get_token(
             "type": "Bearer",
             "account": account,
         }
+
+@router.get("/api/accounts", response_model=List[AccountOut])
+def get_all_accounts(
+    repo: AccountQueries = Depends(),
+):
+    return repo.get_all_accounts()
+
+

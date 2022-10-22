@@ -1,19 +1,22 @@
+import { useNavigate } from "react-router-dom"; 
 import {  useAuthContext } from './Auth';
-
+// let internalToken = null;
 
 
 function LogoutComponent() {
-    // let internalToken = null;
+    const navigate = useNavigate();
     const { token, setToken } = useAuthContext();
     async function logout() {
         if (token) {
             console.log("token found")
             const url = `${process.env.REACT_APP_API_HOST}/token`;
             await fetch(url, { method: "delete", credentials: "include" });
-            // internalToken = null;
             // let internalToken = null;
             setToken(null);
-            //   navigate("/");
+            navigate("/");
+        } else {
+            console.log("No token")
+            navigate("/login")
         }
     }
 
@@ -33,7 +36,5 @@ function LogoutComponent() {
         </div>
 
     );
-
-
 }
 export default LogoutComponent
