@@ -27,13 +27,6 @@ const handleFileInput = (e) => {
     reader.readAsDataURL(e.target.files[0]);
     }
 
-<<<<<<< HEAD
-const handleUpload = async (file) => {
-    uploadFile(file, config);
-    navigate('/produce-admin');
-    // todo: uncomment after figuring everything out
-    // window.location.reload();
-=======
 const handleUpload = (e) => {
     const formData = new FormData();
     formData.append(
@@ -50,7 +43,6 @@ const handleUpload = (e) => {
     .then(response=> response.json())
     .then(function(response){
     console.log(response.json())})
->>>>>>> main
 }
 
     const handleSubmit = e => {
