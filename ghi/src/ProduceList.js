@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 
 function ProduceList(props){
-    const { token } = useAuthContext();
+    // const { token } = useAuthContext();
     let navigate = useNavigate(); 
     const createProduce = "/produce-create"; 
 
