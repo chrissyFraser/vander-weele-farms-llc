@@ -4,15 +4,15 @@ import { useState } from 'react';
 
 
 function LoginComponent() {
-  const navigate = useNavigate();
-  const [token, login] = useToken();
+  let navigate = useNavigate();
+  let [token, login] = useToken();
 
-  const [username, setUsername] = useState()
-  const [password, setPassword] = useState()
+  let [username, setUsername] = useState()
+  let [password, setPassword] = useState()
 
 
 
-  const submitHandler = e => {
+  let submitHandler = e => {
     login(username, password)
     e.preventDefault();
     navigate("/");

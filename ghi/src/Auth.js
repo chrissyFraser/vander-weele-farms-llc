@@ -107,50 +107,47 @@ export function useToken() {
     return handleErrorMessage(error);
   }
 
-  async function signup(email, password, username, roles) {
-    const url = `${process.env.REACT_APP_API_HOST}/api/accounts/`;
-    const response = await fetch(url, {
-      method: "post",
-      body: JSON.stringify({
-        email,
-        password,
-        username,
-        roles
-        // first_name: firstName,
-        // last_name: lastName,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    if (response.ok) {
-      await login(username, password);
-      console.log(username, password, email, roles)
-    }
-    return false;
-  }
+  // async function signup(email, password, username) {
+  //   const url = `${process.env.REACT_APP_API_HOST}/api/accounts/`;
+  //   const response = await fetch(url, {
+  //     method: "post",
+  //     body: JSON.stringify({
+  //       email,
+  //       password,
+  //       username
+  //     }),
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //   });
+  //   if (response.ok) {
+  //     // await login(username, password);
+  //     console.log(username, password, email)
+  //   }
+  //   return false;
+  // }
 
-  async function update(username, password, email, firstName, lastName) {
-    const url = `${process.env.REACT_APP_API_HOST}/api/accounts/`;
-    const response = await fetch(url, {
-      method: "post",
-      body: JSON.stringify({
-        username,
-        password,
-        email,
-        first_name: firstName,
-        last_name: lastName,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    if (response.ok) {
-      response.status_code = 200
-      // await login(username, password);
-    }
-    return false;
-  }
+  // async function update(username, password, email, firstName, lastName) {
+  //   const url = `${process.env.REACT_APP_API_HOST}/api/accounts/`;
+  //   const response = await fetch(url, {
+  //     method: "post",
+  //     body: JSON.stringify({
+  //       username,
+  //       password,
+  //       email,
+  //       first_name: firstName,
+  //       last_name: lastName,
+  //     }),
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //   });
+  //   if (response.ok) {
+  //     response.status_code = 200
+  //     // await login(username, password);
+  //   }
+  //   return false;
+  // }
 
-  return [token, login, logout, signup, update];
+  return [token, login, logout];
 }
