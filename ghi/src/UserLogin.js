@@ -17,7 +17,7 @@ function LoginComponent() {
   const submitHandler = e => {
     login(username, password)
     e.preventDefault();
-    navigate("/");
+    navigate("/cart");
   }
   
 
