@@ -40,7 +40,7 @@ class AccountStatus(BaseModel):
 router = APIRouter()
 
 
-@router.post("api/accounts", response_model=AccountStatus | HttpError)
+@router.post("/api/accounts", response_model=AccountStatus | HttpError)
 async def create_account(
     info: AccountIn,
     request: Request,
@@ -76,7 +76,7 @@ def get_one_account(
     return account
 
 
-@router.get("token/get", response_model=AccountToken | None)
+@router.get("/token/get", response_model=AccountToken | None)
 async def get_token(
     request: Request,
     account: AccountOut = Depends(authenticator.try_get_current_account_data)
