@@ -1,11 +1,12 @@
 import { useState } from 'react';
 // import {} from "react-router-dom";
 import { useNavigate } from "react-router-dom"; 
-// import { useAuthContext } from './Auth';
+import { useAuthContext } from './Auth';
 window.Buffer = window.Buffer || require("buffer").Buffer;
 
 function ProduceCreate(props){
     const { token } = useAuthContext();
+    console.log(useAuthContext);
 
     const [product_name, setProductName] = useState('');
     const [picture_file, setPictureFile] = useState('');
