@@ -6,6 +6,7 @@ volumes:
 
 services:
   accounts_service:
+    Access-Control-Allow-Origin: http://localhost:3000
     build:
       context: accounts_service
       dockerfile: Dockerfile.dev

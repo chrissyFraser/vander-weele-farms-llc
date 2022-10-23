@@ -29,24 +29,23 @@ class AccountQueries:
             with conn.cursor() as db:
                 result = db.execute(
                     """
-                    SELECT u.id as id, u.email, u.username, u.hashed_password
+                    SELECT u.email as user_email, u.id, u.username, u.hashed_password
                     FROM accounts u
-                    ORDER BY id
                     """,
                 )
 
                 return [self.record_to_user_out(record) for record in result]
 
-    def get(self, id: str) -> AccountOutWithPassword:
+    def get(self, user_email: str) -> AccountOutWithPassword:
         with pool.connection() as conn:
             with conn.cursor() as db:
                 result = db.execute(
                     """
-                        SELECT u.id as id, u.email, u.username, u.hashed_password
+                        SELECT u.email as user_email, u.id, u.username, u.hashed_password
                         FROM accounts u
-                        WHERE u.id = %s
+                        WHERE u.email = %s
                         """,
-                    [id],
+                    [user_email],
                 )
                 record = result.fetchone()
                 if record is None:
@@ -57,8 +56,8 @@ class AccountQueries:
     def record_to_user_out(self, record):
         print("Record", record)
         return AccountOutWithPassword(
-            id=record[0],
-            email=record[1],
+            id=record[1],
+            email=record[0],
             username=record[2],
             hashed_password=record[3]
         )
@@ -90,12 +89,16 @@ class AccountQueries:
                     id=id, hashed_password=hashed_password, **old_data
                 )
     
+
+    
     def update_user(
         self, id: str, account: AccountIn, hashed_password: str
     ) -> AccountOutWithPassword:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
+                    
+
                     db.execute(
                         """
                         UPDATE accounts

@@ -1,11 +1,12 @@
 import { useNavigate } from "react-router-dom"; 
-import { useToken } from './Auth';
+import { useToken, getTokenInternal } from './Auth';
 import { useState } from 'react';
 
 
 function LoginComponent() {
   let navigate = useNavigate();
   let [token, login] = useToken();
+
 
   let [username, setUsername] = useState()
   let [password, setPassword] = useState()

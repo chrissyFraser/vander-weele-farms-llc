@@ -129,4 +129,29 @@ Lots of cosmetic work to be done, but technically it works!
 10.22
 Today I worked on:
 - Authorization
-Restricted access to admin views to only logged in users. Still need to restrict by level, but a good start.
+- Redirects after login/logout/signup
+Restricted access to admin views to only logged in users. Still need to restrict by level, but a good start. Also added redirects for user experience upon signup, login, or logout.
+
+
+I did it!!!!!!!!!!!!!!!!
+    const { token } = useAuthContext()
+    function parseJwt (token) {
+        var base64Url = token.split('.')[1];
+        var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+    
+        return JSON.parse(jsonPayload);
+    }
+    if (token) {
+        const data = parseJwt(token)
+        console.log("DATA", Object.entries(data))
+        console.log("specific", Object.values(data))
+        const user = Object.values(data)
+        console.log(user[3])
+        const myUser = user[3]
+        const valuesUser = Object.values(myUser)
+        console.log(valuesUser[0])
+        // console.log(myId)
+    }

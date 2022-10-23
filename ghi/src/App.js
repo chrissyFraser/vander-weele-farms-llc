@@ -14,6 +14,7 @@ import { AuthProvider, useToken } from './Auth.js';
 import LoginComponent from './UserLogin';
 import LogoutComponent from './UserLogout';
 import SignupComponent from './UserSignup';
+import UserUpdateComponent from './UserEdit';
 
 function GetToken() {
     useToken();
@@ -49,7 +50,7 @@ function App() {
         <div>
             <div className="container">
               <div className="tabs is-centered" style={{ display: "flex"}}>
-              <img className="logo" src="https://scontent-sjc3-1.xx.fbcdn.net/v/t39.30808-6/309061405_469280831892766_4474664018961093891_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=0FFC68GtDTgAX-AlbXs&_nc_ht=scontent-sjc3-1.xx&oh=00_AT9g2FzUrWsYkJFyDtW4gdLwtT5MJPFI9j1_2Ee-bF5Hsg&oe=63537D39" alt="logo" />
+              {/* <img className="logo" src="https://scontent-sjc3-1.xx.fbcdn.net/v/t39.30808-6/309061405_469280831892766_4474664018961093891_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=0FFC68GtDTgAX-AlbXs&_nc_ht=scontent-sjc3-1.xx&oh=00_AT9g2FzUrWsYkJFyDtW4gdLwtT5MJPFI9j1_2Ee-bF5Hsg&oe=63537D39" alt="logo" /> */}
                 <ul>
                   <li><NavLink to="/">Home Page</NavLink></li>
                   <li><NavLink to="/cart">Shop Produce</NavLink></li>
@@ -58,6 +59,7 @@ function App() {
                   <li><NavLink to="/login">Login</NavLink></li>
                   <li><NavLink to="/logout">Logout</NavLink></li>
                   <li><NavLink to="/signup">Signup</NavLink></li>
+                  <li><NavLink to="/update-user">Update User</NavLink></li>
                 
                 </ul>
               </div>
@@ -76,6 +78,7 @@ function App() {
                 <Route path="/login" element={<LoginComponent LoginComponent={LoginComponent} />} />
                 <Route path="/logout" element={<LogoutComponent LogoutComponent={LogoutComponent} />} />
                 <Route path="/signup" element={<SignupComponent SignupComponent={SignupComponent} />} />
+                <Route path="/update-user" element={<UserUpdateComponent UserUpdateComponent={UserUpdateComponent} />} />
               </Routes>
             </div>
       </div>

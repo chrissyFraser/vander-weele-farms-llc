@@ -5,23 +5,23 @@ import { useNavigate } from "react-router-dom";
 
 function SignupComponent() {
     const navigate = useNavigate();
-    const [token, login] = useToken();
-    async function signup(email, password, username) {
+    // const [token, signup] = useToken();
+    async function signup(email, username, password) {
         
         const url = `${process.env.REACT_APP_API_HOST}/api/accounts/`;
         const response = await fetch(url, {
             method: "post",
             body: JSON.stringify({
                 email,
+                username,
                 password,
-                username
             }),
             headers: {
                 "Content-Type": "application/json",
             },
         });
         if (response.ok) {
-            await login(email, password);
+            // await login(email, password);
             navigate("/");
         }
         return false;

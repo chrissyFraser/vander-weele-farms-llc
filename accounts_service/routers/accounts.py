@@ -101,10 +101,11 @@ def update_user(
     account: AccountIn,
     repo: AccountQueries = Depends(),
     
-    # current_account: Optional[dict] = Depends(authenticator.get_current_account_data),
+    current_account: Optional[dict] = Depends(authenticator.get_current_account_data),
 ) -> AccountOutWithPassword:
     hashed_password=authenticator.hash_password(account.password)
-    # if current_account.get("id") == account[id]: 
+    
+    id = current_account.get("id")
     # hashed_password = authenticator.hash_password(account.password)
     return repo.update_user(id, account, hashed_password)
     

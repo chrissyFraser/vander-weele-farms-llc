@@ -1,21 +1,35 @@
 import { useState } from 'react';
-import { useToken } from './Auth';
+import { useToken, useAuthContext } from './Auth';
 import { useNavigate } from "react-router-dom"; 
 
 
-function UserEditComponent() {
+
+function UserUpdateComponent() {
+
     const navigate = useNavigate();
-    const [token, update] = useToken();
-    async function update(email, password, username) {
-        const url = `${process.env.REACT_APP_API_HOST}/api/accounts/`;
+    const { token } = useAuthContext();
+
+    
+    function parseJwt (token) {
+        var base64Url = token.split('.')[1];
+        var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+    
+        return JSON.parse(jsonPayload);
+    }
+    console.log(parseJwt(token))
+
+
+    async function updateUser(id, email, password, username) {
+        const url = `${process.env.REACT_APP_API_HOST}/api/accounts/${id}`;
         const response = await fetch(url, {
-          method: "post",
+          method: "put",
           body: JSON.stringify({
-            username,
-            password,
             email,
-            first_name: firstName,
-            last_name: lastName,
+            password,
+            username
           }),
           headers: {
             "Content-Type": "application/json",
@@ -24,17 +38,17 @@ function UserEditComponent() {
         if (response.ok) {
           response.status_code = 200
           // await login(username, password);
-        }
+        } 
         return false;
     }
-
-
+    let [id, setId] = useState()
     let [username, setUsername] = useState()
     let [password, setPassword] = useState()
     let [email, setEmail] = useState()
 
     const submitHandler = e => {
-        signup(email, password, username)
+        
+        updateUser(id, email, password, username)
         e.preventDefault();
 
     }
@@ -54,4 +68,4 @@ function UserEditComponent() {
     );
     // Other code, here
 }
-export default SignupComponent
+export default UserUpdateComponent
