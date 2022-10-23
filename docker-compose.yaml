@@ -6,7 +6,6 @@ volumes:
 
 services:
   accounts_service:
-    
     build:
       context: accounts_service
       dockerfile: Dockerfile.dev

@@ -6,7 +6,7 @@ import { useState } from 'react';
 function LoginComponent() {
   let navigate = useNavigate();
   let [token, login] = useToken();
-  console.log(token, useToken)
+  console.log(token)
 
 
   let [username, setUsername] = useState()

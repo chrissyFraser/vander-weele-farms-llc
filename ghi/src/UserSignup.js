@@ -1,11 +1,11 @@
 import { useState } from 'react';
-// import { useToken } from './Auth';
+import { useToken } from './Auth';
 import { useNavigate } from "react-router-dom"; 
 
 
 function SignupComponent() {
     const navigate = useNavigate();
-    // const [token, signup] = useToken();
+    const [token ] = useToken();
     async function signup(email, username, password) {
         
         const url = `${process.env.REACT_APP_API_HOST}/api/accounts/`;

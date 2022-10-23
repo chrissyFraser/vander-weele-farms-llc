@@ -142,7 +142,7 @@ export function useToken() {
   //     console.log(username, password, email)
   //   }
   //   return false;
-  // // }
+  // }
 
   // async function updateUser(username, password, email) {
   //   const { token } = useAuthContext();
