@@ -88,9 +88,7 @@ class AccountQueries:
                 return AccountOutWithPassword(
                     id=id, hashed_password=hashed_password, **old_data
                 )
-    
 
-    
     def update_user(
         self, id: str, account: AccountIn, hashed_password: str
     ) -> AccountOutWithPassword:

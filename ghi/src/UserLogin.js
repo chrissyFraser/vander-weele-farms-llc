@@ -1,11 +1,12 @@
 import { useNavigate } from "react-router-dom"; 
-import { useToken, getTokenInternal } from './Auth';
+import { useToken } from './Auth';
 import { useState } from 'react';
 
 
 function LoginComponent() {
   let navigate = useNavigate();
   let [token, login] = useToken();
+  console.log(token)
 
 
   let [username, setUsername] = useState()
@@ -13,7 +14,7 @@ function LoginComponent() {
 
 
 
-  let submitHandler = e => {
+  const submitHandler = e => {
     login(username, password)
     e.preventDefault();
     navigate("/");

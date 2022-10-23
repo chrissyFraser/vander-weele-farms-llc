@@ -104,25 +104,25 @@ export function useToken() {
     }
   }
 
-  // async function login(username, password) {
-  //   const url = `${process.env.REACT_APP_API_HOST}/token`;
-  //   const form = new FormData();
-  //   form.append("username", username);
-  //   form.append("password", password);
-  //   const response = await fetch(url, {
-  //     method: "post",
-  //     credentials: "include",
-  //     body: form,
-  //   });
-  //   if (response.ok) {
+  async function login(username, password) {
+    const url = `${process.env.REACT_APP_API_HOST}/token`;
+    const form = new FormData();
+    form.append("username", username);
+    form.append("password", password);
+    const response = await fetch(url, {
+      method: "post",
+      credentials: "include",
+      body: form,
+    });
+    if (response.ok) {
   
-  //     const token = await getTokenInternal();
-  //     setToken(token);
-  //     return;
-  //   }
-  //   let error = await response.json();
-  //   return handleErrorMessage(error);
-  // }
+      const token = await getTokenInternal();
+      setToken(token);
+      return;
+    }
+    let error = await response.json();
+    return handleErrorMessage(error);
+  }
 
   // async function signup(email, password, username) {
   //   const url = `${process.env.REACT_APP_API_HOST}/api/accounts/`;
@@ -142,26 +142,46 @@ export function useToken() {
   //     console.log(username, password, email)
   //   }
   //   return false;
+  // // }
+
+  // async function updateUser(username, password, email) {
+  //   const { token } = useAuthContext();
+  //   function parseJwt (token) {
+  //       var base64Url = token.split('.')[1];
+  //       var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+  //       var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+  //           return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+  //       }).join(''));
+    
+  //       return JSON.parse(jsonPayload);
+  //   }
+  //   const data = parseJwt(token)
+  //     console.log("DATA", Object.entries(data))
+  //     console.log("specific", Object.values(data))
+  //     const user = Object.values(data)
+  //     console.log(user[3])
+  //     const myUser = user[3]
+  //     const valuesUser = Object.values(myUser)
+  //     console.log(valuesUser[0])
+  //     const userId = valuesUser[0]
+  //     const id = userId
+  //   const url = `${process.env.REACT_APP_API_HOST}/api/accounts/{id}`;
+  //   const response = await fetch(url, {
+  //     method: "put",
+  //     body: JSON.stringify({
+  //       username,
+  //       password,
+  //       email
+  //     }),
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //   });
+  //   if (response.ok) {
+  //     response.status_code = 200
+  //   }
+  //   return false;
   // }
 
-  async function updateUser(username, password, email) {
-    const url = `${process.env.REACT_APP_API_HOST}/api/accounts/{id}`;
-    const response = await fetch(url, {
-      method: "put",
-      body: JSON.stringify({
-        username,
-        password,
-        email
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    if (response.ok) {
-      response.status_code = 200
-    }
-    return false;
-  }
-
-  return [token, logout, updateUser];
+  return [token, login, logout];
 }
