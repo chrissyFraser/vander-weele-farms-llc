@@ -127,27 +127,27 @@ export function useToken() {
   //   return false;
   // }
 
-  // async function update(username, password, email, firstName, lastName) {
-  //   const url = `${process.env.REACT_APP_API_HOST}/api/accounts/`;
-  //   const response = await fetch(url, {
-  //     method: "post",
-  //     body: JSON.stringify({
-  //       username,
-  //       password,
-  //       email,
-  //       first_name: firstName,
-  //       last_name: lastName,
-  //     }),
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //   });
-  //   if (response.ok) {
-  //     response.status_code = 200
-  //     // await login(username, password);
-  //   }
-  //   return false;
-  // }
+  async function update(username, password, email, firstName, lastName) {
+    const url = `${process.env.REACT_APP_API_HOST}/api/accounts/`;
+    const response = await fetch(url, {
+      method: "post",
+      body: JSON.stringify({
+        username,
+        password,
+        email,
+        first_name: firstName,
+        last_name: lastName,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (response.ok) {
+      response.status_code = 200
+      // await login(username, password);
+    }
+    return false;
+  }
 
-  return [token, login, logout];
+  return [token, login, logout, update];
 }

@@ -29,23 +29,24 @@ class AccountQueries:
             with conn.cursor() as db:
                 result = db.execute(
                     """
-                    SELECT u.email as user_email, u.id, u.username, u.hashed_password
+                    SELECT u.id as id, u.email, u.username, u.hashed_password
                     FROM accounts u
+                    ORDER BY id
                     """,
                 )
 
                 return [self.record_to_user_out(record) for record in result]
 
-    def get(self, user_email: str) -> AccountOutWithPassword:
+    def get(self, id: str) -> AccountOutWithPassword:
         with pool.connection() as conn:
             with conn.cursor() as db:
                 result = db.execute(
                     """
-                        SELECT u.email as user_email, u.id, u.username, u.hashed_password
+                        SELECT u.id as id, u.email, u.username, u.hashed_password
                         FROM accounts u
-                        WHERE u.email = %s
+                        WHERE u.id = %s
                         """,
-                    [user_email],
+                    [id],
                 )
                 record = result.fetchone()
                 if record is None:
@@ -56,8 +57,8 @@ class AccountQueries:
     def record_to_user_out(self, record):
         print("Record", record)
         return AccountOutWithPassword(
-            id=record[1],
-            email=record[0],
+            id=record[0],
+            email=record[1],
             username=record[2],
             hashed_password=record[3]
         )
@@ -89,3 +90,33 @@ class AccountQueries:
                     id=id, hashed_password=hashed_password, **old_data
                 )
     
+    def update_user(
+        self, id: str, account: AccountIn, hashed_password: str
+    ) -> AccountOutWithPassword:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    db.execute(
+                        """
+                        UPDATE accounts
+                        SET email = %s
+                          , username = %s
+                          , hashed_password = %s
+                        WHERE id = %s
+                        """,
+                        [
+                            
+                            account.email,
+                            account.username,
+                            hashed_password,
+                            id
+                            
+                        ],
+                    )
+                    
+                    old_data = account.dict()
+                    print(old_data)
+                    return AccountOutWithPassword(id=id, hashed_password=hashed_password, **old_data)
+        except Exception as e:
+            print(e)
+            return {"message": "Could not update that customer"}
