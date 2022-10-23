@@ -1,7 +1,7 @@
 import { useState } from 'react';
 // import {} from "react-router-dom";
 import { useNavigate } from "react-router-dom"; 
-import { useAuthContext } from './Auth';
+// import { useAuthContext } from './Auth';
 window.Buffer = window.Buffer || require("buffer").Buffer;
 
 function ProduceCreate(props){
@@ -111,7 +111,8 @@ const handleUpload = (e) => {
             </form>
             </>
         );
-    } else {
+    } 
+    else {
         return(
             <>
                 <h1>You do not have permission to view this page.</h1>
