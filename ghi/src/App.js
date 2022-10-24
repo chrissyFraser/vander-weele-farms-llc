@@ -14,7 +14,7 @@ import { AuthProvider, useToken, useAuthContext } from './Auth.js';
 import LoginComponent from './UserLogin';
 import LogoutComponent from './UserLogout';
 import SignupComponent from './UserSignup';
-import UserUpdateComponent from './UserEdit';
+// import UserUpdateComponent from './UserEdit';
 
 function GetToken() {
     useToken();
@@ -39,6 +39,7 @@ function App() {
     getProduceData();
   }, [])
   const { token } = useAuthContext()
+  console.log(token)
 
       // console.log("TOKEN FOUND IN app.js")
         const domain = /https:\/\/[^/]+/;

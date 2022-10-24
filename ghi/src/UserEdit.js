@@ -2,11 +2,12 @@ import { useState } from 'react';
 import { useToken, useAuthContext } from './Auth';
 import { useNavigate } from "react-router-dom"; 
 
+console.log(useToken)
 
 
 function UserUpdateComponent() {
 
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     const { token } = useAuthContext();
     function parseJwt (token) {
         var base64Url = token.split('.')[1];
