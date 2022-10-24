@@ -12,32 +12,32 @@ async def create_a_driver(
     driver: DriverIn,
     response: Response,
     repo: DriverRepository = Depends(),
-    account_data: dict = Depends(authenticator.get_current_account_data),
+    # account_data: dict = Depends(authenticator.get_current_account_data),
 ):
-    if "admin" in account_data.get("roles"):
-        response.status_code = 200
-        return repo.create_driver(driver)
-    else:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid token",
-            headers={"WWW-Authenticate": "Bearer"},
-        )
+    # if "admin" in account_data.get("roles"):
+        # response.status_code = 200
+    return repo.create_driver(driver)
+    # else:
+        # raise HTTPException(
+            # status_code=status.HTTP_401_UNAUTHORIZED,
+            # detail="Invalid token",
+            # headers={"WWW-Authenticate": "Bearer"},
+        # )
 
 
 @router.get("/drivers", response_model=Union[List[DriverOut], Error])
 def get_all_drivers(
     repo: DriverRepository = Depends(),
-    account_data: dict = Depends(authenticator.get_current_account_data),
+    # account_data: dict = Depends(authenticator.get_current_account_data),
 ):
-    if "admin" in account_data.get("roles"):
+    # if "admin" in account_data.get("roles"):
         return repo.get_all_drivers()
-    else:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid token",
-            headers={"WWW-Authenticate": "Bearer"},
-        )
+    # else:
+    #     raise HTTPException(
+    #         status_code=status.HTTP_401_UNAUTHORIZED,
+    #         detail="Invalid token",
+    #         headers={"WWW-Authenticate": "Bearer"},
+    #     )
 
 
 @router.get("/drivers/{driver_id}", response_model=Optional[DriverOut])

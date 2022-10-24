@@ -7,22 +7,24 @@ from pydantic import BaseModel
 from queries.pool import pool
 from dataclasses import dataclass
 from typing import Optional, List, Union
-from datetime import date
+from datetime import date, datetime
 
 
 
 class OrderIn(BaseModel):
     customer_id: int
     produce_id: int
+    qty: int
     driver_id: int
-    order_date: date
+    order_date: str
     printed: bool
 
 class OrderOut(BaseModel):
     id: int| None = None
-    customer_id: int| None = None
-    produce_id: int| None = None
-    driver_id: int| None = None
+    customer_name: str| None = None
+    product_name: str| None = None
+    qty: int| None = None
+    driver_name: str| None = None
     order_date: date| None = None
     printed: bool| None = None
 
@@ -30,12 +32,9 @@ class Error(BaseModel):
     message: str
     
 class Order_Patch(BaseModel):
-    id
-    customer_id
-    produce_id
-    driver_id
-    order_date
-    printed
+    customer_id: int | None = None
+    produce_id: int | None = None
+    driver_id: int | None = None
 
 
 
@@ -46,36 +45,22 @@ class OrderRepository:
             with pool.connection() as conn:
                 with conn.cursor() as db:
                     result = db.execute(
-                        # """
-                        # SELECT c.id as customer_id, c.customer_name, c.customer_address, c.customer_email, c.priority_id, 
-                        #      d.id as driver_id, d.id, d.driver_name
-                        # FROM customer c
-                        # JOIN driver d on(c.driver_id = d.id)
-                        # """,
-                        # """
-                        # SELECT o.id as order_id, o.order_date, o.printed,
-                        #     d.id as driver_id
-                        # FROM orders o
-                        # JOIN driver d on(o.driver_id = d.id)
-
-                        # SELECT o.id as order_id, o.printed,
-                        #     c.id as customer_id
-                        # FROM orders o
-                        # JOIN customer c on(o.customer_id = c.id)
-
-                        # SELECT o.id as order_id, o.printed,
-                        #     p.id as produce_id
-                        # FROM orders o
-                        # JOIN produce p on(o.produce_id = p.id)
-                        # """,
                         """
-                        SELECT * FROM produce;
-                        """
+                        SELECT o.id AS order_id, c.customer_name AS cutomer_name,
+                        p.product_name AS product_name,
+                        o.qty, d.driver_name AS driver_name, o.order_date, o.printed
+                            
+                        FROM orders AS o
+                        LEFT OUTER JOIN customer c ON (o.customer_id=c.id)
+                        LEFT OUTER JOIN produce p ON (o.produce_id=p.id)
+                        LEFT OUTER JOIN driver d ON (o.driver_id=d.id) 
+                        
+                        """,
 
                     )
-                    
+                    print(result)
                     return [ 
-                        self.record_to_orders_out(record)
+                        self.record_to_order_out(record)
                         for record in result
                     ]
         except Exception as e:
@@ -83,54 +68,57 @@ class OrderRepository:
 
 
 
-    def create_order(self, order: OrderIn) -> Union[OrderOut, Error]:
+    def create_order(self, orders: OrderIn) -> Union[OrderOut, Error]:
         id = None
         with pool.connection() as conn:
             with conn.cursor() as db:
                 result = db.execute(
                     """
-                    INSERT INTO order(
-                        customer_id
-                        produce_id
-                        driver_id
-                        order_date
+                    INSERT INTO orders(
+                        customer_id,
+                        produce_id,
+                        qty,
+                        driver_id,
+                        order_date,
                         printed
                     )
                     VALUES
-                        (%s, %s, %s, %s, %s)
+                        (%s, %s, %s, %s, %s, %s)
                     RETURNING id;
                     """,
                     [
-                        order.customer_id,
-                        order.produce_id,
-                        order.driver_id,
-                        order.order_date,
-                        order.printed
+                        orders.customer_id,
+                        orders.produce_id,
+                        orders.qty,
+                        orders.driver_id,
+                        orders.order_date,
+                        orders.printed
                     ]
                 )
                 id = result.fetchone()[0]
-                # old_data = order.dict()
+                # old_data = orders.dict()
                 # return OrderOut(id=id, **old_data)
-                print(order)
-                return self.order_in_to_out(id, order)
+                print(orders)
+                return self.order_in_to_out(id, orders)
                 
 
     def order_record_to_dict(self, row, description):
-        order = None
+        orders = None
         if row is not None:
-            order = {}
-            order_fields = [
+            orders = {}
+            orders_fields = [
                 "id",
                 "customer_id",
                 "produce_id",
+                "qty",
                 "driver_id",
                 "order_date",
-                "printed"
+                "printed",
             ]
             for i, column in enumerate(description):
-                if column.driver_id in order_fields:
-                    order[column.driver_id] = row[i]
-                order["id"] = order["id"]
+                if column.driver_id in orders_fields:
+                    orders[column.driver_id] = row[i]
+                orders["id"] = orders["id"]
             driver = {}
             driver_fields = [
                 "id", 
@@ -139,24 +127,59 @@ class OrderRepository:
             for i, column in enumerate(description):
                 if column.id in driver_fields:
                     driver["id"] = driver["id"]
-            order["driver_id"] = driver["id"]
-        return order
+            orders["driver_id"] = driver["id"]
 
-    def order_in_to_out(self, id: int, order: OrderIn):
-        old_data = order.dict()
+
+            for i, column in enumerate(description):
+                if column.produce_id in orders_fields:
+                    orders[column.produce_id] = row[i]
+                orders["id"] = orders["id"]
+            produce = {}
+            produce_fields = [
+                "id", 
+                "product_name"
+            ]
+            for i, column in enumerate(description):
+                if column.id in produce_fields:
+                    produce["id"] = produce["id"]
+            orders["produce_id"] = produce["id"]
+            for i, column in enumerate(description):
+                if column.id in produce_fields:
+                    produce["id"] = produce["id"]
+            orders["produce_id"] = produce["id"]
+
+
+            for i, column in enumerate(description):
+                if column.customer_id in orders_fields:
+                    orders[column.customer_id] = row[i]
+                orders["id"] = orders["id"]
+            customer = {}
+            customer_fields = [
+                "id", 
+                "customer_name"
+            ]
+            for i, column in enumerate(description):
+                if column.id in customer_fields:
+                    customer["id"] = customer["id"]
+            orders["customer_id"] = customer["id"]
+        
+        return orders
+
+    def order_in_to_out(self, id: int, orders: OrderIn):
+        old_data = orders.dict()
         print(old_data)
         return OrderOut(id = id, **old_data)
     
     def record_to_order_out(self, record):
         print(record)
         return OrderOut(
-            id = record[0],
-            customer_id = record[1],
-            produce_id = record[2],
-            driver_id = record[3],
-            priority_id= record[4],
-            order_date= record[5],
-            printed= record[6],
+            id=record[0],
+            customer_name=record[1],
+            product_name=record[2],
+            qty=record[3],
+            driver_name=record[4],
+            order_date=record[5],
+            printed=record[6],
         )
 
     def get_one_order(self, order_id: int) -> Optional[OrderOut]:
@@ -165,12 +188,17 @@ class OrderRepository:
                 with conn.cursor() as db:
                     result = db.execute(
                         """
-                        SELECT c.id as customer_id, c.customer_name, c.customer_address, c.customer_email, c.priority_id, 
-                             d.id as driver_id, d.id, d.driver_name
-                        FROM customer c
-                        JOIN driver d on(c.driver_id = d.driver_id)
-                        WHERE c.id = %s
-                        """,
+                        SELECT o.id AS order_id, c.customer_name AS cutomer_name,
+                        p.product_name AS product_name,
+                        o.qty, d.driver_name AS driver_name, o.order_date, o.printed
+                            
+                        FROM orders AS o
+                        LEFT OUTER JOIN customer c ON (o.customer_id=c.id)
+                        LEFT OUTER JOIN produce p ON (o.produce_id=p.id)
+                        LEFT OUTER JOIN driver d ON (o.driver_id=d.id)
+                        WHERE o.id = %s 
+                        """
+                        ,
                         [order_id]
                     )
                     record = result.fetchone()
@@ -179,7 +207,7 @@ class OrderRepository:
                     return self.record_to_order_out(record)
         except Exception as e:
             print(e)
-            return {"message": "Could not get that order"}
+            return {"message": "could not get that order"}
     
     def delete_order(self, order_id: int) -> bool:
         try:
@@ -187,7 +215,7 @@ class OrderRepository:
                 with conn.cursor() as db:
                     db.execute(
                         """
-                        DELETE FROM order
+                        DELETE FROM orders
                         WHERE id = %s
                         """,
                         [order_id]
@@ -197,49 +225,52 @@ class OrderRepository:
             print(e)
             return False
 
-    def update_order(self, order_id: int, order: OrderOut) -> Union[OrderOut, Error]:
+    def update_order(self, order_id: int, orders: OrderOut) -> Union[OrderOut, Error]:
         try:
             with pool.connection() as conn:
                 # get a cursor (something to run SQL with)
                 with conn.cursor() as db:
                     db.execute(
                         """
-                        UPDATE order
+                        UPDATE orders
                         SET customer_id = %s
                           , produce_id = %s
+                          , qty = %s
                           , driver_id = %s
                           , order_date = %s
                           , printed = %s
                         WHERE id = %s
                         """,
                         [
-                            order.customer_id,
-                            order.produce_id,
-                            order.driver_id,
-                            order.order_date,
-                            order.printed,
+                            
+                            orders.customer_id,
+                            orders.produce_id,
+                            orders.qty,
+                            orders.driver_id,
+                            orders.order_date,
+                            orders.printed,
                             order_id
                         ]
                     )
-                    # old_data = customer.dict()
-                    # return CustomerOut(id=customer_id, **old_data)
-                    return self.order_in_to_out(order_id, order)
+                    # old_data = orders.dict()
+                    # return OrdersOut(id=order_id, **old_data)
+                    return self.order_in_to_out(order_id, orders)
         except Exception as e:
             print(e)
-            return {"message": "Could not update that order"}
+            return {"message": "could not update that order"}
         
         
-    def update_order_ids(self, order_id: int, order: Order_Patch) -> OrderOut:
+    def update_order_ids(self, order_id: int, orders: Order_Patch) -> OrderOut:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
-                    lst = [item[0] for item in dict(order).items() if item[1] is not None]
+                    lst = [item[0] for item in dict(orders).items() if item[1] is not None]
                     columns = " = %s, ".join(lst) + " = %s"
-                    lst_params = [item for item in dict(order).values() if item is not None]
+                    lst_params = [item for item in dict(orders).values() if item is not None]
                     lst_params.append(order_id)
                     db.execute(
                         f"""
-                        UPDATE order
+                        UPDATE orders
                         SET {columns}
                         WHERE id = %s
                         """,
@@ -249,4 +280,4 @@ class OrderRepository:
                     return self.get_one_order(order_id)
         except Exception as e:
             print(e)
-            return {"message": "Could not update that produce"}
+            return {"message": "could not update that order"}

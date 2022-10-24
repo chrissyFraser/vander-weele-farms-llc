@@ -40,7 +40,8 @@ CREATE TABLE orders(
     id SERIAL NOT NULL UNIQUE,
     customer_id INTEGER REFERENCES customer ("id"),
     produce_id INTEGER REFERENCES produce ("id"),
+    qty INTEGER,
     driver_id INTEGER REFERENCES driver ("id"),
     order_date DATE, 
-    printed BOOLEAN DEFAULT false
+    printed BOOLEAN DEFAULT 0
 );

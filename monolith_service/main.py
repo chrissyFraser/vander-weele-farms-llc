@@ -4,7 +4,7 @@ from fastapi.responses import JSONResponse
 from fastapi import FastAPI, Header, Response
 from fastapi.middleware.cors import CORSMiddleware
 from keys import ACCESS_KEY, S3_BUCKET, SECRET_ACCESS_KEY, REGION
-from routers import produce, customers, drivers
+from routers import produce, customers, drivers, orders
 from typing import Any, Callable, Optional
 from authenticator import authenticator
 from fastapi import Depends, FastAPI
@@ -30,6 +30,7 @@ def is_working():
 app.include_router(produce.router)
 app.include_router(customers.router)
 app.include_router(drivers.router)
+app.include_router(orders.router)
 app.include_router(authenticator.router)
 
 @app.get("/keys")
