@@ -107,12 +107,16 @@ person_name = {
 * POST shape (JSON):
     ```json
         {
-      "product": [
+      "order": [
         {
-          "product_name": string,
-          "picture_url": string,
-          "description": string,
-          "quantity": number,
+          "order_id": int,
+          "customer_name": int,
+          "product_name": str,
+          "qty": int,
+          "driver_name": str,
+          "priority_id": int,
+          "order_date": date,
+          "printed": bool,
           
         }
       ]
@@ -123,12 +127,15 @@ person_name = {
 * Response shape (JSON):
     ```json
     {
-      "product": [
-        {
-          "product_name": string,
-          "picture_url": string,
-          "description": string,
-          "quantity": number,
+      "order": [
+        { "order_id": int,
+          "customer_name": int,
+          "product_name": str,
+          "qty": int,
+          "driver_name": str,
+          "priority_id": int,
+          "order_date": date,
+          "printed": bool,
           
         }
       ]
@@ -145,12 +152,16 @@ person_name = {
 * PUT shape (JSON):
     ```json
         {
-      "product": [
+      "order": [
         {
-          "product_name": string,
-          "picture_url": string,
-          "description": string,
-          "quantity": number,
+          "order_id": int,
+          "customer_name": int,
+          "product_name": str,
+          "qty": int,
+          "driver_name": str,
+          "priority_id": int,
+          "order_date": date,
+          "printed": bool,
           
         }
       ]
@@ -161,12 +172,16 @@ person_name = {
 * Response shape (JSON):
     ```json
     {
-      "product": [
+      "order": [
         {
-          "product_name": string,
-          "picture_url": string,
-          "description": string,
-          "quantity": number,
+          "order_id": int,
+          "customer_name": int,
+          "product_name": str,
+          "qty": int,
+          "driver_name": str,
+          "priority_id": int,
+          "order_date": date,
+          "printed": bool,
           
         }
       ]

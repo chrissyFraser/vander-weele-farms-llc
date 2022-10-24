@@ -7,116 +7,118 @@ from pydantic import BaseModel
 from queries.pool import pool
 from dataclasses import dataclass
 from typing import Optional, List, Union
+from datetime import date, datetime
 
 
 
-class OrdersIn(BaseModel):
-    id: int 
-    customer_name: str
-    product_name: str
-    height: int
-    length: int
-    width: int
-    customer_address: str
-    priority_id: int
+class OrderIn(BaseModel):
+    customer_id: int
+    produce_id: int
+    qty: int
     driver_id: int
+    order_date: str
+    printed: bool
 
-class OrdersOut(BaseModel):
+class OrderOut(BaseModel):
     id: int| None = None
     customer_name: str| None = None
     product_name: str| None = None
-    height: int| None = None
-    length: int| None = None
-    width: int| None = None
-    customer_address: str| None = None
-    priority_id: int| None = None
-    driver_id: int| None = None
+    qty: int| None = None
+    driver_name: str| None = None
+    order_date: date| None = None
+    printed: bool| None = None
 
 class Error(BaseModel):
     message: str
     
-class Orders_Patch(BaseModel):
-    customer_name
-    product_name
-    height
-    length
-    width
-    customer_address
-    priority_id
-    driver_id
+class Order_Patch(BaseModel):
+    customer_id: int | None = None
+    produce_id: int | None = None
+    driver_id: int | None = None
+
+
 
 class OrderRepository:
 
-    def get_all_orders(self) -> Union[Error, List[OrdersOut]]:
+    def get_all_orders(self) -> Union[Error, List[OrderOut]]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
                     result = db.execute(
                         """
-                        SELECT c.id as customer_id, c.customer_name, c.customer_address, c.customer_email, c.priority_id, 
-                             d.id as driver_id, d.id, d.driver_name
-                        FROM customer c
-                        JOIN driver d on(c.driver_id = d.id)
+                        SELECT o.id AS order_id, c.customer_name AS cutomer_name,
+                        p.product_name AS product_name,
+                        o.qty, d.driver_name AS driver_name, o.order_date, o.printed
+                            
+                        FROM orders AS o
+                        LEFT OUTER JOIN customer c ON (o.customer_id=c.id)
+                        LEFT OUTER JOIN produce p ON (o.produce_id=p.id)
+                        LEFT OUTER JOIN driver d ON (o.driver_id=d.id) 
+                        
                         """,
+
                     )
-                    
+                    print(result)
                     return [ 
-                        self.record_to_customer_out(record)
+                        self.record_to_order_out(record)
                         for record in result
                     ]
         except Exception as e:
-            return {"message": "could not get all customers"}
+            return {"message": "could not get all orders"}
 
 
 
-    def create_customer(self, customer: CustomerIn) -> Union[CustomerOut, Error]:
+    def create_order(self, orders: OrderIn) -> Union[OrderOut, Error]:
         id = None
         with pool.connection() as conn:
             with conn.cursor() as db:
                 result = db.execute(
                     """
-                    INSERT INTO customer(
-                        customer_name, 
-                        customer_address, 
-                        customer_email, 
-                        priority_id,
-                        driver_id
+                    INSERT INTO orders(
+                        customer_id,
+                        produce_id,
+                        qty,
+                        driver_id,
+                        order_date,
+                        printed
                     )
                     VALUES
-                        (%s, %s, %s, %s, %s)
+                        (%s, %s, %s, %s, %s, %s)
                     RETURNING id;
                     """,
                     [
-                        customer.customer_name,
-                        customer.customer_address,
-                        customer.customer_email,
-                        customer.priority_id,
-                        customer.driver_id,
+                        orders.customer_id,
+                        orders.produce_id,
+                        orders.qty,
+                        orders.driver_id,
+                        orders.order_date,
+                        orders.printed
                     ]
                 )
                 id = result.fetchone()[0]
-                # old_data = customer.dict()
-                # return CustomerOut(id=id, **old_data)
-                print(customer)
-                return self.customer_in_to_out(id, customer)
+                # old_data = orders.dict()
+                # return OrderOut(id=id, **old_data)
+                print(orders)
+                return self.order_in_to_out(id, orders)
                 
 
-    def customer_record_to_dict(self, row, description):
-        customer = None
+    def order_record_to_dict(self, row, description):
+        orders = None
         if row is not None:
-            customer = {}
-            customer_fields = [
+            orders = {}
+            orders_fields = [
                 "id",
-                "customer_name",
-                "customer_address",
-                "customer_email",
-                "priority_id",
-                "driver_id"
+                "customer_id",
+                "produce_id",
+                "qty",
+                "driver_id",
+                "order_date",
+                "printed",
             ]
             for i, column in enumerate(description):
-                if column.driver_id in customer_fields:
-                    customer[column.driver_id] = row[i]
-                customer["id"] = customer["id"]
+                if column.driver_id in orders_fields:
+                    orders[column.driver_id] = row[i]
+                orders["id"] = orders["id"]
             driver = {}
             driver_fields = [
                 "id", 
@@ -125,114 +127,157 @@ class OrderRepository:
             for i, column in enumerate(description):
                 if column.id in driver_fields:
                     driver["id"] = driver["id"]
-            customer["driver_id"] = driver["id"]
-        return customer
+            orders["driver_id"] = driver["id"]
 
-    def customer_in_to_out(self, id: int, customer: CustomerIn):
-        old_data = customer.dict()
+
+            for i, column in enumerate(description):
+                if column.produce_id in orders_fields:
+                    orders[column.produce_id] = row[i]
+                orders["id"] = orders["id"]
+            produce = {}
+            produce_fields = [
+                "id", 
+                "product_name"
+            ]
+            for i, column in enumerate(description):
+                if column.id in produce_fields:
+                    produce["id"] = produce["id"]
+            orders["produce_id"] = produce["id"]
+            for i, column in enumerate(description):
+                if column.id in produce_fields:
+                    produce["id"] = produce["id"]
+            orders["produce_id"] = produce["id"]
+
+
+            for i, column in enumerate(description):
+                if column.customer_id in orders_fields:
+                    orders[column.customer_id] = row[i]
+                orders["id"] = orders["id"]
+            customer = {}
+            customer_fields = [
+                "id", 
+                "customer_name"
+            ]
+            for i, column in enumerate(description):
+                if column.id in customer_fields:
+                    customer["id"] = customer["id"]
+            orders["customer_id"] = customer["id"]
+        
+        return orders
+
+    def order_in_to_out(self, id: int, orders: OrderIn):
+        old_data = orders.dict()
         print(old_data)
-        return CustomerOut(id = id, **old_data)
+        return OrderOut(id = id, **old_data)
     
-    def record_to_customer_out(self, record):
+    def record_to_order_out(self, record):
         print(record)
-        return CustomerOut(
-            id = record[0],
-            customer_name = record[1],
-            customer_address = record[2],
-            customer_email = record[3],
-            priority_id= record[4],
-            driver_id= record[6],
-            driver_name= record[7]
+        return OrderOut(
+            id=record[0],
+            customer_name=record[1],
+            product_name=record[2],
+            qty=record[3],
+            driver_name=record[4],
+            order_date=record[5],
+            printed=record[6],
         )
 
-    def get_one_customer(self, customer_id: int) -> Optional[CustomerOut]:
+    def get_one_order(self, order_id: int) -> Optional[OrderOut]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
                     result = db.execute(
                         """
-                        SELECT c.id as customer_id, c.customer_name, c.customer_address, c.customer_email, c.priority_id, 
-                             d.id as driver_id, d.id, d.driver_name
-                        FROM customer c
-                        JOIN driver d on(c.driver_id = d.driver_id)
-                        WHERE c.id = %s
-                        """,
-                        [customer_id]
+                        SELECT o.id AS order_id, c.customer_name AS cutomer_name,
+                        p.product_name AS product_name,
+                        o.qty, d.driver_name AS driver_name, o.order_date, o.printed
+                            
+                        FROM orders AS o
+                        LEFT OUTER JOIN customer c ON (o.customer_id=c.id)
+                        LEFT OUTER JOIN produce p ON (o.produce_id=p.id)
+                        LEFT OUTER JOIN driver d ON (o.driver_id=d.id)
+                        WHERE o.id = %s 
+                        """
+                        ,
+                        [order_id]
                     )
                     record = result.fetchone()
                     if record is None:
                         return None
-                    return self.record_to_customer_out(record)
+                    return self.record_to_order_out(record)
         except Exception as e:
             print(e)
-            return {"message": "Could not get that customer"}
+            return {"message": "could not get that order"}
     
-    def delete_customer(self, customer_id: int) -> bool:
+    def delete_order(self, order_id: int) -> bool:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
                     db.execute(
                         """
-                        DELETE FROM customer
+                        DELETE FROM orders
                         WHERE id = %s
                         """,
-                        [customer_id]
+                        [order_id]
                     )
                     return True
         except  Exception as e:
             print(e)
             return False
 
-    def update_customer(self, customer_id: int, customer: CustomerIn) -> Union[CustomerOut, Error]:
+    def update_order(self, order_id: int, orders: OrderOut) -> Union[OrderOut, Error]:
         try:
             with pool.connection() as conn:
                 # get a cursor (something to run SQL with)
                 with conn.cursor() as db:
                     db.execute(
                         """
-                        UPDATE customer
-                        SET customer_name = %s
-                          , customer_address = %s
-                          , customer_email = %s
-                          , priority_id = %s
+                        UPDATE orders
+                        SET customer_id = %s
+                          , produce_id = %s
+                          , qty = %s
                           , driver_id = %s
+                          , order_date = %s
+                          , printed = %s
                         WHERE id = %s
                         """,
                         [
-                            customer.customer_name,
-                            customer.customer_address,
-                            customer.customer_email,
-                            customer.priority_id,
-                            customer.driver_id,
-                            customer_id
+                            
+                            orders.customer_id,
+                            orders.produce_id,
+                            orders.qty,
+                            orders.driver_id,
+                            orders.order_date,
+                            orders.printed,
+                            order_id
                         ]
                     )
-                    # old_data = customer.dict()
-                    # return CustomerOut(id=customer_id, **old_data)
-                    return self.customer_in_to_out(customer_id, customer)
+                    # old_data = orders.dict()
+                    # return OrdersOut(id=order_id, **old_data)
+                    return self.order_in_to_out(order_id, orders)
         except Exception as e:
             print(e)
-            return {"message": "Could not update that customer"}
+            return {"message": "could not update that order"}
         
         
-    def update_customer_ids(self, customer_id: int, customer: Customer_Patch) -> CustomerOut:
+    def update_order_ids(self, order_id: int, orders: Order_Patch) -> OrderOut:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
-                    lst = [item[0] for item in dict(customer).items() if item[1] is not None]
+                    lst = [item[0] for item in dict(orders).items() if item[1] is not None]
                     columns = " = %s, ".join(lst) + " = %s"
-                    lst_params = [item for item in dict(customer).values() if item is not None]
-                    lst_params.append(customer_id)
+                    lst_params = [item for item in dict(orders).values() if item is not None]
+                    lst_params.append(order_id)
                     db.execute(
                         f"""
-                        UPDATE customer
+                        UPDATE orders
                         SET {columns}
                         WHERE id = %s
                         """,
                         lst_params
                         )
                     conn.commit()
-                    return self.get_one_customer(customer_id)
+                    return self.get_one_order(order_id)
         except Exception as e:
             print(e)
-            return {"message": "Could not update that produce"}
+            return {"message": "could not update that order"}
