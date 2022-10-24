@@ -10,7 +10,7 @@ import HomePage from './HomePage.js';
 import ProduceItem from './ProduceItem';
 import ProduceItemEdit from './ProduceItemEdit';
 import Cart from './Cart.js'
-import Orders from './Orders.js';
+// import Orders from './Orders.js';
 
 
 
@@ -20,6 +20,7 @@ function App() {
   const [produce_id, setProduceId] = useState([]);
   // const [cart, setCart] = useState([]);
   const [cart] = useState([]);
+  // const [get_all_orders, setOrders] = useState([]);
   const [keys, setKeys] = useState([]);
 
   useEffect(() => {
@@ -69,7 +70,7 @@ function App() {
               element= {<ProduceItem  produce_id={produce_id} /> } />
               <Route path= {`/produce-admin/:ID/patch`}
               element= {<ProduceItemEdit  produce_id={produce_id} get_all_produce={get_all_produce} keys = {keys} /> } />
-              <Route path="/orders" element={<Orders get_all_produce={get_all_produce} />} />
+              {/* <Route path="/orders" element={<Orders get_all_orders={get_all_orders} setOrders = {setOrders} cart = {cart} />} /> */}
             </Routes>
           </div>
         </BrowserRouter>

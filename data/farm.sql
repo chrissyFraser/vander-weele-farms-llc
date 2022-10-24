@@ -43,5 +43,5 @@ CREATE TABLE orders(
     qty INTEGER,
     driver_id INTEGER REFERENCES driver ("id"),
     order_date DATE, 
-    printed BOOLEAN DEFAULT 0
+    printed BOOLEAN DEFAULT false
 );
