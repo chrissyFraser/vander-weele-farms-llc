@@ -16,6 +16,22 @@ export async function getTokenInternal() {
     if (response.ok) {
       const data = await response.json();
       internalToken = data.access_token;
+      console.log(internalToken)
+      return internalToken;
+    }
+  } catch (e) {}
+  return false;
+}
+
+export async function getTokenData() {
+  const url = `${process.env.REACT_APP_API_HOST}/token/get`;
+  try {
+    const response = await fetch(url, {
+      credentials: "include",
+    });
+    if (response.ok) {
+      const data = await response.json();
+      let internalToken = data.token_type;
       return internalToken;
     }
   } catch (e) {}
@@ -59,6 +75,7 @@ export const AuthProvider = ({ children }) => {
 };
 
 export const useAuthContext = () => useContext(AuthContext);
+
 
 export function useToken() {
   const { token, setToken } = useAuthContext();
@@ -107,50 +124,64 @@ export function useToken() {
     return handleErrorMessage(error);
   }
 
-  async function signup(email, password, username, roles) {
-    const url = `${process.env.REACT_APP_API_HOST}/api/accounts/`;
-    const response = await fetch(url, {
-      method: "post",
-      body: JSON.stringify({
-        email,
-        password,
-        username,
-        roles
-        // first_name: firstName,
-        // last_name: lastName,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    if (response.ok) {
-      await login(username, password);
-      console.log(username, password, email, roles)
-    }
-    return false;
-  }
+  // async function signup(email, password, username) {
+  //   const url = `${process.env.REACT_APP_API_HOST}/api/accounts/`;
+  //   const response = await fetch(url, {
+  //     method: "post",
+  //     body: JSON.stringify({
+  //       email,
+  //       password,
+  //       username
+  //     }),
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //   });
+  //   if (response.ok) {
+  //     // await login(username, password);
+  //     console.log(username, password, email)
+  //   }
+  //   return false;
+  // }
 
-  async function update(username, password, email, firstName, lastName) {
-    const url = `${process.env.REACT_APP_API_HOST}/api/accounts/`;
-    const response = await fetch(url, {
-      method: "post",
-      body: JSON.stringify({
-        username,
-        password,
-        email,
-        first_name: firstName,
-        last_name: lastName,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    if (response.ok) {
-      response.status_code = 200
-      // await login(username, password);
-    }
-    return false;
-  }
+  // async function updateUser(username, password, email) {
+  //   const { token } = useAuthContext();
+  //   function parseJwt (token) {
+  //       var base64Url = token.split('.')[1];
+  //       var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+  //       var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+  //           return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+  //       }).join(''));
+    
+  //       return JSON.parse(jsonPayload);
+  //   }
+  //   const data = parseJwt(token)
+  //     console.log("DATA", Object.entries(data))
+  //     console.log("specific", Object.values(data))
+  //     const user = Object.values(data)
+  //     console.log(user[3])
+  //     const myUser = user[3]
+  //     const valuesUser = Object.values(myUser)
+  //     console.log(valuesUser[0])
+  //     const userId = valuesUser[0]
+  //     const id = userId
+  //   const url = `${process.env.REACT_APP_API_HOST}/api/accounts/{id}`;
+  //   const response = await fetch(url, {
+  //     method: "put",
+  //     body: JSON.stringify({
+  //       username,
+  //       password,
+  //       email
+  //     }),
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //   });
+  //   if (response.ok) {
+  //     response.status_code = 200
+  //   }
+  //   return false;
+  // }
 
-  return [token, login, logout, signup, update];
+  return [token, login, logout];
 }

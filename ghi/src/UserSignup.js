@@ -1,41 +1,41 @@
 import { useState } from 'react';
+import { useToken } from './Auth';
+import { useNavigate } from "react-router-dom"; 
 
 
 function SignupComponent() {
-    async function signup(email, password, username, roles) {
+    const navigate = useNavigate();
+    const [token ] = useToken();
+    console.log(token)
+    async function signup(email, username, password) {
+        
         const url = `${process.env.REACT_APP_API_HOST}/api/accounts/`;
         const response = await fetch(url, {
             method: "post",
             body: JSON.stringify({
-                email,
-                password,
                 username,
-                roles
+                email,
+                password
             }),
             headers: {
                 "Content-Type": "application/json",
             },
         });
         if (response.ok) {
-            // await login(username, password);
-            console.log(username, password, email, roles)
+            // await login(email, password);
+            navigate("/login");
         }
         return false;
     }
 
-    // const [isSubmitted, setIsSubmitted] = useState(false);
 
-    const [username, setUsername] = useState()
-    const [password, setPassword] = useState()
-    const [email, setEmail] = useState()
-    const [roles, setRoles] = useState()
-
-
+    let [username, setUsername] = useState()
+    let [password, setPassword] = useState()
+    let [email, setEmail] = useState()
 
     const submitHandler = e => {
-        signup(email, password, username, roles)
+        signup( email, username, password)
         e.preventDefault();
-
     }
 
     return (
