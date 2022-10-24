@@ -76,8 +76,36 @@ def get_one_account(
     return account
 
 
+@router.get("/token/get", response_model=AccountToken | None)
+async def get_token(
+    request: Request,
+    account: AccountOut = Depends(authenticator.try_get_current_account_data)
+) -> AccountToken | None:
+    if authenticator.cookie_name in request.cookies:
+        return {
+            "access_token": request.cookies[authenticator.cookie_name],
+            "type": "Bearer",
+            "account": account,
+        }
+
 @router.get("/api/accounts", response_model=List[AccountOut])
 def get_all_accounts(
     repo: AccountQueries = Depends(),
 ):
     return repo.get_all_accounts()
+
+
+# @router.put("/api/accounts/{id}", response_model=AccountOutWithPassword)
+# def update_user(
+#     id: str,
+#     account: AccountIn,
+#     repo: AccountQueries = Depends(),
+    
+#     current_account: Optional[dict] = Depends(authenticator.get_current_account_data),
+# ) -> AccountOutWithPassword:
+#     hashed_password=authenticator.hash_password(account.password)
+    
+#     id = current_account.get("id")
+#     # hashed_password = authenticator.hash_password(account.password)
+#     return repo.update_user(id, account, hashed_password)
+    

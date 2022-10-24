@@ -113,3 +113,45 @@ Today I worked on:
 - Add 401 Error for unauthorized account levels
 - Cleaned up code
 Was able to create a concrete class/method for the Authenticator, and used that to verify account information through the cookie instead of needing a poller. Added proper 401 Error message for unauthorized user levels.
+10.20
+Today I:
+- Left the comfort of Fast API backend and was blinded by React
+- After grounding myself...
+- Got Login working on the React site!
+I completely lost how to work in React and took a bit longer to familiarize myself with it, but once I got it I think things are going to make a lot more sense going forward with the Signup and Logout pages.
+
+10.21
+Today I worked on:
+-Added Signup
+-Added Logout
+Lots of cosmetic work to be done, but technically it works!
+
+10.22
+Today I worked on:
+- Authorization
+- Redirects after login/logout/signup
+Restricted access to admin views to only logged in users. Still need to restrict by level, but a good start. Also added redirects for user experience upon signup, login, or logout.
+
+
+I did it!!!!!!!!!!!!!!!!
+    const { token } = useAuthContext()
+    function parseJwt (token) {
+        var base64Url = token.split('.')[1];
+        var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+    
+        return JSON.parse(jsonPayload);
+    }
+    if (token) {
+        const data = parseJwt(token)
+        console.log("DATA", Object.entries(data))
+        console.log("specific", Object.values(data))
+        const user = Object.values(data)
+        console.log(user[3])
+        const myUser = user[3]
+        const valuesUser = Object.values(myUser)
+        console.log(valuesUser[0])
+        // console.log(myId)
+    }
