@@ -82,15 +82,15 @@ pages:  # THIS STEP MUST BE NAME PAGES
     # THAT YOU cd INTO TO BUILD IT PLUS THE build/ AT THE
     # END
     # - cd ghi/src/components/index.js/build
-    - cd ghi/src/app.js
+    # - cd ghi/src/app.js
     - mv ghi/build/ public
   artifacts:
     paths:
       - public
 
-lint-job:
-  image: python:3-bullseye
-  stage: test
-  script:
-    - pip install flake8
-    - flake8 monolith_service accounts_service
+# lint-job:
+#   image: python:3-bullseye
+#   stage: test
+#   script:
+#     - pip install flake8
+#     - flake8 monolith_service accounts_service
