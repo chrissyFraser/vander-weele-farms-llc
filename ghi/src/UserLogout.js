@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom"; 
 import {  useAuthContext } from './Auth';
 let internalToken = null;
-
 console.log(internalToken)
+
 
 
 function LogoutComponent() {
