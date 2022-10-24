@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 function SignupComponent() {
     const navigate = useNavigate();
-    const [token] = useToken();
+    const [token, login] = useToken();
     console.log(token)
     async function signup(email, username, password) {
 
@@ -22,8 +22,8 @@ function SignupComponent() {
             },
         });
         if (response.ok) {
-            // await login(email, password);
-            navigate("/login");
+            await login(email, password);
+            navigate("/cart");
         }
         return false;
     }
