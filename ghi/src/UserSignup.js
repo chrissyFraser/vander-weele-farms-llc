@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import { useToken } from './Auth';
-import { useNavigate } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom";
 
 
 function SignupComponent() {
     const navigate = useNavigate();
-    const [token ] = useToken();
+    const [token] = useToken();
     console.log(token)
     async function signup(email, username, password) {
-        
+
         const url = `${process.env.REACT_APP_API_HOST}/api/accounts/`;
         const response = await fetch(url, {
             method: "post",
@@ -34,7 +34,7 @@ function SignupComponent() {
     let [email, setEmail] = useState()
 
     const submitHandler = e => {
-        signup( email, username, password)
+        signup(email, username, password)
         e.preventDefault();
     }
 
