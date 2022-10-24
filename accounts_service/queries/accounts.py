@@ -88,36 +88,3 @@ class AccountQueries:
                 return AccountOutWithPassword(
                     id=id, hashed_password=hashed_password, **old_data
                 )
-
-    def update_user(
-        self, id: str, account: AccountIn, hashed_password: str
-    ) -> AccountOutWithPassword:
-        try:
-            with pool.connection() as conn:
-                with conn.cursor() as db:
-                    
-
-                    db.execute(
-                        """
-                        UPDATE accounts
-                        SET email = %s
-                          , username = %s
-                          , hashed_password = %s
-                        WHERE id = %s
-                        """,
-                        [
-                            
-                            account.email,
-                            account.username,
-                            hashed_password,
-                            id
-                            
-                        ],
-                    )
-                    
-                    old_data = account.dict()
-                    print(old_data)
-                    return AccountOutWithPassword(id=id, hashed_password=hashed_password, **old_data)
-        except Exception as e:
-            print(e)
-            return {"message": "Could not update that customer"}

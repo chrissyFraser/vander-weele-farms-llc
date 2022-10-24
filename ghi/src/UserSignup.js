@@ -12,9 +12,9 @@ function SignupComponent() {
         const response = await fetch(url, {
             method: "post",
             body: JSON.stringify({
-                email,
                 username,
-                password,
+                email,
+                password
             }),
             headers: {
                 "Content-Type": "application/json",
@@ -22,7 +22,7 @@ function SignupComponent() {
         });
         if (response.ok) {
             // await login(email, password);
-            navigate("/");
+            navigate("/login");
         }
         return false;
     }
@@ -33,9 +33,8 @@ function SignupComponent() {
     let [email, setEmail] = useState()
 
     const submitHandler = e => {
-        signup(email, password, username)
+        signup( email, username, password)
         e.preventDefault();
-
     }
 
     return (
@@ -43,8 +42,8 @@ function SignupComponent() {
             <center>
                 <form onSubmit={submitHandler}>
                     <input type="text" name="email" placeholder="Email" value={email} onChange={(event) => setEmail(event.target.value)} /><br />
-                    <input type="password" name="password" placeholder="Password" value={password} onChange={(event) => setPassword(event.target.value)} /><br />
                     <input type="text" name="username" placeholder="Name" value={username} onChange={(event) => setUsername(event.target.value)} /><br />
+                    <input type="password" name="password" placeholder="Password" value={password} onChange={(event) => setPassword(event.target.value)} /><br />
                     <input type="submit" name="submit" />
                 </form>
             </center>
