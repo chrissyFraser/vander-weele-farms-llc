@@ -11,8 +11,8 @@ build-Vander-Weele-Front-end:
   variables:
     # PUBLIC_URL: https://dgb-galv.gitlab.io/apis-with-sql
     PUBLIC_URL: https://vander-weele-farms-llc.gitlab.io/vander-weele-farms-llc
-    REACT_APP_API_HOST: https://vander-weele-farms-llc.herokuapp.com
-    REACT_APP_API_HOST_MONOLITH: https://vander-weele-farms-llc.herokuapp.com
+    REACT_APP_API_HOST: https://vanderweele-farms-llc.herokuapp.com
+    REACT_APP_API_HOST_MONOLITH: https://vanderweele-farms-llc.herokuapp.com
   script:
     - cd ghi
     - npm install
