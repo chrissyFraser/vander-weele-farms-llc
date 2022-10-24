@@ -7,7 +7,3 @@ CREATE TABLE accounts (
     hashed_password VARCHAR(500)
     
 );
-
--- Automatically add Admin user with username and password 'admin' for testing purposes??
--- INSERT INTO accounts 
---     ('admin', 'admin', 'admin', '$2b$12$I9y8f48P5GLUu9RIG0tGpO3oX1mSqPAUPxG1oAnkfBD1KYLLj4WLm', 'admin');
