@@ -36,7 +36,7 @@ function UserUpdateComponent() {
 
 
 
-        const url = `${process.env.REACT_APP_API_HOST}/api/accounts/${id}`;
+        const url = `${process.env.REACT_APP_API_HOST}api/accounts/${id}`;
         const response = await fetch(url, {
         method: "put",
         body: JSON.stringify({
