@@ -7,7 +7,6 @@ console.log(useToken)
 
 function UserUpdateComponent() {
 
-    // const navigate = useNavigate();
     const { token } = useAuthContext();
     function parseJwt (token) {
         var base64Url = token.split('.')[1];
