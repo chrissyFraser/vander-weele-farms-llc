@@ -24,17 +24,12 @@ CREATE TABLE driver (
 
 CREATE TABLE customer (
     id SERIAL PRIMARY KEY NOT NULL,
-    customer_name VARCHAR(1000) NOT NULL,
-    customer_address VARCHAR(1000),
-    customer_email VARCHAR(500),
-    priority_id INTEGER,
-    driver_id INTEGER REFERENCES driver ("id")
+    name VARCHAR(1000) NOT NULL,
+    email VARCHAR(500),
+  	address VARCHAR(500)
     
 );
 
-INSERT INTO driver VALUES 
-    (0, 'Unassigned')
-    ;
     
 CREATE TABLE orders(
     id SERIAL NOT NULL UNIQUE,

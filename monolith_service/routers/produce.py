@@ -9,6 +9,7 @@ router = APIRouter()
 @router.get("/api/produce/", response_model = list[Produce_get]) 
 def get_all_produce(
     queries: ProduceQueries = Depends()):
+        
         return queries.get_all_produce()
 
 
@@ -16,17 +17,19 @@ def get_all_produce(
 def create_produce(
     produce: Produce_create,
     queries: ProduceQueries = Depends(),
-    # account_data: dict = Depends(authenticator.get_current_account_data)
+    account_data: dict = Depends(authenticator.get_current_account_data)
 ):
+    print("BAD WOLF", account_data.get("username"))
     
-    # if "admin" in account_data.get("username"):
+    if "admin" in account_data.get("username"):
+        print("Strange Success")
         return queries.create_produce(produce)
-    # else:
-    #     raise HTTPException(
-    #                 status_code=status.HTTP_401_UNAUTHORIZED,
-    #                 detail="Invalid token",
-    #                 headers={"WWW-Authenticate": "Bearer"},
-    #             )
+    else:
+        raise HTTPException(
+                    status_code=status.HTTP_401_UNAUTHORIZED,
+                    detail="Invalid token",
+                    headers={"WWW-Authenticate": "Bearer"},
+                )
 
 @router.get("/api/produce/{produce_id}", response_model = Optional[Produce_get])
 def get_single_produce_item(
