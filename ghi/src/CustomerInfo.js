@@ -69,7 +69,7 @@ function UserInfoComponent() {
         e.preventDefault();
 
     }
-    // if (token) {
+    if (token) {
         return (
             <div>
                 <center>
@@ -85,11 +85,11 @@ function UserInfoComponent() {
             </div>
 
         );
-    // } else {
-    //     return (
-    //         <h2>Please login</h2>
-    //     )
-    // }
+    } else {
+        return (
+            <h2>Please login</h2>
+        )
+    }
 
 
 }
