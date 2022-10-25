@@ -7,7 +7,8 @@ export default function Basket(props) {
     const [data, setData] = useState();
     const [isLoading, setIsLoading] = useState(false);
     const [err, setErr] = useState('');
-
+    console.log(isLoading)
+    console.log(err)
     const handleClick = async () => {
         setIsLoading(true);
         try {
