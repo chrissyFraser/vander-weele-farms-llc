@@ -66,4 +66,5 @@
 
 10/25/22
 
-    - wrote test to create a customer
+    - wrote test to get single customer
+    - test isn't passing, editing to get it to pass
