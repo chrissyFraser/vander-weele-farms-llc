@@ -1,3 +1,4 @@
+from telnetlib import AUTHENTICATION
 from main import app
 from queries.customers import CustomerRepository, CustomerOut
 from fastapi.testclient import TestClient
@@ -16,6 +17,9 @@ class FakeGetAllCustomers:
 
 
 client = TestClient(app)
+headers = {
+    AUTHENTICATION: f"Bearer "
+}
 
 
 
