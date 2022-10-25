@@ -88,7 +88,9 @@ useEffect(() => {
         
         fetch(`${process.env.REACT_APP_API_HOST_MONOLITH}/api/produce/${props.produce_id}/patch`, {
             method: "PATCH",
-            headers: { "Content-Type": "application/json" },
+            headers: { "Content-Type": "application/json",
+                        "Authorization": `Bearer ${token}`
+                        },
             body: JSON.stringify(data)
         }).then(() =>{
             handleUpload(selectedFile)
