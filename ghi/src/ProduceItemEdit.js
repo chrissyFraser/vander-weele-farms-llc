@@ -33,8 +33,8 @@ const handleFileInput = (e) => {
 const handleUpload = (e) => {
     const formData = new FormData();
     if(selectedFile == null){
-        // navigate('/produce-admin');
-        // window.location.reload();
+        navigate('/produce-admin');
+        window.location.reload();
     }
     else{
     formData.append(
@@ -52,8 +52,8 @@ const handleUpload = (e) => {
     .then(function(response)
     {
     console.log(response.json())})
-    // navigate('/produce-admin');
-    // window.location.reload();
+    navigate('/produce-admin');
+    window.location.reload();
     }
 }
 useEffect(() => {

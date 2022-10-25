@@ -69,8 +69,8 @@ const handleUpload = (e) => {
         }).then(() =>{
             handleUpload(selectedFile)
             console.log("new product created")
-            // navigate('/produce-admin');
-            // window.location.reload();
+            navigate('/produce-admin');
+            window.location.reload();
         })
     };
     function toggle(value){
