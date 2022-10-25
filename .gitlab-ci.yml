@@ -51,8 +51,8 @@ deploy-Vander-Weele-api-Image:  # Deploy fastapi image
   script:
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
     - docker login --username=_ --password=$HEROKU_API_KEY registry.heroku.com
-    - docker pull ${CI_REGISTRY_IMAGE}/fastapi_api:latest
-    - docker tag ${CI_REGISTRY_IMAGE}/fastapi_api:latest registry.heroku.com/$HEROKU_FASTAPI_APP/web:latest
+    - docker pull ${CI_REGISTRY_IMAGE}/monolith_api:latest
+    - docker tag ${CI_REGISTRY_IMAGE}/monolith_api:latest registry.heroku.com/$HEROKU_FASTAPI_APP/web:latest
     - docker push registry.heroku.com/$HEROKU_FASTAPI_APP/web:latest
 
 release-Vander-Weele-api-Image:  # deploy fastapi image
@@ -120,8 +120,8 @@ deploy-Vander-Weele-user-api-Image:  # Deploy fastapi image
   script:
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
     - docker login --username=_ --password=$HEROKU_API_KEY registry.heroku.com
-    - docker pull ${CI_REGISTRY_IMAGE}/fastapi_api:latest
-    - docker tag ${CI_REGISTRY_IMAGE}/fastapi_api:latest registry.heroku.com/$HEROKU_FASTAPI_ACCOUNTS_APP/web:latest
+    - docker pull ${CI_REGISTRY_IMAGE}/accounts_api:latest
+    - docker tag ${CI_REGISTRY_IMAGE}/accounts_api:latest registry.heroku.com/$HEROKU_FASTAPI_ACCOUNTS_APP/web:latest
     - docker push registry.heroku.com/$HEROKU_FASTAPI_ACCOUNTS_APP/web:latest
 
 release-Vander-Weele-user-api-Image:  # deploy fastapi image
