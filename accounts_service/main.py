@@ -3,7 +3,7 @@ from fastapi import FastAPI, Header, Response
 from starlette.status import HTTP_200_OK, HTTP_401_UNAUTHORIZED
 from fastapi.middleware.cors import CORSMiddleware
 import os
-from routers  import accounts
+from routers import accounts
 from authenticator import authenticator
 
 app = FastAPI()
