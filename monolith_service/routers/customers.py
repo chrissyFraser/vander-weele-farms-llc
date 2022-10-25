@@ -20,9 +20,9 @@ def create_customer(
     # account_data: Optional[dict] = Depends(authenticator.get_current_account_data),
 ):
     # if "admin" in account_data.get("username"):
-    response.status_code = 200
-    print("Successfully created customer")
-    return repo.create_customer(customer)
+        response.status_code = 200
+        print("Successfully created customer")
+        return repo.create_customer(customer)
     # else:
     #     raise HTTPException(
     #                 status_code=status.HTTP_401_UNAUTHORIZED,
@@ -34,18 +34,18 @@ def create_customer(
 @router.get("/api/customers", response_model=Union[List[CustomerOut], Error])
 def get_all_customers(
     repo: CustomerRepository = Depends(),
-    account_data: Optional[dict] = Depends(authenticator.get_current_account_data),
+    # account_data: Optional[dict] = Depends(authenticator.get_current_account_data),
 ):
     # print(account_data.get("username"))
-    if "admin" in account_data.get("username"):
+    # if "admin" in account_data.get("username"):
         print("YES")
         return repo.get_all_customers()
-    else:
-        raise HTTPException(
-                    status_code=status.HTTP_401_UNAUTHORIZED,
-                    detail="Invalid token",
-                    headers={"WWW-Authenticate": "Bearer"},
-                )
+    # else:
+    #     raise HTTPException(
+    #                 status_code=status.HTTP_401_UNAUTHORIZED,
+    #                 detail="Invalid token",
+    #                 headers={"WWW-Authenticate": "Bearer"},
+    #             )
 
 
 
@@ -56,19 +56,19 @@ def get_one_customer(
     customer_id: int,
     response: Response,
     repo: CustomerRepository = Depends(),
-    account_data: Optional[dict] = Depends(authenticator.get_current_account_data),
+    # account_data: Optional[dict] = Depends(authenticator.get_current_account_data),
 ) -> CustomerOut:
-    if "admin" in account_data.get("username"):
+    # if "admin" in account_data.get("username"):
         customer = repo.get_one_customer(customer_id)
         if customer is None:
             response.status_code = 404
         return customer
-    else:
-        raise HTTPException(
-                    status_code=status.HTTP_401_UNAUTHORIZED,
-                    detail="Invalid token",
-                    headers={"WWW-Authenticate": "Bearer"},
-                )
+    # else:
+    #     raise HTTPException(
+    #                 status_code=status.HTTP_401_UNAUTHORIZED,
+    #                 detail="Invalid token",
+    #                 headers={"WWW-Authenticate": "Bearer"},
+    #             )
 
 
 @router.put("/api/customers/{customer_id}", response_model=Union[CustomerOut, Error])
