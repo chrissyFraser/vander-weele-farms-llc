@@ -84,7 +84,7 @@ function App() {
               </Routes>
             </div>
             {/* <ErrorNotification error={error} /> */}
-            <Routes>
+            {/* <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/produce-admin" element={<ProduceList get_all_produce={get_all_produce} produce_id = {produce_id} setProduceId={setProduceId} />} />
               <Route path="/cart" element={<Cart get_all_produce={get_all_produce} />} />
@@ -95,7 +95,7 @@ function App() {
               <Route path= {`/produce-admin/:ID/patch`}
               element= {<ProduceItemEdit  produce_id={produce_id} get_all_produce={get_all_produce} /> } />
               {/* <Route path="/orders" element={<Orders get_all_orders={get_all_orders} setOrders = {setOrders} cart = {cart} />} /> */}
-            </Routes>
+            {/* </Routes> */}
           </div>
       </AuthProvider>
     </BrowserRouter>
