@@ -1,9 +1,8 @@
 import os
-
+from routers import keys
 from fastapi.responses import JSONResponse
 from fastapi import FastAPI, Header, Response
 from fastapi.middleware.cors import CORSMiddleware
-# from keys import ACCESS_KEY, S3_BUCKET, SECRET_ACCESS_KEY, REGION
 from routers import produce, customers, drivers, orders
 from typing import Any, Callable, Optional
 from authenticator import authenticator

@@ -43,7 +43,7 @@ function App() {
   const { token } = useAuthContext()
   console.log(token)
 
-      // console.log("TOKEN FOUND IN app.js")
+
         const domain = /https:\/\/[^/]+/;
         const basename = process.env.PUBLIC_URL.replace(domain, '');
         return (

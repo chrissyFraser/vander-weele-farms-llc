@@ -19,10 +19,7 @@ def create_produce(
     queries: ProduceQueries = Depends(),
     account_data: dict = Depends(authenticator.get_current_account_data)
 ):
-    print("BAD WOLF", account_data.get("username"))
-    
     if "admin" in account_data.get("username"):
-        print("Strange Success")
         return queries.create_produce(produce)
     else:
         raise HTTPException(
