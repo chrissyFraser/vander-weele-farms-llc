@@ -5,33 +5,13 @@ console.log(useToken)
 
 
 function UserInfoComponent() {
-
     const { token } = useAuthContext();
-    // function parseJwt(token) {
-    //     var base64Url = token.split('.')[1];
-    //     var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-    //     var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function (c) {
-    //         return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-    //     }).join(''));
 
-    //     return JSON.parse(jsonPayload);
-    // }
 
 
 
     async function createCustomer(customer_name, customer_address, customer_email, driver_id, priority_id) {
-
-
-        //   const data = parseJwt(token)
-        //   console.log("DATA", Object.entries(data))
-        //   console.log("specific", Object.values(data))
-        //   const user = Object.values(data)
-        //   console.log(user[3])
-        //   const myUser = user[3]
-        //   const valuesUser = Object.values(myUser)
-        //   console.log(valuesUser[0])
-        //   const userId = valuesUser[0]
-        //   const id = userId
+        
 
 
 
@@ -57,6 +37,34 @@ function UserInfoComponent() {
 
         return false;
     }
+
+   
+    function parseJwt(token) {
+        var base64Url = token.split('.')[1];
+        var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function (c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+
+        return JSON.parse(jsonPayload);
+    }
+
+      const data = parseJwt(token)
+      console.log("DATA", Object.entries(data))
+      console.log("specific", Object.values(data))
+      const user = Object.values(data)
+      console.log(user[3])
+      const myUser = user[3]
+      const valuesUser = Object.values(myUser)
+      console.log(valuesUser[0])
+      const userId = valuesUser[0]
+      const id = userId
+
+
+
+
+
+
     let [customer_name, setName] = useState()
     let [customer_address, setAddress] = useState()
     let [customer_email, setEmail] = useState()
@@ -69,6 +77,10 @@ function UserInfoComponent() {
         e.preventDefault();
 
     }
+
+
+
+
     if (token) {
         return (
             <div>
