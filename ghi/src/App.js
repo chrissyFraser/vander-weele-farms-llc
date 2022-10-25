@@ -27,7 +27,8 @@ function App() {
   const [get_all_produce, setProduce] = useState([]);
   const [produce_id, setProduceId] = useState([]);
   const [cart] = useState([]);
-  // const [get_all_orders, setOrders] = useState([]);
+  const [cartItems] = useState([]);
+  const [get_all_orders, setOrders] = useState([]);
 
   useEffect(() => {
     async function getProduceData() {
@@ -39,6 +40,18 @@ function App() {
       }
     }
     getProduceData();
+  }, [])
+
+  useEffect(() => {
+    async function getOrderData() {
+      let url = `${process.env.REACT_APP_API_HOST_MONOLITH}/api/orders/`;
+      let response = await fetch(url);
+      let data = await response.json();
+      if(response.ok){
+        setOrders(data)
+      }
+    }
+    getOrderData();
   }, [])
 
 
@@ -76,26 +89,14 @@ function App() {
                 element= {<ProduceItem  produce_id={produce_id} /> } />
                 <Route path= {`/produce-admin/:ID/patch`}
                 element= {<ProduceItemEdit  produce_id={produce_id} get_all_produce={get_all_produce}/> } />
-                <Route path="/orders" element={<Orders get_all_produce={get_all_produce} />} />
+                {/* <Route path="/orders" element={<Orders get_all_produce={get_all_produce} />} /> */}
                 <Route path="/login" element={<LoginComponent LoginComponent={LoginComponent} />} />
                 <Route path="/logout" element={<LogoutComponent LogoutComponent={LogoutComponent} />} />
                 <Route path="/signup" element={<SignupComponent SignupComponent={SignupComponent} />} />
                 {/* <Route path="/update-user" element={<UserUpdateComponent UserUpdateComponent={UserUpdateComponent} />} /> */}
-              </Routes>
-            </div>
-            {/* <ErrorNotification error={error} /> */}
-            <Routes>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/produce-admin" element={<ProduceList get_all_produce={get_all_produce} produce_id = {produce_id} setProduceId={setProduceId} />} />
-              <Route path="/cart" element={<Cart get_all_produce={get_all_produce} />} />
-              <Route path="/produce-create" element={<ProduceCreate get_all_produce={get_all_produce}  />} />
-              <Route path="/cart" element={<Cart cart={cart}/>} />
-              <Route path= {`/produce-admin/:ID`}
-              element= {<ProduceItem  produce_id={produce_id} /> } />
-              <Route path= {`/produce-admin/:ID/patch`}
-              element= {<ProduceItemEdit  produce_id={produce_id} get_all_produce={get_all_produce} /> } />
-              {/* <Route path="/orders" element={<Orders get_all_orders={get_all_orders} setOrders = {setOrders} cart = {cart} />} /> */}
+              <Route path="/orders" element={<Orders get_all_orders={get_all_orders} />} />
             </Routes>
+          </div>
           </div>
       </AuthProvider>
     </BrowserRouter>
