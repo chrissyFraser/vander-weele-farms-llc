@@ -5,23 +5,29 @@ export default function Basket(props) {
     console.log("cart", props)
     const { cartItems, onAdd, onRemove } = props;
     const [data, setData] = useState();
+    const [product_name, setProductName] = useState();
+    const [qty, setQty] = useState();
     const [isLoading, setIsLoading] = useState(false);
     const [err, setErr] = useState('');
     console.log(isLoading)
     console.log(err)
+
+
     const handleClick = async () => {
         setIsLoading(true);
         try {
+            // props.cartItems.map(items => (
+            // props.setProductName(items.product_name)
+            // props.setQty(items.qty)
+            // ))
             
             const data = {
-                // id,
                 // customer_name,
-                // product_name,
-                // qty,
+                product_name,
+                qty,
                 // driver_name,
                 // order_date,
                 // printed
-
             };
 
             const response = await fetch(`${process.env.REACT_APP_API_HOST_MONOLITH}/api/orders`, {
@@ -47,6 +53,8 @@ export default function Basket(props) {
         } finally {
             setIsLoading(false);
         }
+        setProductName();
+        setQty();
     };
 
     console.log(data);
