@@ -24,9 +24,11 @@ CREATE TABLE driver (
 
 CREATE TABLE customer (
     id SERIAL PRIMARY KEY NOT NULL,
-    name VARCHAR(1000) NOT NULL,
-    email VARCHAR(500),
-  	address VARCHAR(500)
+    customer_name VARCHAR(1000) NOT NULL,
+    customer_address VARCHAR(1000),
+    customer_email VARCHAR(500),
+    priority_id INTEGER,
+    driver_id INTEGER REFERENCES driver ("id")
     
 );
 
