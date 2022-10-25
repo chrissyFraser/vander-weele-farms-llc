@@ -19,7 +19,7 @@ export async function getTokenInternal() {
       console.log(internalToken)
       return internalToken;
     }
-  } catch (e) {}
+  } catch (e) { }
   return false;
 }
 
@@ -34,7 +34,7 @@ export async function getTokenData() {
       let internalToken = data.token_type;
       return internalToken;
     }
-  } catch (e) {}
+  } catch (e) { }
   return false;
 }
 
@@ -46,7 +46,7 @@ function handleErrorMessage(error) {
       if ("__all__" in error) {
         error = error.__all__;
       }
-    } catch {}
+    } catch { }
   }
   if (Array.isArray(error)) {
     error = error.join("<br>");
@@ -115,7 +115,7 @@ export function useToken() {
       body: form,
     });
     if (response.ok) {
-  
+
       const token = await getTokenInternal();
       setToken(token);
       return;
@@ -152,7 +152,7 @@ export function useToken() {
   //       var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
   //           return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
   //       }).join(''));
-    
+
   //       return JSON.parse(jsonPayload);
   //   }
   //   const data = parseJwt(token)

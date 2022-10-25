@@ -155,3 +155,15 @@ I did it!!!!!!!!!!!!!!!!
         console.log(valuesUser[0])
         // console.log(myId)
     }
+
+10.23
+Today I worked on:
+- Debugging Auth
+- Cleared pipeline
+Lots of back and forth overwriting each others merges. Found bugs, and cleared the pipelines.
+
+10.24
+Today I worked on:
+- More debugging Auth
+- Customer intake backend and frontend
+- Wrote get all accounts unit test.

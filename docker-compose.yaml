@@ -86,4 +86,3 @@ services:
   #     PGADMIN_DEFAULT_EMAIL: me@me.com
   #     PGADMIN_DEFAULT_PASSWORD: password
   #     PGADMIN_DISABLE_POSTFIX: 1
-  
