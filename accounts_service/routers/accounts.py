@@ -40,7 +40,6 @@ class AccountStatus(BaseModel):
 router = APIRouter()
 
 
-# @router.post("api/accounts", response_model=AccountStatus | HttpError)
 @router.post("/api/accounts", response_model=AccountStatus | HttpError)
 async def create_account(
     info: AccountIn,
@@ -64,7 +63,6 @@ async def create_account(
     # return AccountToken(account=account, **token.dict())
 
 
-# @router.get("api/accounts/{account_id}", response_model=Optional[AccountOut])
 @router.get("/api/accounts/{account_id}", response_model=Optional[AccountOut])
 def get_one_account(
     account_id: str,
@@ -78,7 +76,6 @@ def get_one_account(
     return account
 
 
-# @router.get("token/get", response_model=AccountToken | None)
 @router.get("/token/get", response_model=AccountToken | None)
 async def get_token(
     request: Request,
@@ -91,7 +88,6 @@ async def get_token(
             "account": account,
         }
 
-# @router.get("api/accounts", response_model=List[AccountOut])
 @router.get("/api/accounts", response_model=List[AccountOut])
 def get_all_accounts(
     repo: AccountQueries = Depends(),
@@ -99,7 +95,7 @@ def get_all_accounts(
     return repo.get_all_accounts()
 
 
-# @router.put("api/accounts/{id}", response_model=AccountOutWithPassword)
+# @router.put("/api/accounts/{id}", response_model=AccountOutWithPassword)
 # def update_user(
 #     id: str,
 #     account: AccountIn,

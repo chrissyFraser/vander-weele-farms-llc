@@ -64,7 +64,9 @@ function ProduceCreate(props) {
 
         fetch(`${process.env.REACT_APP_API_HOST_MONOLITH}/api/produce/`, {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: { "Content-Type": "application/json",
+                        "Authorization": `Bearer ${token}`
+        },
             body: JSON.stringify(data)
         }).then(() => {
             handleUpload(selectedFile)

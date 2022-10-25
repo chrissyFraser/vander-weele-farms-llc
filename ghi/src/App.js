@@ -27,7 +27,8 @@ function App() {
   const [get_all_produce, setProduce] = useState([]);
   const [produce_id, setProduceId] = useState([]);
   const [cart] = useState([]);
-  // const [get_all_orders, setOrders] = useState([]);
+  // const [cartItems] = useState([]);
+  const [get_all_orders, setOrders] = useState([]);
 
   useEffect(() => {
     async function getProduceData() {
@@ -42,6 +43,18 @@ function App() {
   }, [])
   const { token } = useAuthContext()
   console.log(token)
+
+  useEffect(() => {
+    async function getOrderData() {
+      let url = `${process.env.REACT_APP_API_HOST_MONOLITH}/api/orders/`;
+      let response = await fetch(url);
+      let data = await response.json();
+      if(response.ok){
+        setOrders(data)
+      }
+    }
+    getOrderData();
+  }, [])
 
 
         const domain = /https:\/\/[^/]+/;
@@ -77,7 +90,7 @@ function App() {
                       element= {<ProduceItem  produce_id={produce_id} /> } />
                       <Route path= {`/produce-admin/:ID/patch`}
                       element= {<ProduceItemEdit  produce_id={produce_id} get_all_produce={get_all_produce}/> } />
-                      <Route path="/orders" element={<Orders get_all_produce={get_all_produce} />} />
+                      <Route path="/orders" element={<Orders get_all_orders={get_all_orders} />} />
                       <Route path="/login" element={<LoginComponent LoginComponent={LoginComponent} />} />
                       <Route path="/logout" element={<LogoutComponent LogoutComponent={LogoutComponent} />} />
                       <Route path="/signup" element={<SignupComponent SignupComponent={SignupComponent} />} />

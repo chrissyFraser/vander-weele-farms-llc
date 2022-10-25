@@ -1,8 +1,8 @@
 volumes:
   vw-data:
-    external: true
+    #external: true
   vw-data-a:
-    external: true
+    #external: true
 
 services:
   accounts_service:
@@ -86,4 +86,3 @@ services:
   #     PGADMIN_DEFAULT_EMAIL: me@me.com
   #     PGADMIN_DEFAULT_PASSWORD: password
   #     PGADMIN_DISABLE_POSTFIX: 1
-  
