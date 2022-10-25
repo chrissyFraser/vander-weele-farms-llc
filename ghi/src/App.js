@@ -15,7 +15,8 @@ import { AuthProvider, useToken, useAuthContext } from './Auth.js';
 import LoginComponent from './UserLogin';
 import LogoutComponent from './UserLogout';
 import SignupComponent from './UserSignup';
-import UserInfoComponent from './CustomerInfo'
+// import UserInfoComponent from './CustomerInfo'
+import UserInfoComponent from './UserEdit'
 
 function GetToken() {
     useToken();
