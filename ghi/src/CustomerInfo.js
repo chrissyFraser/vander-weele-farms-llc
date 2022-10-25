@@ -4,7 +4,7 @@ import { useToken, useAuthContext } from './Auth';
 console.log(useToken)
 
 
-function UserUpdateComponent() {
+function UserInfoComponent() {
 
     const { token } = useAuthContext();
     // function parseJwt(token) {
@@ -19,7 +19,7 @@ function UserUpdateComponent() {
 
 
 
-    async function updateUser(name, email, address) {
+    async function createCustomer(customer_name, customer_address, customer_email, driver_id, priority_id) {
 
 
         //   const data = parseJwt(token)
@@ -39,9 +39,11 @@ function UserUpdateComponent() {
         const response = await fetch(url, {
             method: "post",
             body: JSON.stringify({
-                name,
-                email,
-                address,
+                customer_name,
+                customer_address,
+                customer_email,
+                driver_id,
+                priority_id
 
             }),
             headers: {
@@ -49,42 +51,47 @@ function UserUpdateComponent() {
             },
         });
         if (response.ok) {
-            response.status_code = 200
+            response.status_code = 200;
         }
 
 
         return false;
     }
-    let [name, setName] = useState()
-    let [address, setAddress] = useState()
-    let [email, setEmail] = useState()
+    let [customer_name, setName] = useState()
+    let [customer_address, setAddress] = useState()
+    let [customer_email, setEmail] = useState()
+    let [driver_id, setDID] = useState()
+    let [priority_id, setPID] = useState()
 
     const submitHandler = e => {
 
-        updateUser(email, address, name)
+        createCustomer(customer_name, customer_address, customer_email, driver_id, priority_id)
         e.preventDefault();
 
     }
-    if (token) {
+    // if (token) {
         return (
             <div>
                 <center>
                     <form onSubmit={submitHandler}>
-                        <input type="text" name="email" placeholder="Email" value={email} onChange={(event) => setEmail(event.target.value)} /><br />
-                        <input type="test" name="address" placeholder="Address" value={address} onChange={(event) => setAddress(event.target.value)} /><br />
-                        <input type="text" name="name" placeholder="Name" value={name} onChange={(event) => setName(event.target.value)} /><br />
+                        <input type="text" name="customer_email" placeholder="Email" value={customer_email} onChange={(event) => setEmail(event.target.value)} /><br />
+                        <input type="text" name="customer_address" placeholder="Address" value={customer_address} onChange={(event) => setAddress(event.target.value)} /><br />
+                        <input type="text" name="customer_name" placeholder="Name" value={customer_name} onChange={(event) => setName(event.target.value)} /><br />
+                        <input type="text" name="driver_id" placeholder="Driver ID" value={driver_id} onChange={(event) => setDID(event.target.value)} /><br />
+                        <input type="text" name="priority_id" placeholder="Priority ID" value={priority_id} onChange={(event) => setPID(event.target.value)} /><br />
                         <input type="submit" name="submit" />
                     </form>
                 </center>
             </div>
 
         );
-    } else {
-        return (
-            <h2>Please login</h2>
-        )
-    }
+    // } else {
+    //     return (
+    //         <h2>Please login</h2>
+    //     )
+    // }
 
 
 }
-export default UserUpdateComponent
+
+export default UserInfoComponent
