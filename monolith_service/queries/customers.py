@@ -38,7 +38,7 @@ class CustomerRepository:
                     result = db.execute(
                         """
                         SELECT c.id as customer_id, c.customer_name, c.customer_address, c.customer_email, c.priority_id, 
-                             d.id as driver_id, d.id, d.driver_name
+                            d.id as driver_id, d.id, d.driver_name
                         FROM customer c
                         JOIN driver d on(c.driver_id = d.id)
                         """,
