@@ -3,12 +3,13 @@ from routers import keys
 from fastapi.responses import JSONResponse
 from fastapi import FastAPI, Header, Response
 from fastapi.middleware.cors import CORSMiddleware
-from routers import produce, customers, drivers, orders
+from routers import produce, customers, drivers, orders, keys
 from typing import Any, Callable, Optional
 from authenticator import authenticator
 from fastapi import Depends, FastAPI
 from db import AccountVOQueries
 from functools import wraps
+
 
 app = FastAPI()
 
@@ -32,4 +33,4 @@ app.include_router(customers.router)
 app.include_router(drivers.router)
 app.include_router(orders.router)
 app.include_router(authenticator.router)
-app.include_router(keys.router)
+# app.include_router(keys.router)

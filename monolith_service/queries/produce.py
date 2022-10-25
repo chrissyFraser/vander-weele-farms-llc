@@ -67,7 +67,6 @@ class ProduceQueries:
                     """
                     INSERT INTO produce(
                         product_name,
-                        
                         picture_file,
                         available,
                         height,
