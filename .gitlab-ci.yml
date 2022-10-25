@@ -134,7 +134,7 @@ release-Vander-Weele-user-api-Image:  # deploy fastapi image
     - apk add curl bash
     - curl https://cli-assets.heroku.com/install.sh | sh
   script:
-    - heroku container:release web --app $HEROKU_FASTAPI_APP
+    - heroku container:release web --app $HEROKU_FASTAPI_ACCOUNTS_APP
 
 
 
