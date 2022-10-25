@@ -3,8 +3,6 @@ from fastapi import FastAPI, Header, Response
 from starlette.status import HTTP_200_OK, HTTP_401_UNAUTHORIZED
 from fastapi.middleware.cors import CORSMiddleware
 import os
-import sys
-sys.path.append("vander-weele-farms-llc/accounts_service/routers")
 from routers import accounts
 from authenticator import authenticator
 
