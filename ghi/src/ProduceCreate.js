@@ -62,13 +62,15 @@ const handleUpload = (e) => {
 
         fetch(`${process.env.REACT_APP_API_HOST_MONOLITH}/api/produce/`, {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: { "Content-Type": "application/json",
+                        "Authorization": `Bearer ${token}`
+        },
             body: JSON.stringify(data)
         }).then(() =>{
             handleUpload(selectedFile)
             console.log("new product created")
-            navigate('/produce-admin');
-            window.location.reload();
+            // navigate('/produce-admin');
+            // window.location.reload();
         })
     };
     function toggle(value){
