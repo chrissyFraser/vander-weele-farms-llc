@@ -20,7 +20,7 @@ function UserUpdateComponent() {
 
         
 
-    async function updateUser(email, password, username) {
+    async function updateUser(customer_name, customer_address, customer_email) {
 
 
       const data = parseJwt(token)
@@ -36,13 +36,14 @@ function UserUpdateComponent() {
 
 
 
-        const url = `${process.env.REACT_APP_API_HOST}/api/accounts/${id}`;
+        const url = `${process.env.REACT_APP_API_HOST}api/accounts/${id}`;
         const response = await fetch(url, {
         method: "put",
         body: JSON.stringify({
-            email,
-            password,
-            username
+            customer_name, 
+            customer_address,
+            customer_email,
+            
         }),
         headers: {
             "Content-Type": "application/json",
@@ -57,13 +58,13 @@ function UserUpdateComponent() {
         
         return false;
     }
-    let [username, setUsername] = useState()
-    let [password, setPassword] = useState()
-    let [email, setEmail] = useState()
+    let [customer_name, setUsername] = useState()
+    let [customer_address, setPassword] = useState()
+    let [customer_email, setEmail] = useState()
 
     const submitHandler = e => {
         
-        updateUser(email, password, username)
+        updateUser(customer_name, customer_address, customer_email)
         e.preventDefault();
 
     }
@@ -72,9 +73,9 @@ function UserUpdateComponent() {
         <div>
             <center>
                 <form onSubmit={submitHandler}>
-                    <input type="text" name="email" placeholder="Email" value={email} onChange={(event) => setEmail(event.target.value)} /><br />
-                    <input type="password" name="password" placeholder="Password" value={password} onChange={(event) => setPassword(event.target.value)} /><br />
-                    <input type="text" name="username" placeholder="Name" value={username} onChange={(event) => setUsername(event.target.value)} /><br />
+                    <input type="text" name="email" placeholder="Email" value={customer_email} onChange={(event) => setEmail(event.target.value)} /><br />
+                    <input type="password" name="password" placeholder="Password" value={customer_address} onChange={(event) => setPassword(event.target.value)} /><br />
+                    <input type="text" name="username" placeholder="Name" value={customer_username} onChange={(event) => setUsername(event.target.value)} /><br />
                     <input type="submit" name="submit" />
                 </form>
             </center>

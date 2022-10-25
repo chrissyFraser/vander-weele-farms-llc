@@ -1,8 +1,8 @@
 volumes:
   vw-data:
-    external: true
+    #external: true
   vw-data-a:
-    external: true
+    #external: true
 
 services:
   accounts_service:
@@ -71,7 +71,7 @@ services:
       HOST_OS: ${OS}
       NODE_ENV: development
       HOST: "0.0.0.0"
-      REACT_APP_API_HOST: http://localhost:8000
+      REACT_APP_API_HOST: http://localhost:8000/
       REACT_APP_API_HOST_MONOLITH: http://localhost:8080
       REACT_APP_REACT_HOST: http://localhost:3000
       
@@ -86,4 +86,3 @@ services:
   #     PGADMIN_DEFAULT_EMAIL: me@me.com
   #     PGADMIN_DEFAULT_PASSWORD: password
   #     PGADMIN_DISABLE_POSTFIX: 1
-  

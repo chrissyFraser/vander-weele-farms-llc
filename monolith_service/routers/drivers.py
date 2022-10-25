@@ -29,7 +29,7 @@ async def create_a_driver(
 @router.get("/drivers", response_model=Union[List[DriverOut], Error])
 def get_all_drivers(
     repo: DriverRepository = Depends(),
-    # account_data: dict = Depends(authenticator.get_current_account_data),
+    account_data: dict = Depends(authenticator.get_current_account_data),
 ):
     if "admin" in account_data.get("username"):
         return repo.get_all_drivers()

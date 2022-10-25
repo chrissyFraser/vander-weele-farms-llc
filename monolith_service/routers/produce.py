@@ -9,23 +9,24 @@ router = APIRouter()
 @router.get("/api/produce/", response_model = list[Produce_get]) 
 def get_all_produce(
     queries: ProduceQueries = Depends()):
-    return queries.get_all_produce()
+        
+        return queries.get_all_produce()
 
 
 @router.post("/api/produce/", response_model = Produce_get)
 def create_produce(
     produce: Produce_create,
     queries: ProduceQueries = Depends(),
-    # account_data: dict = Depends(authenticator.get_current_account_data)
+    account_data: dict = Depends(authenticator.get_current_account_data)
 ):
-    # if "admin" in account_data.get("username"):
-    return queries.create_produce(produce)
-    # else:
-    #     raise HTTPException(
-    #                 status_code=status.HTTP_401_UNAUTHORIZED,
-    #                 detail="Invalid token",
-    #                 headers={"WWW-Authenticate": "Bearer"},
-    #             )
+    if "admin" in account_data.get("username"):
+        return queries.create_produce(produce)
+    else:
+        raise HTTPException(
+                    status_code=status.HTTP_401_UNAUTHORIZED,
+                    detail="Invalid token",
+                    headers={"WWW-Authenticate": "Bearer"},
+                )
 
 @router.get("/api/produce/{produce_id}", response_model = Optional[Produce_get])
 def get_single_produce_item(
@@ -61,15 +62,15 @@ def delete_produce(
     account_data: dict = Depends(authenticator.get_current_account_data)
 )-> bool:
     print(account_data)
-    # if "admin" in account_data.get("username"):
-    return queries.delete_produce(produce_id)
-    # else:
-    #     print(account_data)
-    #     raise HTTPException(
-    #                 status_code=status.HTTP_401_UNAUTHORIZED,
-    #                 detail="Invalid token",
-    #                 headers={"WWW-Authenticate": "Bearer"},
-                # )
+    if "admin" in account_data.get("username"):
+        return queries.delete_produce(produce_id)
+    else:
+        print(account_data)
+        raise HTTPException(
+                    status_code=status.HTTP_401_UNAUTHORIZED,
+                    detail="Invalid token",
+                    headers={"WWW-Authenticate": "Bearer"},
+                )
 
 
 @router.patch("/api/produce/{produce_id}/patch", response_model = Produce_get)

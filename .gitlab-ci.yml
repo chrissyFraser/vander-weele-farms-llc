@@ -11,8 +11,9 @@ build-Vander-Weele-Front-end:
   variables:
     # PUBLIC_URL: https://dgb-galv.gitlab.io/apis-with-sql
     PUBLIC_URL: https://vander-weele-farms-llc.gitlab.io/vander-weele-farms-llc
-    REACT_APP_API_HOST: https://vander-weele-farms-llc.herokuapp.com
-    REACT_APP_API_HOST_MONOLITH: https://vander-weele-farms-llc.herokuapp.com
+    REACT_APP_API_HOST: https://vanderweele-farms-llc.herokuapp.com
+    REACT_APP_API_HOST_MONOLITH: https://vanderweele-farms-llc.herokuapp.com
+    # REACT_APP_API_HOST_ACCOUNTS: https://vanderweele-farm-users.herokuapp.com/
   script:
     - cd ghi
     - npm install
@@ -30,12 +31,12 @@ build-Vander-Weele-api-Image:  # Build fastapi image
   services:
     - docker:20.10.16-dind
   script:
-    - cd accounts_service
-    - docker build -t ${CI_REGISTRY_IMAGE}/fastapi_api:latest .
-    - docker tag ${CI_REGISTRY_IMAGE}/fastapi_api:latest ${CI_REGISTRY_IMAGE}/fastapi_api:$CI_JOB_ID
+    - cd monolith_service
+    - docker build -t ${CI_REGISTRY_IMAGE}/monolith_api:latest .
+    - docker tag ${CI_REGISTRY_IMAGE}/monolith_api:latest ${CI_REGISTRY_IMAGE}/monolith_api:$CI_JOB_ID
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
-    - docker push ${CI_REGISTRY_IMAGE}/fastapi_api:$CI_JOB_ID
-    - docker push ${CI_REGISTRY_IMAGE}/fastapi_api:latest
+    - docker push ${CI_REGISTRY_IMAGE}/monolith_api:$CI_JOB_ID
+    - docker push ${CI_REGISTRY_IMAGE}/monolith_api:latest
 
 deploy-Vander-Weele-api-Image:  # Deploy fastapi image
   rules:
@@ -82,7 +83,69 @@ pages:  # THIS STEP MUST BE NAME PAGES
     # THAT YOU cd INTO TO BUILD IT PLUS THE build/ AT THE
     # END
     # - cd ghi/src/components/index.js/build
+    # - cd ghi/src/app.js
     - mv ghi/build/ public
   artifacts:
     paths:
       - public
+
+
+# build-Vander-Weele-user-api-Image:  # Build fastapi image
+#   rules:
+#     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+#   stage: build
+#   image: docker:20.10.16
+#   services:
+#     - docker:20.10.16-dind
+#   script:
+#     - cd accounts_service
+#     - docker build -t ${CI_REGISTRY_IMAGE}/accounts_api:latest .
+#     - docker tag ${CI_REGISTRY_IMAGE}/accounts_api:latest ${CI_REGISTRY_IMAGE}/accounts_api:$CI_JOB_ID
+#     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+#     - docker push ${CI_REGISTRY_IMAGE}/accounts_api:$CI_JOB_ID
+#     - docker push ${CI_REGISTRY_IMAGE}/accounts_api:latest
+
+# deploy-Vander-Weele-user-api-Image:  # Deploy fastapi image
+#   rules:
+#     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+#   stage: deploy
+#   image: docker:20.10.16
+#   needs:
+#     - build-Vander-Weele-user-api-Image
+#   services:
+#     - docker:20.10.16-dind
+#   script:
+#     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+#     - docker login --username=_ --password=$HEROKU_API_KEY registry.heroku.com
+#     - docker pull ${CI_REGISTRY_IMAGE}/fastapi_api:latest
+#     - docker tag ${CI_REGISTRY_IMAGE}/fastapi_api:latest registry.heroku.com/$HEROKU_FASTAPI_APP/web:latest
+#     - docker push registry.heroku.com/$HEROKU_FASTAPI_APP/web:latest
+
+# release-Vander-Weele-user-api-Image:  # deploy fastapi image
+#   stage: deploy
+#   image: node:10.17-alpine
+#   needs:
+#     - deploy-Vander-Weele-user-api-Image
+#   rules:
+#     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+#   before_script:
+#     - apk add curl bash
+#     - curl https://cli-assets.heroku.com/install.sh | sh
+#   script:
+#     - heroku container:release web --app $HEROKU_FASTAPI_APP
+
+
+
+
+
+
+
+
+
+
+# lint-job:
+#   image: python:3-bullseye
+#   stage: test
+#   script:
+#     - pip install flake8
+#     - flake8 monolith_service accounts_service

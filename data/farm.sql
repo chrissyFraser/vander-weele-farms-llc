@@ -32,9 +32,6 @@ CREATE TABLE customer (
     
 );
 
-INSERT INTO driver VALUES 
-    (0, 'Unassigned')
-    ;
     
 CREATE TABLE orders(
     id SERIAL NOT NULL UNIQUE,

@@ -8,7 +8,7 @@ export function getToken() {
 }
 
 export async function getTokenInternal() {
-  const url = `${process.env.REACT_APP_API_HOST}/token/get`;
+  const url = `${process.env.REACT_APP_API_HOST}token/get`;
   try {
     const response = await fetch(url, {
       credentials: "include",
@@ -19,12 +19,12 @@ export async function getTokenInternal() {
       console.log(internalToken)
       return internalToken;
     }
-  } catch (e) {}
+  } catch (e) { }
   return false;
 }
 
 export async function getTokenData() {
-  const url = `${process.env.REACT_APP_API_HOST}/token/get`;
+  const url = `${process.env.REACT_APP_API_HOST}token/get`;
   try {
     const response = await fetch(url, {
       credentials: "include",
@@ -34,7 +34,7 @@ export async function getTokenData() {
       let internalToken = data.token_type;
       return internalToken;
     }
-  } catch (e) {}
+  } catch (e) { }
   return false;
 }
 
@@ -46,7 +46,7 @@ function handleErrorMessage(error) {
       if ("__all__" in error) {
         error = error.__all__;
       }
-    } catch {}
+    } catch { }
   }
   if (Array.isArray(error)) {
     error = error.join("<br>");
@@ -94,7 +94,7 @@ export function useToken() {
   async function logout() {
     if (token) {
       console.log("token found")
-      const url = `${process.env.REACT_APP_API_HOST}/token`;
+      const url = `${process.env.REACT_APP_API_HOST}token`;
       await fetch(url, { method: "delete", credentials: "include" });
       internalToken = null;
       setToken(null);
@@ -105,7 +105,7 @@ export function useToken() {
   }
 
   async function login(username, password) {
-    const url = `${process.env.REACT_APP_API_HOST}/token`;
+    const url = `${process.env.REACT_APP_API_HOST}token`;
     const form = new FormData();
     form.append("username", username);
     form.append("password", password);
@@ -115,7 +115,7 @@ export function useToken() {
       body: form,
     });
     if (response.ok) {
-  
+
       const token = await getTokenInternal();
       setToken(token);
       return;
@@ -152,7 +152,7 @@ export function useToken() {
   //       var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
   //           return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
   //       }).join(''));
-    
+
   //       return JSON.parse(jsonPayload);
   //   }
   //   const data = parseJwt(token)
