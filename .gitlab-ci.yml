@@ -2,6 +2,7 @@ stages:
   - test # runs tests first
   - build # run build after tests
   - deploy
+  - release
 
 
 ## BUILD
