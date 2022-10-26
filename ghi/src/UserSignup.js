@@ -24,7 +24,7 @@ function SignupComponent() {
         });
         if (response.ok) {
             await login(email, password);
-            navigate("/cart");
+            navigate("/create-customer");
         }
         return false;
     }
@@ -34,18 +34,21 @@ function SignupComponent() {
     let [password, setPassword] = useState()
     let [email, setEmail] = useState()
 
+
     const submitHandler = e => {
         signup(email, username, password)
+        
         e.preventDefault();
     }
 
     return (
         <div>
             <center>
+                <h2>Please enter your name, email, and password</h2>
                 <form onSubmit={submitHandler}>
+                <input type="text" name="username" placeholder="Name" value={username} onChange={(event) => setUsername(event.target.value)} /><br />
                     <input type="text" name="email" placeholder="Email" value={email} onChange={(event) => setEmail(event.target.value)} /><br />
                     <input type="password" name="password" placeholder="Password" value={password} onChange={(event) => setPassword(event.target.value)} /><br />
-                    <input type="text" name="username" placeholder="Name" value={username} onChange={(event) => setUsername(event.target.value)} /><br />
                     <input type="submit" name="submit" />
                 </form>
             </center>

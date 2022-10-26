@@ -37,7 +37,7 @@ function ProduceList(props) {
         console.log(valuesUser[0])
         const user_status = valuesUser[2]
         // console.log(myId)
-        if (user_status.toLowerCase().includes("admin")) {
+        if (user_status.includes("admin")) {
             return (
                 <>
                     <button type="button" className="btn btn-primary" id="create-new button" onClick={() => navigate(createProduce)}>Create New</button>
