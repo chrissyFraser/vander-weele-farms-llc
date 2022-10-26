@@ -15,7 +15,8 @@ import { AuthProvider, useToken, useAuthContext } from './Auth.js';
 import LoginComponent from './UserLogin';
 import LogoutComponent from './UserLogout';
 import SignupComponent from './UserSignup';
-import UserUpdateComponent from './CustomerInfo'
+// import UserInfoComponent from './CustomerInfo'
+import UserInfoComponent from './UserEdit'
 
 function GetToken() {
     useToken();
@@ -75,7 +76,7 @@ function App() {
                         <li><NavLink to="/login">Login</NavLink></li>
                         <li><NavLink to="/logout">Logout</NavLink></li>
                         <li><NavLink to="/signup">Signup</NavLink></li>
-                        <li><NavLink to="/update-user">Update User</NavLink></li>
+                        <li><NavLink to="/create-customer">Update User</NavLink></li>
                       
                       </ul>
                     </div>
@@ -94,7 +95,7 @@ function App() {
                       <Route path="/login" element={<LoginComponent LoginComponent={LoginComponent} />} />
                       <Route path="/logout" element={<LogoutComponent LogoutComponent={LogoutComponent} />} />
                       <Route path="/signup" element={<SignupComponent SignupComponent={SignupComponent} />} />
-                      <Route path="/update-user" element={<UserUpdateComponent UserUpdateComponent={UserUpdateComponent} />} />
+                      <Route path="/create-customer" element={<UserInfoComponent UserInfoComponent={UserInfoComponent} />} />
                     </Routes>
                   </div>
             </div>
