@@ -15,7 +15,7 @@ async def create_a_driver(
     repo: DriverRepository = Depends(),
     account_data: dict = Depends(authenticator.get_current_account_data),
 ):
-    if "admin" in account_data.get("username"):
+    if account_data:
         response.status_code = 200
         return repo.create_driver(driver)
     else:

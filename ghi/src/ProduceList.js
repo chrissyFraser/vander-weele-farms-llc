@@ -28,15 +28,10 @@ function ProduceList(props) {
     }
     if (token) {
         const data = parseJwt(token)
-        console.log("DATA", Object.entries(data))
-        console.log("specific", Object.values(data))
         const user = Object.values(data)
-        console.log(user[3])
         const myUser = user[3]
         const valuesUser = Object.values(myUser)
-        console.log(valuesUser[0])
         const user_status = valuesUser[2]
-        // console.log(myId)
         if (user_status.includes("admin")) {
             return (
                 <>
