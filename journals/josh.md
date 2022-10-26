@@ -49,5 +49,18 @@
 * Got the image to post to s3 from backend, intigrateing it with frontend tomorrow.
 
 10.20:
-* I can choose an image and it posts to the backend and from there to the s3 bucket, now I am going to make this pass it's pipeline then either work on tests or with auth.
+* I can choose an image and it posts to the backend and from there to the s3 bucket, now I am going to make this pass it's pipeline then either work on tests or with auth. Marble asked for help on db, he had done some stuff.
 
+
+10.21:
+* Worked on db for a little while but marble wasn't on all day so I wasn't able to reference his work from the previous day.
+
+10.22:
+* worked with marble for a few hours on db, we ended up rolling back and not using any of his stuff from thursday.
+
+10.23:
+* After test I took over from marble on the db and got a seir involved, we made head way but didn't get it.
+  
+10.24:
+* got the db's deployed, there is a cors error but I think I know where to fix it. The only problem is I think that will break the local server.
+  

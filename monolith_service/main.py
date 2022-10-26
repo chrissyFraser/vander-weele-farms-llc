@@ -1,5 +1,4 @@
 import os
-from routers import keys
 from fastapi.responses import JSONResponse
 from fastapi import FastAPI, Header, Response
 from fastapi.middleware.cors import CORSMiddleware
@@ -17,7 +16,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         os.environ.get("CORS_HOST", "http://localhost:3000"),
-        # os.environ.get["CORS_HOST", "https://vander-weele-farms-llc.gitlab.io/vander-weele-farms-llc"]
+        os.environ.get("CORS_HOST", "https://vander-weele-farms-llc.gitlab.io/vander-weele-farms-llc")
     ],
     allow_credentials=True,
     allow_methods=["*"],
