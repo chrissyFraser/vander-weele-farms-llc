@@ -73,4 +73,5 @@
 
 10/26/22
 
-    - CODE FREEZE DAY - finishing up tests, working with Krys and seirs. 
+    - CODE FREEZE DAY - finishing up tests, working with seirs. 
+    - Test_get_one_customer is working, working on test_create_customer
