@@ -3,7 +3,7 @@ async def migrate():
     import os
     import sys
 
-    db_url = 'https://vanderweele-farms-llc.herokuapp.com'
+    db_url = "postgres://yksrwiukjqttgc:5c65f27606bc06f1b77ebd4f13f449afa673dc8c76eeae9b7621830eff0b5c7c@ec2-44-209-24-62.compute-1.amazonaws.com:5432/d7jhu5uh9l43d8"
 
     if len(sys.argv) < 2:
         print("Command: up|down [amount]")
