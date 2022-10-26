@@ -22,6 +22,8 @@ CREATE TABLE driver (
     driver_name VARCHAR(100)
 );
 
+INSERT INTO driver (0, 'Unassigned');
+
 CREATE TABLE customer (
     id SERIAL PRIMARY KEY NOT NULL,
     customer_name VARCHAR(1000) NOT NULL,

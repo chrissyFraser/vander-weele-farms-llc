@@ -15,8 +15,7 @@ import { AuthProvider, useToken, useAuthContext } from './Auth.js';
 import LoginComponent from './UserLogin';
 import LogoutComponent from './UserLogout';
 import SignupComponent from './UserSignup';
-// import UserInfoComponent from './CustomerInfo'
-import UserInfoComponent from './UserEdit'
+import UserUpdateComponent from './UserEdit'
 
 function GetToken() {
     useToken();
@@ -56,6 +55,9 @@ function App() {
     }
     getOrderData();
   }, [])
+  // if (token) {
+
+  
 
 
         const domain = /https:\/\/[^/]+/;
@@ -76,7 +78,7 @@ function App() {
                         <li><NavLink to="/login">Login</NavLink></li>
                         <li><NavLink to="/logout">Logout</NavLink></li>
                         <li><NavLink to="/signup">Signup</NavLink></li>
-                        <li><NavLink to="/create-customer">Update User</NavLink></li>
+                        {/* <li><NavLink to="/create-customer">Customer Info</NavLink></li> */}
                       
                       </ul>
                     </div>
@@ -95,7 +97,7 @@ function App() {
                       <Route path="/login" element={<LoginComponent LoginComponent={LoginComponent} />} />
                       <Route path="/logout" element={<LogoutComponent LogoutComponent={LogoutComponent} />} />
                       <Route path="/signup" element={<SignupComponent SignupComponent={SignupComponent} />} />
-                      <Route path="/create-customer" element={<UserInfoComponent UserInfoComponent={UserInfoComponent} />} />
+                      <Route path="/create-customer" element={<UserUpdateComponent UserUpdateComponent={UserUpdateComponent} />} />
                     </Routes>
                   </div>
             </div>
