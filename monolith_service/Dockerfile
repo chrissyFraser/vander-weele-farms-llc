@@ -10,6 +10,7 @@ COPY authenticator.py authenticator.py
 COPY db.py db.py
 COPY routers routers
 COPY queries queries
+COPY migrations migrations
 # Copy all of the subdirectories in your service's directory
 # Modify these instructions to do that
 # COPY queries queries

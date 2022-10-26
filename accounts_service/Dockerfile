@@ -8,5 +8,7 @@ RUN python -m pip install -r requirements.txt
 COPY main.py main.py
 COPY routers routers
 COPY queries queries
+COPY migrations migrations
 COPY authenticator.py authenticator.py
 CMD /wait && uvicorn main:app --host 0.0.0.0 --port $PORT
+# CMD python -m migrations up && uvicorn main:app --host 0.0.0.0 --port $PORT
