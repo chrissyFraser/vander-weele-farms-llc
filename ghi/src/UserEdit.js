@@ -27,7 +27,6 @@ function UserUpdateComponent() {
       const user = Object.values(data)
       const myUser = user[3]
       const valuesUser = Object.values(myUser)
-      const userId = valuesUser[0]
 
 
 
