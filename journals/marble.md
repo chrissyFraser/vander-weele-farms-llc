@@ -69,3 +69,5 @@
     - wrote test to get single customer
     - test isn't passing, editing to get it to pass
     - bricked old branch, starting new branch (working-marble-final)
+    - started writing and mostly finished tests for create customer and get one customer. will finish tomorrow.
+
