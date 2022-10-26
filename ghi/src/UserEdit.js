@@ -29,7 +29,7 @@ function UserUpdateComponent() {
       const valuesUser = Object.values(myUser)
     //   const userName = valuesUser[2]
     //   const userEmail = valuesUser[1]
-      console.log(myUser)
+      console.log(valuesUser)
 
 
 
