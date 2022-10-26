@@ -10,7 +10,7 @@ import { useAuthContext } from './Auth';
 function Cart(props) {
 
     const [cartItems, setCartItems] = useState([]);
-    console.log("YO", props)
+    // console.log("YO", props)
     const onAdd = (produce) => {
         const exist = cartItems.find((x) => x.id === produce.id);
         if (exist) {
