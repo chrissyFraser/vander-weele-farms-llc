@@ -27,6 +27,7 @@ function UserUpdateComponent() {
       const user = Object.values(data)
       const myUser = user[3]
       const valuesUser = Object.values(myUser)
+      console.log(valuesUser)
 
 
 
