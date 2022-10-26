@@ -15,7 +15,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         os.environ.get("CORS_HOST", "http://localhost:3000"),
-        os.environ.get("CORS_HOST", "https://vander-weele-farms-llc.gitlab.io/vander-weele-farms-llc")
+        # os.environ.get("CORS_HOST", "https://vander-weele-farms-llc.gitlab.io/vander-weele-farms-llc")
         ],
     allow_credentials=True,
     allow_methods=["*"],
