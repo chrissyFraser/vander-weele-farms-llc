@@ -71,3 +71,6 @@
     - bricked old branch, starting new branch (working-marble-final)
     - started writing and mostly finished tests for create customer and get one customer. will finish tomorrow.
 
+10/26/22
+
+    - CODE FREEZE DAY - finishing up tests, working with Krys and seirs. 
