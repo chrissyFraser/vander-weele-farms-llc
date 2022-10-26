@@ -20,24 +20,27 @@ function UserUpdateComponent() {
 
         
 
-    async function updateUser(customer_name, customer_address, customer_email) {
+    async function updateUser(customer_name, customer_address, customer_email, driver_id, priority_id) {
 
 
       const data = parseJwt(token)
       const user = Object.values(data)
       const myUser = user[3]
       const valuesUser = Object.values(myUser)
-      console.log(valuesUser)
+      const userName = myUser[2]
+      const userEmail = myUser[2]
 
 
 
-        const url = `${process.env.REACT_APP_API_HOST_MONOLITH}/api/customers/`;
+        const url = `${process.env.REACT_APP_API_HOST_MONOLITH}/api/customers`;
         const response = await fetch(url, {
         method: "post",
         body: JSON.stringify({
             customer_name, 
             customer_address,
             customer_email,
+            driver_id,
+            priority_id
             
         }),
         headers: {
@@ -70,7 +73,7 @@ function UserUpdateComponent() {
             <center>
                 <form onSubmit={submitHandler}>
                     <input type="text" name="email" placeholder="Email" value={customer_email} onChange={(event) => setEmail(event.target.value)} /><br />
-                    <input type="text" name="customer_address" placeholder="Password" value={customer_address} onChange={(event) => setPassword(event.target.value)} /><br />
+                    <input type="text" name="customer_address" placeholder="Address" value={customer_address} onChange={(event) => setPassword(event.target.value)} /><br />
                     <input type="text" name="customer_name" placeholder="Name" value={customer_name} onChange={(event) => setUsername(event.target.value)} /><br />
                     <input type="submit" name="submit" />
                 </form>
