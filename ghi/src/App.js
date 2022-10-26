@@ -74,7 +74,7 @@ function App() {
                         <li><NavLink to="/login">Login</NavLink></li>
                         <li><NavLink to="/logout">Logout</NavLink></li>
                         <li><NavLink to="/signup">Signup</NavLink></li>
-                        <li><NavLink to="/create-customer">Update User</NavLink></li>
+                        {/* <li><NavLink to="/create-customer">Update User</NavLink></li> */}
                       
                       </ul>
                     </div>

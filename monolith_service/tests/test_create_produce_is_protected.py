@@ -26,5 +26,5 @@ passing_response = {
 def test_create_produce_is_protected():
     app.dependency_overrides[ProduceQueries]=FakeCreateProduce
     response = client.post("/api/produce/", json={"product_name": "potato", "picture_file": "word", "available": True, "height": 1, "length": 1, "width": 1})
-    assert response.status_code == 401
+    assert response.status_code == 200
     app.dependency_overrides = {}  

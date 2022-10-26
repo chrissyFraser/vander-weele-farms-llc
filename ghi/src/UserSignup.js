@@ -18,8 +18,7 @@ function SignupComponent() {
                 password
             }),
             headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`
+                "Content-Type": "application/json"
             },
         });
         if (response.ok) {
