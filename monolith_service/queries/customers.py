@@ -12,7 +12,7 @@ class CustomerIn(BaseModel):
 
 
 class CustomerOut(BaseModel):
-    id: int | None = None
+    # id: int | None = None
     customer_name: str | None = None
     customer_address: str | None = None
     customer_email: str | None = None

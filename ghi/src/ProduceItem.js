@@ -26,7 +26,8 @@ function ProduceItem(props) {
     const handleDelete = e => {
         fetch(`${process.env.REACT_APP_API_HOST_MONOLITH}/api/produce/${props.produce_id}/delete`, {
             method: "DELETE",
-            headers: { "Content-Type": "application/json" },
+            headers: { "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}` },
         }).then(() => {
             console.log("Produce deleted")
             navigate('/produce-admin');
