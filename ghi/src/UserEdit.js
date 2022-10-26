@@ -104,5 +104,5 @@ function UserUpdateComponent() {
 
     );
     // Other code, here
-}
+}}
 export default UserUpdateComponent
