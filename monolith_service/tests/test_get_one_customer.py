@@ -5,32 +5,26 @@ from fastapi.testclient import TestClient
 
 
 
-get_one_customer = CustomerOut(id=121, name='me', email='me@123.com', address='me@123.com', )
+get_one_customer = CustomerOut(id=1, customer_name='me', customer_email='me@123.com', customer_address='me@123.com')
 get_account = [get_one_customer]
 
 
 class FakeGetCustomer:
-    def get_all_customers(self):
+    def test_one_customer(self):
         return get_account
 
 
 
 client = TestClient(app)
-# headers = {
-#   "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI1NWQ5MzhhZi1mZjRlLTRlM2UtYjU5ZC1hYjE1MjczZjBjZjQiLCJleHAiOjE2NjY3MjU0MTgsInN1YiI6Im1lZ2FuIiwiYWNjb3VudCI6eyJpZCI6IjEiLCJlbWFpbCI6Im1lZ2FuIiwidXNlcm5hbWUiOiJtZWdhbiBhZG1pbiIsImhhc2hlZF9wYXNzd29yZCI6IiQyYiQxMiRtYWIyZnRLcEZoN1RMN0o1Tm1MR2IuMlBUTzFMOTZNNmdQR1FibEhpM2l5S2NhbHFPaGs3LiJ9fQ.9Nw5VgPDxyAKSMLyOZ2jW7oYHw6v4MWBe0l4a4zy-5A",
-#   "token_type": "Bearer",
-#   "account": {
-#     "id": "1",
-#     "email": "megan",
-#     "username": "megan admin"
-#   }
-# }
+headers = {
+    "Authorization": f"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI0Y2ViYjRiYy1jNzdhLTRlM2QtOWNhOS05ZDI1N2I0NjU0OTEiLCJleHAiOjE2NjY3Mzk3NzcsInN1YiI6ImZhcnRAbm9zZS5jb20iLCJhY2NvdW50Ijp7ImlkIjoiNCIsImVtYWlsIjoiZmFydEBub3NlLmNvbSIsInVzZXJuYW1lIjoiYWRtaW4gYWRtaW4iLCJoYXNoZWRfcGFzc3dvcmQiOiIkMmIkMTIkMHl2ei9EUGdMWjF0NVk0ZEZWNU9FdTQ5MkVUc2JKZWloVWlibDF5ZHkvVGpOMzZhU1FYcjYifX0.6CsouSqrTBzxdEi8RgznwV1kytLJ254n4HQ6k3lRjzU"
+}
 
 
 
-def test_get_customers():
+def test_one_customer():
     app.dependency_overrides[CustomerRepository] = FakeGetCustomer
-    response = client.get("/api/customers/121")
+    response = client.get("/api/customers/1", headers=headers)
     assert response.status_code == 200
     assert response.json() == get_account
     app.dependency_overrides = {}  
