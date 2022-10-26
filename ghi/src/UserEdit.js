@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useToken, useAuthContext } from './Auth';
-import { useNavigate } from "react-router-dom"; 
+// import { useNavigate } from "react-router-dom"; 
 
-
+console.log(useToken)
 
 function UserUpdateComponent() {
 
@@ -24,15 +24,10 @@ function UserUpdateComponent() {
 
 
       const data = parseJwt(token)
-      console.log("DATA", Object.entries(data))
-      console.log("specific", Object.values(data))
       const user = Object.values(data)
-      console.log(user[3])
       const myUser = user[3]
       const valuesUser = Object.values(myUser)
-      console.log(valuesUser[0])
       const userId = valuesUser[0]
-      const id = userId
 
 
 
