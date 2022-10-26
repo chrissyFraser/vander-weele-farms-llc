@@ -9,7 +9,6 @@ import HomePage from './HomePage.js';
 import ProduceItem from './ProduceItem';
 import ProduceItemEdit from './ProduceItemEdit';
 import Cart from './Cart.js'
-// import Orders from './Orders.js';
 import Orders from './Orders.js';
 import { AuthProvider, useToken, useAuthContext } from './Auth.js';
 import LoginComponent from './UserLogin';

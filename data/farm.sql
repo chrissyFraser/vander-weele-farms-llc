@@ -22,7 +22,8 @@ CREATE TABLE driver (
     driver_name VARCHAR(100)
 );
 
-INSERT INTO driver (0, 'Unassigned');
+INSERT INTO driver Values (0, 'Unassigned');
+
 
 CREATE TABLE customer (
     id SERIAL PRIMARY KEY NOT NULL,
@@ -41,6 +42,6 @@ CREATE TABLE orders(
     produce_id INTEGER REFERENCES produce ("id"),
     qty INTEGER,
     driver_id INTEGER REFERENCES driver ("id"),
-    order_date DATE, 
+    order_date VARCHAR(500), 
     printed BOOLEAN DEFAULT false
 );
