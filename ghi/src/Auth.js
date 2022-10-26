@@ -10,11 +10,11 @@ export function getToken() {
 export async function getTokenInternal() {
   const url = `${process.env.REACT_APP_API_HOST}token/get`;
   try {
-    const response = fetch(url, {
+    const response = await fetch(url, {
       credentials: "include",
     });
     if (response.ok) {
-      const data = response.json();
+      const data = await response.json();
       internalToken = data.access_token;
       console.log(internalToken)
       return internalToken;
@@ -26,11 +26,11 @@ export async function getTokenInternal() {
 export async function getTokenData() {
   const url = `${process.env.REACT_APP_API_HOST}token/get`;
   try {
-    const response = fetch(url, {
+    const response = await fetch(url, {
       credentials: "include",
     });
     if (response.ok) {
-      const data = response.json();
+      const data = await response.json();
       let internalToken = data.token_type;
       return internalToken;
     }
@@ -83,7 +83,7 @@ export function useToken() {
 
   useEffect(() => {
     async function fetchToken() {
-      const token = getTokenInternal();
+      const token = await getTokenInternal();
       setToken(token);
     }
     if (!token) {
@@ -95,7 +95,7 @@ export function useToken() {
     if (token) {
       console.log("token found")
       const url = `${process.env.REACT_APP_API_HOST}token`;
-      fetch(url, { method: "delete", credentials: "include" });
+      await fetch(url, { method: "delete", credentials: "include" });
       internalToken = null;
       setToken(null);
       navigate("/");
@@ -109,18 +109,18 @@ export function useToken() {
     const form = new FormData();
     form.append("username", username);
     form.append("password", password);
-    const response = fetch(url, {
+    const response = await fetch(url, {
       method: "post",
       credentials: "include",
       body: form,
     });
     if (response.ok) {
 
-      const token = getTokenInternal();
+      const token = await getTokenInternal();
       setToken(token);
       return;
     }
-    let error = response.json();
+    let error = await response.json();
     return handleErrorMessage(error);
   }
 
