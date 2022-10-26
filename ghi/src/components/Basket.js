@@ -42,7 +42,7 @@ export default function Basket(props) {
         const produce_id = num1[0]
         const qty = num2[0]
         const printed = false
-        const driver_id = 1
+        const driver_id = 0
         const od = Date.now()
         const order_date = new Intl.DateTimeFormat('en-US', {year: 'numeric', month: '2-digit',day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit'}).format(od)
         const customer_id = parseInt(valuesUser[0])
