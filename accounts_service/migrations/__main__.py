@@ -3,7 +3,7 @@ async def migrate():
     import os
     import sys
 
-    db_url = os.environ["DATABASE_URL"]
+    db_url = "https://vanderweele-farm-users.herokuapp.com"
 
     if len(sys.argv) < 2:
         print("Command: up|down [amount]")
