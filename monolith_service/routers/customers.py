@@ -13,21 +13,22 @@ router = APIRouter()
 
 
 @router.post("/api/customers", response_model=Union[CustomerOut, Error])
-def create_a_customer(
+def create_customer(
     customer: CustomerIn,
     response: Response,
     repo: CustomerRepository = Depends(),
-    account_data: Optional[dict] = Depends(authenticator.get_current_account_data),
+    # account_data: Optional[dict] = Depends(authenticator.get_current_account_data),
 ):
-    if "admin" in account_data.get("username"):
+    # if "admin" in account_data.get("username"):
         response.status_code = 200
+        print("Successfully created customer")
         return repo.create_customer(customer)
-    else:
-        raise HTTPException(
-                    status_code=status.HTTP_401_UNAUTHORIZED,
-                    detail="Invalid token",
-                    headers={"WWW-Authenticate": "Bearer"},
-                )
+    # else:
+    #     raise HTTPException(
+    #                 status_code=status.HTTP_401_UNAUTHORIZED,
+    #                 detail="Invalid token",
+    #                 headers={"WWW-Authenticate": "Bearer"},
+    #             )
 
 
 @router.get("/api/customers", response_model=Union[List[CustomerOut], Error])
@@ -35,7 +36,7 @@ def get_all_customers(
     repo: CustomerRepository = Depends(),
     account_data: Optional[dict] = Depends(authenticator.get_current_account_data),
 ):
-    # print(account_data.get("username"))
+    print(account_data.get("username"))
     if "admin" in account_data.get("username"):
         print("YES")
         return repo.get_all_customers()
@@ -48,26 +49,26 @@ def get_all_customers(
 
 
 
-###############################################################################
+##############################################################################
 
 @router.get("/api/customers/{customer_id}", response_model=Optional[CustomerOut])
 def get_one_customer(
     customer_id: int,
     response: Response,
     repo: CustomerRepository = Depends(),
-    account_data: Optional[dict] = Depends(authenticator.get_current_account_data),
+    # account_data: Optional[dict] = Depends(authenticator.get_current_account_data),
 ) -> CustomerOut:
-    if "admin" in account_data.get("username"):
+    # if "admin" in account_data.get("username"):
         customer = repo.get_one_customer(customer_id)
         if customer is None:
             response.status_code = 404
         return customer
-    else:
-        raise HTTPException(
-                    status_code=status.HTTP_401_UNAUTHORIZED,
-                    detail="Invalid token",
-                    headers={"WWW-Authenticate": "Bearer"},
-                )
+    # else:
+    #     raise HTTPException(
+    #                 status_code=status.HTTP_401_UNAUTHORIZED,
+    #                 detail="Invalid token",
+    #                 headers={"WWW-Authenticate": "Bearer"},
+    #             )
 
 
 @router.put("/api/customers/{customer_id}", response_model=Union[CustomerOut, Error])
