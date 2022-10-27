@@ -27,9 +27,10 @@ def create_order(
 @router.get("/api/orders", response_model=Union[List[OrderOut], Error])
 def get_all_orders(
     repo: OrderRepository = Depends(),
-    account_data: Optional[dict] = Depends(authenticator.get_current_account_data),
+    # account_data: dict = Depends(authenticator.get_current_account_data),
 ):
-    if "admin" in account_data.get("username"):
+    # if "admin" in account_data.get("username"):
+    # if account_data:
         return repo.get_all_orders()
 
 
