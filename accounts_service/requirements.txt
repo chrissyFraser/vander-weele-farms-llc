@@ -5,3 +5,4 @@ jwtdown_fastapi==0.3.0
 jwtdown-fastapi==0.3.0
 SQLAlchemy==2.0.0b1
 python-jose[cryptography]==3.3.0
+black==22.10.0

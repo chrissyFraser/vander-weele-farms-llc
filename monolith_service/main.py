@@ -15,7 +15,7 @@ app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        os.environ.get("CORS_HOST", "http://localhost:3000", ),
+        os.environ.get("CORS_HOST", "REACT_APP_API_HOST_MONOLITH"), "http://localhost:3000"
         # os.environ.get("CORS_HOST", "https://vander-weele-farms-llc.gitlab.io/vander-weele-farms-llc")
     ],
     allow_credentials=True,

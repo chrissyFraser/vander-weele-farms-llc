@@ -45,7 +45,7 @@ function App() {
 
   useEffect(() => {
     async function getOrderData() {
-      let url = `${process.env.REACT_APP_API_HOST_MONOLITH}/api/orders/`;
+      let url = `${process.env.REACT_APP_API_HOST_MONOLITH}/api/orders`;
       let response = await fetch(url);
       let data = await response.json();
       if(response.ok){
