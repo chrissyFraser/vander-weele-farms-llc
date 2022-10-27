@@ -1,9 +1,10 @@
 # Module3 Project Gamma
-# LegWalkers VanderWeele Farms LLC website
-- Joshoua LaForest
+# Group LegWalkers 
+# Project VanderWeele Farms LLC website
+- Joshua LaForest
 - Megan Ehrlich
 - Chrissy Fraser
-- Steve Svirko
+- Not-Steve Svirko
 - Marble - Scott Nideffer
 
 Our new website for VanderWeele Farms, to improve customer and staff experience by allowing them to handle these orders through a website catered to their needs.
@@ -33,11 +34,11 @@ We have built this website to specs based on communication with our client, Vand
 
 ### What makes up this project?
 - accounts_service
-  For user security we have the user login information in a different microservice from the rest of our application. We used JWT tokens to verify user authentication and authorization. User info is pased through to the monolith service through cookies. Fasr API CRUD endpoints for users are here. This directory also includes tests for the accounts service.
+  For user security we have the user login information in a different microservice from the rest of our application. We used JWT tokens to verify user authentication and authorization. User info is pased through to the monolith service through cookies. Fast API CRUD endpoints for users are here. This directory also includes tests for the accounts service.
 - data
-  This directory stores information needed for the monolith/farms database.
+  This directory stores information needed for the monolith/farms database for the dev environment.
 - data_a
-  This directory stores information needed for the accounts database.
+  This directory stores information needed for the accounts database for the dev environment.
 - docs
   Includes planning files for our project and images used in it.
 - ghi
@@ -45,7 +46,7 @@ We have built this website to specs based on communication with our client, Vand
 - journals
   Includes detailed journal entries from each member of team detailing the process of creating the site.
 - monolith_service
-  This is where the bulk of our application is. It includes the Fast API CRUD endpoints we use for our customers, products, and orders. This includes all the tests for the monolith service.
+  This is where the bulk of our application is. It includes the Fast API CRUD endpoints we use for our customers, products, and orders as well as the post method for storing images in AWS. This includes all the tests for the monolith service.
 - The remaining node directory and files including gitlab-ci.yml, and docker-compose.yaml are essential for smoothly running this application.
 
 
@@ -61,6 +62,7 @@ Please follow the steps listed to get this project up and running on your local 
 - From this directory run `docker-compose build`
 - Then run `docker-compose up`
 - Visit localhost:3000 through your browser and enjoy the site!
+- If you wish to sign up for the deployed webservice go to https://vander-weele-farms-llc.gitlab.io/vander-weele-farms-llc/signup
 
 
 ## Future plans for this project
@@ -68,3 +70,6 @@ We layed the ground work for many future features for this site, including:
 - Complete and functional CRUD endpoints for creating a driver to be assigned to the orders
 - Very nice bootstrap designs for the site
 - Dynamic nav bar to adapt to whether the user is logged in or not.
+- Dynamic rendering for how the orders will be packed into a delivery truck that uses the priority and driver id's.
+- Send sms messages to customers on designated days to remind them to make their orders.
+- Front pages for advertising. 
