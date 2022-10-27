@@ -1,6 +1,8 @@
 import React from "react";
 import { useState } from 'react';
 import {  useAuthContext } from '../Auth';
+import Alert from 'react-bootstrap/Alert';
+import { useNavigate } from "react-router-dom";
 // import datetime
 
 export default function Basket(props) {
@@ -23,8 +25,25 @@ export default function Basket(props) {
         return JSON.parse(jsonPayload);
     }
 
-    const handleClick = async () => {
+        function cartAlert() {
+            return (
+                <>
+                {['success',
+                ].map((variant) => (
+                    <Alert key={variant} variant={variant}>
+                    Thank you for your order!
+                    </Alert>
+                ))}
+                </>
+            );
+            }
 
+    
+    const navigate = useNavigate();
+
+    const handleClick = async () => {
+        
+        
     
         // cartItems.map((item) => setProduct(item.product_name))
         // cartItems.map((item) => setQty(item.qty))
@@ -77,7 +96,8 @@ export default function Basket(props) {
         console.log('result is: ', JSON.stringify(result));
 
         setData(result);
-
+        cartAlert();
+        navigate("/")
     
 };
 

@@ -1,18 +1,18 @@
 from main import app
-from queries.customers import CustomerRepository, CustomerOut
+from queries.orders import OrderRepository, OrderOut
 from fastapi.testclient import TestClient
 
 
 
 
 
-get_all_customers = CustomerOut(id=8, name='Lolly', email='lolly@email.com', address='76 Sweets St', )
-get_accounts_list = [get_all_customers]
+get_all_orders = OrderOut(id=5, customer_name='Skippy', product_name='Parsnip', qty=10, driver_name="Chauncey", order_date="10/20/2022 12:00", printed=False)
+get_order_list = [get_all_orders]
 
 
-class FakeGetAllCustomers:
-    def get_all_customers(self):
-        return get_accounts_list
+class FakeGetAllOrders:
+    def get_all_orders(self):
+        return get_order_list
 
 
 class FakeAccountData:
@@ -27,10 +27,10 @@ client = TestClient(app)
 
 
 
-def test_get_customers_is_protected():
-    app.dependency_overrides[CustomerRepository] = FakeGetAllCustomers
+def test_get_orders_is_protected():
+    app.dependency_overrides[OrderRepository] = FakeGetAllOrders
     # app.dependency_overrides[authenticator.get_current_account_data] =FakeAccountData
-    response = client.get("/api/customers")
-    assert response.status_code == 401
+    response = client.get("/api/orders")
+    assert response.status_code == 200
     # assert response.json() == get_accounts_list
     app.dependency_overrides = {}  
