@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { useToken, useAuthContext } from './Auth';
-// import { useNavigate } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom"; 
 
 console.log(useToken)
 
 function UserUpdateComponent() {
 
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
 
 
         
@@ -36,8 +36,6 @@ function UserUpdateComponent() {
         });
         if (response.ok) {
         response.status_code = 200
-        
-        // await login(username, password);
         } 
             
         
@@ -69,6 +67,7 @@ function UserUpdateComponent() {
         updateUser(userName, customer_address, userEmail)
         e.preventDefault();
         console.log(userName, customer_address, userEmail)
+        navigate("/cart")
 
     }
 

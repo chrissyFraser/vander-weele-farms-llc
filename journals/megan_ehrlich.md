@@ -180,4 +180,9 @@ Today I worked on:
 - Redirecting user to intake form upon signup
 - Redirecting user to cart after intake form
 - Hiding that link so user only fills out form once upon signup
+- Lost by MIND trying to figure out deployment with Josh
 
+10.27
+Today I worked on:
+- Finalizing the project!
+I am tired.
