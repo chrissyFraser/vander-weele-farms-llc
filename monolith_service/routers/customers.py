@@ -57,19 +57,19 @@ def get_one_customer(
     customer_id: int,
     response: Response,
     repo: CustomerRepository = Depends(),
-    account_data: Optional[dict] = Depends(authenticator.get_current_account_data),
+    # account_data: Optional[dict] = Depends(authenticator.get_current_account_data),
 ) -> CustomerOut:
-    # if "admin" in account_data.get("username"):
-    customer = repo.get_one_customer(customer_id)
-    if customer is None:
-        response.status_code = 404
+    # if account_data: 
+        customer = repo.get_one_customer(customer_id)
+        if customer is None:
+            response.status_code = 404
         return customer
-    else:
-        raise HTTPException(
-                    status_code=status.HTTP_401_UNAUTHORIZED,
-                    detail="Invalid token",
-                    headers={"WWW-Authenticate": "Bearer"},
-                )
+    # else:
+    #     raise HTTPException(
+    #                 status_code=status.HTTP_401_UNAUTHORIZED,
+    #                 detail="Invalid token",
+    #                 headers={"WWW-Authenticate": "Bearer"},
+    #             )
 
 
 @router.put("/api/customers/{customer_id}", response_model=Union[CustomerOut, Error])
