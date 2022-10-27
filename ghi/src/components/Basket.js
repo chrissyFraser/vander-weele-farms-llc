@@ -87,8 +87,7 @@ export default function Basket(props) {
             body: JSON.stringify(data),
             headers: {
                 'Content-Type': 'application/json',
-                "Authorization": `Bearer ${token}`,
-                Accept: 'application/json',
+                "Authorization": `Bearer ${token}`
             },
         });
 
