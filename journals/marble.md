@@ -75,3 +75,5 @@
 
     - CODE FREEZE DAY - finishing up tests, working with seirs. 
     - Test_get_one_customer is working, working on test_create_customer
+    - Test_get_one_customer is working for real, no longer working on a fail case. Still working on test create customer. Current issue: 307 error
+    - Test create customer passes on pass case. Pulling from main and making merge request per Josh's request.
