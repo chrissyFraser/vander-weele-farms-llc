@@ -28,19 +28,14 @@ function ProduceList(props) {
     }
     if (token) {
         const data = parseJwt(token)
-        console.log("DATA", Object.entries(data))
-        console.log("specific", Object.values(data))
         const user = Object.values(data)
-        console.log(user[3])
         const myUser = user[3]
         const valuesUser = Object.values(myUser)
-        console.log(valuesUser[0])
         const user_status = valuesUser[2]
-        // console.log(myId)
-        if (user_status.toLowerCase().includes("admin")) {
+        if (user_status.includes("admin")) {
             return (
                 <>
-                    <button type="button" className="btn btn-primary" id="create-new button" onClick={() => navigate(createProduce)}>Create New</button>
+                    <button type="button" className="btn btn-warning" id="create-new button" onClick={() => navigate(createProduce)}>Create New</button>
                     <div className="columns is-centered">
                         <div className="column is-narrow">
                             <table className="table is-striped">
@@ -70,7 +65,7 @@ function ProduceList(props) {
                                                     width={100}
                                                 />
                                             </td>
-                                            <td><button type="button" className="btn btn-primary" id="get_item button"
+                                            <td><button type="button" className="btn btn-warning" id="get_item button"
                                                 produce_id={produce.id}
                                                 onClick={() => {
                                                     navigate(`/produce-admin/${produce.id}`);
@@ -78,7 +73,7 @@ function ProduceList(props) {
                                                 }}>view Item</button>
                                             </td>
                                             <td>
-                                                <button type="button" className="btn btn-primary" id="get_item button"
+                                                <button type="button" className="btn btn-warning" id="get_item button"
                                                     produce_id={produce.id}
                                                     onClick={() => {
                                                         navigate(`/produce-admin/${produce.id}/patch`);

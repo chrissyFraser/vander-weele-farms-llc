@@ -25,7 +25,7 @@ class OrderOut(BaseModel):
     product_name: str| None = None
     qty: int| None = None
     driver_name: str| None = None
-    order_date: date| None = None
+    order_date: str| None = None
     printed: bool| None = None
 
 class Error(BaseModel):
@@ -41,7 +41,7 @@ class Order_Patch(BaseModel):
 class OrderRepository:
 
     def get_all_orders(self) -> Union[Error, List[OrderOut]]:
-        try:
+        # try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
                     result = db.execute(
@@ -63,8 +63,8 @@ class OrderRepository:
                         self.record_to_order_out(record)
                         for record in result
                     ]
-        except Exception as e:
-            return {"message": "could not get all orders"}
+        # except Exception as e:
+        #     return {"message": "could not get all orders"}
 
 
 

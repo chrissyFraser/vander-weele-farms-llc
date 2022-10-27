@@ -1,55 +1,107 @@
 import React from "react";
-import {useState} from 'react';
+import { useState } from 'react';
+import {  useAuthContext } from '../Auth';
+import Alert from 'react-bootstrap/Alert';
+import { useNavigate } from "react-router-dom";
+// import datetime
 
 export default function Basket(props) {
     console.log("cart", props)
     const { cartItems, onAdd, onRemove } = props;
     const [data, setData] = useState();
-    const [isLoading, setIsLoading] = useState(false);
-    const [err, setErr] = useState('');
-    console.log(isLoading)
-    console.log(err)
-    const handleClick = async () => {
-        setIsLoading(true);
-        try {
-            
-            const data = {
-                // id,
-                // customer_name,
-                // product_name,
-                // qty,
-                // driver_name,
-                // order_date,
-                // printed
+    // const [product_name, setProduct] = useState();
+    // const [qty, setQty] = useState();
 
-            };
 
-            const response = await fetch(`${process.env.REACT_APP_API_HOST_MONOLITH}/api/orders`, {
-                method: 'POST',
-                body: JSON.stringify(data),
-                headers: {
-                    'Content-Type': 'application/json',
-                    Accept: 'application/json',
-                },
-            });
 
-            if (!response.ok) {
-                throw new Error(`Error! status: ${response.status}`);
+    const { token } = useAuthContext();
+        function parseJwt (token) {
+        var base64Url = token.split('.')[1];
+        var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+    
+        return JSON.parse(jsonPayload);
+    }
+
+        function cartAlert() {
+            return (
+                <>
+                {['success',
+                ].map((variant) => (
+                    <Alert key={variant} variant={variant}>
+                    Thank you for your order!
+                    </Alert>
+                ))}
+                </>
+            );
             }
 
-            const result = await response.json();
+    
+    const navigate = useNavigate();
 
-            console.log('result is: ', JSON.stringify(result));
+    const handleClick = async () => {
+        
+        
+    
+        // cartItems.map((item) => setProduct(item.product_name))
+        // cartItems.map((item) => setQty(item.qty))
+        // console.log(product_name)
+        // console.log(qty)
 
-            setData(result);
-        } catch (err) {
-            setErr(err.message);
-        } finally {
-            setIsLoading(false);
-        }
-    };
+        
+        const data1 = parseJwt(token)
+        const user = Object.values(data1)
+        const myUser = user[3]
+        const valuesUser = Object.values(myUser)
 
-    console.log(data);
+        const num1 = cartItems.map((item) => (item.id))
+        const num2 = cartItems.map((item) => (item.qty))
+        const produce_id = num1[0]
+        const qty = num2[0]
+        const printed = false
+        const driver_id = 0
+        const od = Date.now()
+        const order_date = new Intl.DateTimeFormat('en-US', {year: 'numeric', month: '2-digit',day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit'}).format(od)
+        const customer_id = parseInt(valuesUser[0])
+
+        console.log("customer_id", customer_id)
+        console.log("date", order_date)
+        console.log("id", produce_id)
+        console.log("qty", qty)
+
+        const data = {
+                customer_id,
+                produce_id,
+                qty,
+                driver_id,
+                order_date,
+                printed
+        };
+
+        console.log("data", data);
+
+        const response = await fetch(`${process.env.REACT_APP_API_HOST_MONOLITH}/api/orders`, {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+            },
+        });
+
+        const result = await response.json();
+
+        console.log('result is: ', JSON.stringify(result));
+
+        setData(result);
+        cartAlert();
+        navigate("/")
+    
+};
+
+console.log(data);
 
 
     return (
@@ -84,5 +136,5 @@ export default function Basket(props) {
                 </>
             )}
         </aside>
-    );
+);
 }

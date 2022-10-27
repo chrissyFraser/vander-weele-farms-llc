@@ -23,60 +23,52 @@ a {
 } */
 
 .row {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+  display: flex !important;
+  flex-wrap: wrap !important;
+  justify-content: space-between !important;
 }
 
 .row.center {
-  align-items: center;
+  align-items: center !important;
 }
 
 .col-1 {
-  flex-basis: 100%;
+  flex-basis: 100% !important;
 }
 
 .col-2 {
-  flex-basis: 100%;
+  flex-basis: 100% !important;
 }
 
 
 @media screen and (min-width:800px) {
   .col-1 {
-    flex: 1;
+    flex: 1 !important;
   }
   
   .col-2 {
-    flex: 2;
+    flex: 2 !important;
   }
   }
 
 
   .block {
-    background-color: rgb(255, 247, 177);
-    padding: 1rem;
-    margin: 0.5rem;
-    border-radius: 25px;
-    border: 1px solid #ffea31;
+    background-color: rgb(255, 247, 177) !important;
+    padding: 1rem !important;
+    margin: 0.5rem !important;
+    border-radius: 25px !important;
+    border: 1px solid #ffea31 !important;
+
   }
 
-  .produce-pic {
-    width: 200px;
-    min-height: 200px;
-    border-radius: 25px;
+  img {
+    width: 200px !important;
+    min-height: 200px !important;
+    border-radius: 25px !important;
   }
-
-.logo {
-    width: 100px
-  }
-
-.cart-icon {
-  width: 50px
-  
-}
 
   h1, h2, h3 {
-    color: rgb(172, 45, 45);
+    color: rgb(0, 0, 0);
   }
 
 .link {
@@ -87,10 +79,10 @@ a {
 button {
   font-size: .8rem;
   color: rgb(255, 255, 255);
-  padding: .2rem;
-  margin: .1rem;
+  padding: .5rem;
+  margin: .5rem;
   border-radius: .5rem;
-  border: .1rem;
+  border: .5rem;
   background-color: rgb(172, 45, 45);
   width: 100%;
   cursor: pointer;
@@ -110,4 +102,12 @@ button.badge {
   width: 1.5rem;
   border: .1rem;
   color: rgb(255, 255, 255);
+}
+
+.card {
+  width: 15rem !important;
+}
+
+.title {
+  text-align: center;
 }

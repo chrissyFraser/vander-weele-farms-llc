@@ -12,7 +12,7 @@ class CustomerIn(BaseModel):
 
 
 class CustomerOut(BaseModel):
-    id: int | None = None
+    # id: int | None = None
     customer_name: str | None = None
     customer_address: str | None = None
     customer_email: str | None = None
@@ -127,7 +127,7 @@ class CustomerRepository:
                     result = db.execute(
                         """
                         SELECT c.id as customer_id, c.customer_name, c.customer_address, c.customer_email, c.priority_id, 
-                             d.id as driver_id, d.id, d.driver_name
+                                d.id as driver_id, d.id, d.driver_name
                         FROM customer c
                         JOIN driver d on(c.driver_id = d.driver_id)
                         WHERE c.id = %s

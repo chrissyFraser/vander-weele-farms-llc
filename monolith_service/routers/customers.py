@@ -13,14 +13,16 @@ router = APIRouter()
 
 
 @router.post("/api/customers", response_model=Union[CustomerOut, Error])
-def create_a_customer(
+def create_customer(
     customer: CustomerIn,
     response: Response,
     repo: CustomerRepository = Depends(),
     account_data: Optional[dict] = Depends(authenticator.get_current_account_data),
 ):
-    if "admin" in account_data.get("username"):
+    if account_data:
+        print(account_data)
         response.status_code = 200
+        print("Successfully created customer")
         return repo.create_customer(customer)
     else:
         raise HTTPException(
@@ -35,10 +37,10 @@ def get_all_customers(
     repo: CustomerRepository = Depends(),
     account_data: Optional[dict] = Depends(authenticator.get_current_account_data),
 ):
-    # print(account_data.get("username"))
+    print(account_data.get("username")) 
     if "admin" in account_data.get("username"):
-        print("YES")
-        return repo.get_all_customers()
+            print("YES")
+            return repo.get_all_customers()
     else:
         raise HTTPException(
                     status_code=status.HTTP_401_UNAUTHORIZED,
@@ -48,7 +50,7 @@ def get_all_customers(
 
 
 
-###############################################################################
+##############################################################################
 
 @router.get("/api/customers/{customer_id}", response_model=Optional[CustomerOut])
 def get_one_customer(
@@ -57,10 +59,10 @@ def get_one_customer(
     repo: CustomerRepository = Depends(),
     account_data: Optional[dict] = Depends(authenticator.get_current_account_data),
 ) -> CustomerOut:
-    if "admin" in account_data.get("username"):
-        customer = repo.get_one_customer(customer_id)
-        if customer is None:
-            response.status_code = 404
+    # if "admin" in account_data.get("username"):
+    customer = repo.get_one_customer(customer_id)
+    if customer is None:
+        response.status_code = 404
         return customer
     else:
         raise HTTPException(
