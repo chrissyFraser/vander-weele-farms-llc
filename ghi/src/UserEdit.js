@@ -62,9 +62,7 @@ function UserUpdateComponent() {
     const userEmail = valuesUser[1]
     console.log(valuesUser)
 
-    // let [customer_name, setUsername] = useState('')
     let [customer_address, setPassword] = useState('')
-    // let [customer_email, setEmail] = useState('')
 
     const submitHandler = e => {
         
@@ -79,9 +77,9 @@ function UserUpdateComponent() {
         <div>
             <center>
                 <form onSubmit={submitHandler}>
+                    <input type="text" name="customer_name" placeholder="Name" value={userName} /><br />
                     <input type="text" name="email" placeholder="Email" value={userEmail} /><br />
                     <input type="text" name="customer_address" placeholder="Address" value={customer_address} onChange={(event) => setPassword(event.target.value)} /><br />
-                    <input type="text" name="customer_name" placeholder="Name" value={userName} /><br />
                     <input type="submit" name="submit" />
                 </form>
             </center>
