@@ -31,6 +31,6 @@ def test_get_orders_is_protected():
     app.dependency_overrides[OrderRepository] = FakeGetAllOrders
     # app.dependency_overrides[authenticator.get_current_account_data] =FakeAccountData
     response = client.get("/api/orders")
-    assert response.status_code == 200
+    assert response.status_code == 401
     # assert response.json() == get_accounts_list
     app.dependency_overrides = {}  
