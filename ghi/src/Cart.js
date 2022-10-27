@@ -37,27 +37,27 @@ function Cart(props) {
         }
     }
 
-    function parseJwt(token) {
-        var base64Url = token.split('.')[1];
-        var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-        var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function (c) {
-            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-        }).join(''));
+    // function parseJwt(token) {
+    //     var base64Url = token.split('.')[1];
+    //     var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    //     var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function (c) {
+    //         return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    //     }).join(''));
 
-        return JSON.parse(jsonPayload);
-    }
+    //     return JSON.parse(jsonPayload);
+    // }
     const { token } = useAuthContext();
-    if (token) {
-        const data = parseJwt(token)
-        console.log("DATA", Object.entries(data))
-        console.log("specific", Object.values(data))
-        const user = Object.values(data)
-        console.log(user[3])
-        const myUser = user[3]
-        const valuesUser = Object.values(myUser)
-        console.log(valuesUser[0])
-        const user_status = valuesUser[2]
-        if (user_status.toLowerCase().includes("admin")) {
+    // if (token) {
+    //     const data = parseJwt(token)
+    //     console.log("DATA", Object.entries(data))
+    //     console.log("specific", Object.values(data))
+    //     const user = Object.values(data)
+    //     console.log(user[3])
+    //     const myUser = user[3]
+    //     const valuesUser = Object.values(myUser)
+    //     console.log(valuesUser[0])
+    //     const user_status = valuesUser[2]
+        if (token) {
             return <>
             <div>
                 <Header countCartItems={cartItems.reduce((a, v) => a = a + v.qty, 0)}></Header>
@@ -71,7 +71,7 @@ function Cart(props) {
                 </div>
             </div>
         </>
-        }
+        // }
     } else {
         return (
             <h2>Please login to view your cart</h2>
