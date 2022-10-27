@@ -2,6 +2,7 @@ import { useAuthContext } from './Auth';
 
 
 
+
 function Orders(props) {
     
     // const {get_all_orders} = props;
@@ -15,7 +16,7 @@ function Orders(props) {
 
             <div className="columns is-centered">
             <div className="column is-narrow">
-                <table className="table is-striped">
+                <table className="table" style={{textAlign: "center"}}>
                 <thead>
                     <tr>
                     <th>Order ID</th>

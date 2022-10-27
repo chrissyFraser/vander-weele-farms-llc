@@ -4,7 +4,7 @@ import { useToken, useAuthContext } from './Auth';
 console.log(useToken)
 
 
-function UserInfoComponent() {
+function UserUpdateComponent() {
     
     const { token } = useAuthContext();
     function parseJwt(token) {
@@ -95,4 +95,4 @@ function UserInfoComponent() {
 
 }
 
-export default UserInfoComponent
+export default UserUpdateComponent

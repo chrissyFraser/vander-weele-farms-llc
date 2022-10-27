@@ -87,7 +87,7 @@ function ProduceItem(props) {
                             <td>{item.length}</td>
                             <td>{item.height}</td>
                             <td>{item.width}</td>
-                            <td><button type="button" className="btn btn-primary" id="delete_item button"
+                            <td><button type="button" className="btn btn-warning" id="delete_item button"
                                 onClick={() => handleDelete(`/produce-admin/${item.produce_id}`)}>Delete Item</button></td>
                         </tr>
                     </tbody>

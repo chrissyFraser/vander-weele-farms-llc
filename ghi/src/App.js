@@ -14,7 +14,7 @@ import { AuthProvider, useToken, useAuthContext } from './Auth.js';
 import LoginComponent from './UserLogin';
 import LogoutComponent from './UserLogout';
 import SignupComponent from './UserSignup';
-import UserInfoComponent from './UserEdit'
+import UserUpdateComponent from './UserEdit'
 
 function GetToken() {
     useToken();
@@ -93,7 +93,7 @@ function App() {
                       <Route path="/login" element={<LoginComponent LoginComponent={LoginComponent} />} />
                       <Route path="/logout" element={<LogoutComponent LogoutComponent={LogoutComponent} />} />
                       <Route path="/signup" element={<SignupComponent SignupComponent={SignupComponent} />} />
-                      <Route path="/create-customer" element={<UserInfoComponent UserInfoComponent={UserInfoComponent} />} />
+                      <Route path="/create-customer" element={<UserUpdateComponent UserUpdateComponent={UserUpdateComponent} />} />
                     </Routes>
                   </div>
             </div>
