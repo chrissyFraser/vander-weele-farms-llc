@@ -167,3 +167,17 @@ Today I worked on:
 - More debugging Auth
 - Customer intake backend and frontend
 - Wrote get all accounts unit test.
+
+10.25
+Today I worked on:
+- Getting the user information from the token
+- Getting the customer intake form set up
+
+10.26
+Today I worked on:
+- Helping iron out customer details on the order table with Chrissy
+- Making the customer intake form auto populate with user information
+- Redirecting user to intake form upon signup
+- Redirecting user to cart after intake form
+- Hiding that link so user only fills out form once upon signup
+
