@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 function ProduceItem(props) {
     const [item, setItem] = useState([]);
+    console.log("item", item)
     // const [delete, setDelete] = useState([]);
     useEffect(() => {
         async function getProduceItem() {
@@ -77,7 +78,7 @@ function ProduceItem(props) {
                             </td>
                             <td>
                                 <img
-                                    src={`https:vwimageuploads.s3.us-west-2.amazonaws.com/${item.picture_file}`}
+                                    src={`https://vwimageuploads.s3.us-west-2.amazonaws.com/${item.picture_file}`}
                                     id="image"
                                     alt="Thumbnail"
                                     className="user-post"
