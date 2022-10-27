@@ -82,22 +82,26 @@ export default function Basket(props) {
 
         console.log("data", data);
 
-        const response = await fetch(`${process.env.REACT_APP_API_HOST_MONOLITH}/api/orders`, {
+        fetch(`${process.env.REACT_APP_API_HOST_MONOLITH}/api/orders`, {
             method: 'POST',
             body: JSON.stringify(data),
             headers: {
                 'Content-Type': 'application/json',
                 "Authorization": `Bearer ${token}`
             },
-        });
+            
+        }).then(() =>{
+            navigate("/")
+        }
+        )
 
-        const result = await response.json();
+        // const result = await response.json();
 
-        console.log('result is: ', JSON.stringify(result));
+        // console.log('result is: ', JSON.stringify(result));
 
-        setData(result);
-        // cartAlert();
-        navigate("/")
+        // setData(result);
+        // // cartAlert();
+        // navigate("/")
     
 };
 
