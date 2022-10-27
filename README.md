@@ -1,91 +1,70 @@
 # Module3 Project Gamma
+# LegWalkers VanderWeele Farms LLC website
+- Joshoua LaForest
+- Megan Ehrlich
+- Chrissy Fraser
+- Steve Svirko
+- Marble - Scott Nideffer
 
-## Getting started
+Our new website for VanderWeele Farms, to improve customer and staff experience by allowing them to handle these orders through a website catered to their needs.
 
-You have a project repository, now what? The next section
-lists all of the deliverables that are due at the end of the
-week. Below is some guidance for getting started on the
-tasks for this week.
 
-## Deliverables
+## Who is it for?
 
-- [ ] Wire-frame diagrams
-- [ ] API documentation
-- [ ] Project is deployed to Heroku/GitLab-pages
-- [ ] GitLab issue board is setup and in use
-- [ ] Journals
+We have built this website to specs based on communication with our client, VanderWeele Farms.
 
-## Project layout
+## Functionality
 
-The layout of the project is just like all of the projects
-you did with `docker-compose` in module #2. You will create
-a directory in the root of the repository for each service
-that you add to your project just like those previous
-projects were setup.
+- Everyone can view the home page.
+- First time users will be prompted to sign up to view other pages.
+- Upon signup they fill out another form with more information to save to the database.
+- Users are now directed to the main cart page where they can:
+  -  view available produce
+  -  add and remove quantities of items from their basket
+  -  submit their order
+- Upon submit information is pulled from the user's cookie to match their information with the customer profile in the database and saved with the order.
+- Admin level users can view a list of all orders with information from the user who submitted it.
+- Admin users also have an admin section where they can:
+  - add new produce
+  - update individual values of existing produce
+  - remove produce
 
-### Directories
 
-Several directories have been added to your project. The
-directories `docs` and `journals` are places for you and
-your team-mates to, respectively, put any documentation
-about your project that you create and to put your
-project-journal entries. See the _README.md_ file in each
-directory for more info.
 
-The other directories, `ghi` and `sample_service`, are
-sample services, that you can start building off of or use
-as a reference point.
+### What makes up this project?
+- accounts_service
+  For user security we have the user login information in a different microservice from the rest of our application. We used JWT tokens to verify user authentication and authorization. User info is pased through to the monolith service through cookies. Fasr API CRUD endpoints for users are here. This directory also includes tests for the accounts service.
+- data
+  This directory stores information needed for the monolith/farms database.
+- data_a
+  This directory stores information needed for the accounts database.
+- docs
+  Includes planning files for our project and images used in it.
+- ghi
+  Includes all the information needed for the react side of this project. We used react hooks for the pages.
+- journals
+  Includes detailed journal entries from each member of team detailing the process of creating the site.
+- monolith_service
+  This is where the bulk of our application is. It includes the Fast API CRUD endpoints we use for our customers, products, and orders. This includes all the tests for the monolith service.
+- The remaining node directory and files including gitlab-ci.yml, and docker-compose.yaml are essential for smoothly running this application.
 
-Inside of `ghi` is a minimal React app that has an "under
-construction" page. It is setup similarly to all of the
-other React projects that you have worked on.
 
-Inside of `sample_service` is a minimal FastAPI application.
-"Where are all the files?" you might ask? Well, the
-`main.py` file is the whole thing, and go take look inside
-of it... There's not even much in there..., hmm? That is
-FastAPI, we'll learn more about it in the coming days. Can
-you figure out what this little web-application does even
-though you haven't learned about FastAPI yet?
 
-Also in `sample_service` is a directory for your migrations.
-If you choose to use PostgreSQL, then you'll want to use
-migrations to control your database. Unlike Django, where
-migrations were automatically created for you, you'll write
-yours by hand using DDL. Don't worry about not knowing what
-DDL means; we have you covered. There's a sample migration
-in there that creates two tables so you can see what they
-look like.
 
-The sample Dockerfile and Dockerfile.dev run your migrations
-for you automatically.
+## How to complete use
 
-### Other files
+Please follow the steps listed to get this project up and running on your local machine.
 
-The following project files have created as a minimal
-starting point. Please follow the guidance for each one for
-a most successful project.
+- Clone this repository to your machine.
+- Make sure you are in the proper directory for this project.
+- Neccessary volumes will be automatically created for you.
+- From this directory run `docker-compose build`
+- Then run `docker-compose up`
+- Visit localhost:3000 through your browser and enjoy the site!
 
-- `docker-compose.yaml`: there isn't much in here, just a
-  **really** simple UI and FastAPI service. Add services
-  (like a database) to this file as you did with previous
-  projects in module #2.
-- `.gitlab-ci.yml`: This is your "ci/cd" file where you will
-  configure automated unit tests, code quality checks, and
-  the building and deployment of your production system.
-  Currently, all it does is deploy an "under construction"
-  page to your production UI on GitLab and a sample backend
-  to Heroku. We will learn much more about this file.
-- `.gitignore`: This is a file that prevents unwanted files
-  from getting added to your repository, files like
-  `pyc` files, `__pycache__`, etc. We've set it up so that
-  it has a good default configuration for Python projects.
 
-## How to complete the initial deploy
-
-There will be further guidance on completing the initial
-deployment, but it just consists of these steps:
-
-- setup Heroku account and app
-- setup 2 CI/CD variables in GitLab
-- push to main
+## Future plans for this project
+We layed the ground work for many future features for this site, including:
+- Complete and functional CRUD endpoints for creating a driver to be assigned to the orders
+- Very nice bootstrap designs for the site
+- Dynamic nav bar to adapt to whether the user is logged in or not.
