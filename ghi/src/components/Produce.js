@@ -7,7 +7,7 @@ export default function Produce(props) {
     return (
         <Row className="g-4">
         <Card>
-            <Card.Img variant="top" src={`https:vwimageuploads.s3.us-west-2.amazonaws.com/${produce.picture_file}`} alt={produce.product_name}/>
+            <Card.Img variant="top" src={`https://vwimageuploads.s3.us-west-2.amazonaws.com/${produce.picture_file}`} alt={produce.product_name}/>
             <Card.Body>
             <Card.Footer>
             <Card.Title>{produce.product_name}</Card.Title>

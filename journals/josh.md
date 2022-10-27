@@ -62,5 +62,8 @@
 * After test I took over from marble on the db and got a seir involved, we made head way but didn't get it.
   
 10.24:
+* continued working on getting the db deployed, still nothing.
+
+10.25:
 * got the db's deployed, there is a cors error but I think I know where to fix it. The only problem is I think that will break the local server.
   
