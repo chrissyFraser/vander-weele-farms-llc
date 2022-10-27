@@ -4,6 +4,31 @@ stages:
   - deploy
 
 
+monolith-unit-test-job:
+  image: python:3-bullseye
+  stage: test
+  script:
+    - cd monolith_service
+    - pip install -r requirements.txt
+    - python -m pytest 
+
+
+account-unit-test-job:
+  image: python:3-bullseye
+  stage: test
+  script:
+    - cd accounts_service
+    - pip install -r requirements.txt
+    - python -m pytest 
+
+vander-weele-lint-job:
+  image: python:3-bullseye
+  stage: test
+  script:
+    - pip install flake8
+    - flake8 monolith_service accounts_service
+
+
 ## BUILD
 build-Vander-Weele-Front-end:
   stage: build
@@ -145,9 +170,3 @@ release-Vander-Weele-user-api-Image:  # deploy fastapi image
 
 
 
-# lint-job:
-#   image: python:3-bullseye
-#   stage: test
-#   script:
-#     - pip install flake8
-#     - flake8 monolith_service accounts_service
