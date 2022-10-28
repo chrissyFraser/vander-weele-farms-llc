@@ -6,7 +6,7 @@ from queries.orders import (
     Order_Patch,
 )
 from typing import Union, List, Optional
-from fastapi import APIRouter, Depends, Response, HTTPException, status
+from fastapi import APIRouter, Depends, Response, HTTPException
 from authenticator import authenticator
 
 router = APIRouter()
@@ -31,7 +31,7 @@ def get_all_orders(
 ):
     # if "admin" in account_data.get("username"):
     # if account_data:
-        return repo.get_all_orders()
+    return repo.get_all_orders()
 
 
 @router.get("/api/orders/{order_id}", response_model=Optional[OrderOut])
@@ -69,19 +69,20 @@ def delete_order(
         return repo.delete_order(order_id)
 
 
-@router.patch("/api/orders/{order_id}", response_model=OrderOut)
-def update_order_ids(
-    customer_id: int,
-    customer: Order_Patch,
-    repo: OrderRepository = Depends(),
-    account_data: Optional[dict] = Depends(authenticator.get_current_account_data),
-) -> OrderOut:
-    if "admin" in account_data.get("username"):
-        return repo.update_order_ids(
-            order_id,
-            Order_Patch(
-                customer_id=orders.customer_id,
-                produce_id=orders.produce_id,
-                driver_id=orders.driver_id,
-            ),
-        )
+# @router.patch("/api/orders/{order_id}", response_model=OrderOut)
+# def update_order_ids(
+#     customer_id: int,
+#     customer: Order_Patch,
+#     repo: OrderRepository = Depends(),
+#     account_data: Optional[dict] =
+#       Depends(authenticator.get_current_account_data),
+# ) -> OrderOut:
+#     if "admin" in account_data.get("username"):
+#         return repo.update_order_ids(
+#             order_id,
+#             Order_Patch(
+#                 customer_id=orders.customer_id,
+#                 produce_id=orders.produce_id,
+#                 driver_id=orders.driver_id,
+#             ),
+#         )

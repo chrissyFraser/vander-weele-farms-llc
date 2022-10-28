@@ -56,10 +56,7 @@ class AccountQueries:
     def record_to_user_out(self, record):
         print("Record", record)
         return AccountOutWithPassword(
-            id=record[1],
-            email=record[0],
-            username=record[2],
-            hashed_password=record[3]
+            id=record[1], email=record[0], username=record[2], hashed_password=record[3]
         )
 
     def create(self, info: AccountIn, hashed_password: str) -> AccountOutWithPassword:

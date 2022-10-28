@@ -1,8 +1,5 @@
 from sqlite3 import Cursor
-from typing import Union, List, Optional
-from optparse import Values
-import os
-from tkinter import INSERT
+from typing import Optional
 from pydantic import BaseModel
 from queries.pool import pool
 from dataclasses import dataclass
@@ -48,15 +45,12 @@ class Error(BaseModel):
 
 
 class Produce_update_available(BaseModel):
-    product_name: str| None = None
-    picture_file: Optional[str]| None = None
-    available: Optional[bool]| None = None
-    height: Optional[int]| None = None
-    length: Optional[int]| None = None
-    width: Optional[int]| None = None
-    
-    
-    
+    product_name: str | None = None
+    picture_file: Optional[str] | None = None
+    available: Optional[bool] | None = None
+    height: Optional[int] | None = None
+    length: Optional[int] | None = None
+    width: Optional[int] | None = None
 
 
 class ProduceQueries:
@@ -234,5 +228,3 @@ class ProduceQueries:
                     conn.commit()
                     return self.get_single_produce_item(produce_id)
         except Exception as e:
-            print(e)
-            return {"message": "Could not update that produce"}

@@ -26,10 +26,10 @@ def create_customer(
         return repo.create_customer(customer)
     else:
         raise HTTPException(
-                    status_code=status.HTTP_401_UNAUTHORIZED,
-                    detail="Invalid token",
-                    headers={"WWW-Authenticate": "Bearer"},
-                )
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid token",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
 
 
 @router.get("/api/customers", response_model=Union[List[CustomerOut], Error])
@@ -37,20 +37,17 @@ def get_all_customers(
     repo: CustomerRepository = Depends(),
     account_data: Optional[dict] = Depends(authenticator.get_current_account_data),
 ):
-    print(account_data.get("username")) 
+    print(account_data.get("username"))
     if "admin" in account_data.get("username"):
-            print("YES")
-            return repo.get_all_customers()
+        print("YES")
+        return repo.get_all_customers()
     else:
         raise HTTPException(
-                    status_code=status.HTTP_401_UNAUTHORIZED,
-                    detail="Invalid token",
-                    headers={"WWW-Authenticate": "Bearer"},
-                )
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid token",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
 
-
-
-##############################################################################
 
 @router.get("/api/customers/{customer_id}", response_model=Optional[CustomerOut])
 def get_one_customer(
@@ -59,17 +56,19 @@ def get_one_customer(
     repo: CustomerRepository = Depends(),
     # account_data: Optional[dict] = Depends(authenticator.get_current_account_data),
 ) -> CustomerOut:
-    # if account_data: 
-        customer = repo.get_one_customer(customer_id)
-        if customer is None:
-            response.status_code = 404
-        return customer
-    # else:
-    #     raise HTTPException(
-    #                 status_code=status.HTTP_401_UNAUTHORIZED,
-    #                 detail="Invalid token",
-    #                 headers={"WWW-Authenticate": "Bearer"},
-    #             )
+    # if account_data:
+    customer = repo.get_one_customer(customer_id)
+    if customer is None:
+        response.status_code = 404
+    return customer
+
+
+# else:
+#     raise HTTPException(
+#                 status_code=status.HTTP_401_UNAUTHORIZED,
+#                 detail="Invalid token",
+#                 headers={"WWW-Authenticate": "Bearer"},
+#             )
 
 
 @router.put("/api/customers/{customer_id}", response_model=Union[CustomerOut, Error])
@@ -83,10 +82,10 @@ def update_customer(
         return repo.update_customer(customer_id, customer)
     else:
         raise HTTPException(
-                    status_code=status.HTTP_401_UNAUTHORIZED,
-                    detail="Invalid token",
-                    headers={"WWW-Authenticate": "Bearer"},
-                )
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid token",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
 
 
 @router.delete("/api/customers/{customer_id}", response_model=bool)
@@ -99,10 +98,10 @@ def delete_customer(
         return repo.delete_customer(customer_id)
     else:
         raise HTTPException(
-                    status_code=status.HTTP_401_UNAUTHORIZED,
-                    detail="Invalid token",
-                    headers={"WWW-Authenticate": "Bearer"},
-                )
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid token",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
 
 
 @router.patch("/api/customers/{customer_id}", response_model=CustomerOut)
@@ -121,7 +120,7 @@ def updata_customer_ids(
         )
     else:
         raise HTTPException(
-                    status_code=status.HTTP_401_UNAUTHORIZED,
-                    detail="Invalid token",
-                    headers={"WWW-Authenticate": "Bearer"},
-                )
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid token",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
