@@ -7,7 +7,6 @@ from authenticator import authenticator
 router = APIRouter()
 
 
-  
 @router.post("/api/drivers", response_model=Union[DriverOut, Error])
 async def create_a_driver(
     driver: DriverIn,
@@ -41,8 +40,6 @@ def get_all_drivers(
         )
 
 
-
-
 @router.get("/api/drivers/{driver_id}", response_model=Optional[DriverOut])
 def get_one_driver(
     driver_id: int,
@@ -63,7 +60,9 @@ def get_one_driver(
         )
 
 
-@router.put("/api/drivers/{driver_id}", response_model=Union[DriverOut, Error])
+@router.put(
+    "/api/drivers/{driver_id}", response_model=Union[DriverOut, Error]
+)
 def update_driver(
     driver_id: int,
     driver: DriverIn,
