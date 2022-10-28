@@ -30,6 +30,7 @@ class DriverRepository:
 
                     return [self.record_to_driver_out(record) for record in result]
         except Exception as e:
+            print(e)
             return {"message": "Could not get all drivers"}
 
     def create_driver(self, driver: DriverIn) -> Union[DriverOut, Error]:
@@ -111,4 +112,5 @@ class DriverRepository:
 
                     return self.driver_in_to_out(driver_id, driver)
         except Exception as e:
+            print(e)
             return {"message": "Could not update that driver"}

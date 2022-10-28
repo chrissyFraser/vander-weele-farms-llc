@@ -1,7 +1,6 @@
 import boto3
 import os
-from fastapi import FastAPI, UploadFile, APIRouter
-from queries.pool import pool
+from fastapi import UploadFile, APIRouter
 
 
 S3_BUCKET = os.environ["S3_BUCKET"]
@@ -16,11 +15,11 @@ router = APIRouter()
 @router.post("/photos", status_code=201)
 async def add_photo(file: UploadFile):
     s3 = boto3.resource(
-        "s3", 
-        aws_access_key_id=ACCESS_KEY, 
-        aws_secret_access_key=SECRET_ACCESS_KEY
+        "s3",
+        aws_access_key_id=ACCESS_KEY,
+        aws_secret_access_key=SECRET_ACCESS_KEY,
     )
     bucket = s3.Bucket(S3_BUCKET)
-    bucket.upload_fileobj(file.file, 
-                            file.filename, 
-                            ExtraArgs={"ACL": "public-read"})
+    bucket.upload_fileobj(
+        file.file, file.filename, ExtraArgs={"ACL": "public-read"}
+    )

@@ -17,7 +17,9 @@ def create_customer(
     customer: CustomerIn,
     response: Response,
     repo: CustomerRepository = Depends(),
-    account_data: Optional[dict] = Depends(authenticator.get_current_account_data),
+    account_data: Optional[dict] = Depends(
+        authenticator.get_current_account_data
+    ),
 ):
     if account_data:
         print(account_data)
@@ -35,7 +37,9 @@ def create_customer(
 @router.get("/api/customers", response_model=Union[List[CustomerOut], Error])
 def get_all_customers(
     repo: CustomerRepository = Depends(),
-    account_data: Optional[dict] = Depends(authenticator.get_current_account_data),
+    account_data: Optional[dict] = Depends(
+        authenticator.get_current_account_data
+    ),
 ):
     print(account_data.get("username"))
     if "admin" in account_data.get("username"):
@@ -49,7 +53,9 @@ def get_all_customers(
         )
 
 
-@router.get("/api/customers/{customer_id}", response_model=Optional[CustomerOut])
+@router.get(
+    "/api/customers/{customer_id}", response_model=Optional[CustomerOut]
+)
 def get_one_customer(
     customer_id: int,
     response: Response,
@@ -71,12 +77,16 @@ def get_one_customer(
 #             )
 
 
-@router.put("/api/customers/{customer_id}", response_model=Union[CustomerOut, Error])
+@router.put(
+    "/api/customers/{customer_id}", response_model=Union[CustomerOut, Error]
+)
 def update_customer(
     customer_id: int,
     customer: CustomerIn,
     repo: CustomerRepository = Depends(),
-    account_data: Optional[dict] = Depends(authenticator.get_current_account_data),
+    account_data: Optional[dict] = Depends(
+        authenticator.get_current_account_data
+    ),
 ) -> Union[Error, CustomerOut]:
     if "admin" in account_data.get("username"):
         return repo.update_customer(customer_id, customer)
@@ -92,7 +102,9 @@ def update_customer(
 def delete_customer(
     customer_id: int,
     repo: CustomerRepository = Depends(),
-    account_data: Optional[dict] = Depends(authenticator.get_current_account_data),
+    account_data: Optional[dict] = Depends(
+        authenticator.get_current_account_data
+    ),
 ) -> bool:
     if "admin" in account_data.get("username"):
         return repo.delete_customer(customer_id)
@@ -109,7 +121,9 @@ def updata_customer_ids(
     customer_id: int,
     customer: Customer_Patch,
     repo: CustomerRepository = Depends(),
-    account_data: Optional[dict] = Depends(authenticator.get_current_account_data),
+    account_data: Optional[dict] = Depends(
+        authenticator.get_current_account_data
+    ),
 ) -> CustomerOut:
     if "admin" in account_data.get("username"):
         return repo.update_customer_ids(
