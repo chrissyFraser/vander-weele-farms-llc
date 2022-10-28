@@ -26,9 +26,11 @@ function LoginComponent() {
       <center>
         <h1>Please login using your email</h1>
         <form onSubmit={submitHandler}>
-          <input type="text" name="username" placeholder="Email" value={username} onChange={(event) => setUsername(event.target.value)} /><br />
-          <input type="password" name="password" placeholder="Password" value={password} onChange={(event) => setPassword(event.target.value)} /><br />
-          <input type="submit" name="submit" />
+        <div class="form-group">
+          <input type="email" class="form-control" name="username" placeholder="Email" value={username} onChange={(event) => setUsername(event.target.value)} /><br />
+          <input type="password" class="form-control" name="password" placeholder="Password" value={password} onChange={(event) => setPassword(event.target.value)} /><br />
+          <input type="submit" class="btn btn-danger" name="submit" />
+          </div>
         </form>
       </center>
     </div>

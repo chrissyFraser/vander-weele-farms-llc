@@ -41,7 +41,7 @@ function ProduceList(props) {
         <>
           <button
             type="button"
-            className="btn btn-warning"
+            className="btn btn-danger"
             id="create-new button"
             onClick={() => navigate(createProduce)}
           >

@@ -111,3 +111,13 @@ button.badge {
 .title {
   text-align: center;
 }
+
+.nav {
+  padding: .5rem;
+  justify-content: center;
+}
+
+.nav-link {
+  margin: .5rem;
+  color: white;
+}

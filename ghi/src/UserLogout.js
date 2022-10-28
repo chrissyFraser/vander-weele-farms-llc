@@ -32,7 +32,7 @@ function LogoutComponent() {
         <div>
             <center>
                 <form onSubmit={submitHandler}>
-                    <button>Logout</button>
+                    <button class="btn btn-danger">Logout</button>
                 </form>
             </center>
         </div>
