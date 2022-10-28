@@ -1,2 +1,7 @@
 [tool.black]
 line-length = 78
+
+
+[flake8]
+max-line-length = 79
+extend-ignore = E203
