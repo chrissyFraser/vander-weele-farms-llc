@@ -7,6 +7,13 @@ stages:
 monolith-unit-test-job:
   image: python:3-bullseye
   stage: test
+  variables:
+    DATABASE_URL: BAR
+    SIGNING_KEY: BLIIP
+    S3_BUCKET:  THING
+    REGION: THING
+    ACCESS_KEY:  THING
+    SECRET_ACCESS_KEY: THING
   script:
     - cd monolith_service
     - pip install -r requirements.txt
@@ -16,6 +23,9 @@ monolith-unit-test-job:
 account-unit-test-job:
   image: python:3-bullseye
   stage: test
+  variables:
+    DATABASE_URL: FOO
+    SIGNING_KEY: BLIIP
   script:
     - cd accounts_service
     - pip install -r requirements.txt
