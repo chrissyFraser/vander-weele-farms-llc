@@ -87,7 +87,7 @@ class ProduceQueries:
             with conn.cursor() as db:
                 result = db.execute(
                     """
-                    SELECT 
+                    SELECT
                     id,
                     product_name,
                     picture_file,
