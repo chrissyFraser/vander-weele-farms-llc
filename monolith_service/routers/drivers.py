@@ -7,7 +7,6 @@ from authenticator import authenticator
 router = APIRouter()
 
 
-  
 @router.post("/api/drivers", response_model=Union[DriverOut, Error])
 async def create_a_driver(
     driver: DriverIn,
@@ -39,8 +38,6 @@ def get_all_drivers(
             detail="Invalid token",
             headers={"WWW-Authenticate": "Bearer"},
         )
-
-
 
 
 @router.get("/api/drivers/{driver_id}", response_model=Optional[DriverOut])

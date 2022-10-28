@@ -31,7 +31,7 @@ def get_all_orders(
 ):
     # if "admin" in account_data.get("username"):
     # if account_data:
-        return repo.get_all_orders()
+    return repo.get_all_orders()
 
 
 @router.get("/api/orders/{order_id}", response_model=Optional[OrderOut])
