@@ -23,10 +23,6 @@ class FakeAccountData:
 
 
 client = TestClient(app)
-# headers = {
-#     "Authorization": f"Bearer "
-# }
-
 
 def test_get_customers_is_protected():
     app.dependency_overrides[CustomerRepository] = FakeGetAllCustomers
