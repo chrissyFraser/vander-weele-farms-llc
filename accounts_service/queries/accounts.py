@@ -29,7 +29,8 @@ class AccountQueries:
             with conn.cursor() as db:
                 result = db.execute(
                     """
-                    SELECT u.email as user_email, u.id, u.username, u.hashed_password
+                    SELECT u.email as user_email,
+                          u.id, u.username, u.hashed_password
                     FROM accounts u
                     """,
                 )
@@ -41,7 +42,8 @@ class AccountQueries:
             with conn.cursor() as db:
                 result = db.execute(
                     """
-                        SELECT u.email as user_email, u.id, u.username, u.hashed_password
+                        SELECT u.email as user_email, u.id,
+                               u.username, u.hashed_password
                         FROM accounts u
                         WHERE u.email = %s
                         """,
@@ -72,7 +74,7 @@ class AccountQueries:
                 result = db.execute(
                     """
                     INSERT INTO accounts(
-                        email, 
+                        email,
                         username,
                         hashed_password
 

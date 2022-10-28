@@ -2,7 +2,6 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 let internalToken = null;
 
-
 export function getToken() {
   return internalToken;
 }
@@ -16,10 +15,10 @@ export async function getTokenInternal() {
     if (response.ok) {
       const data = await response.json();
       internalToken = data.access_token;
-      console.log(internalToken)
+      console.log(internalToken);
       return internalToken;
     }
-  } catch (e) { }
+  } catch (e) {}
   return false;
 }
 
@@ -34,7 +33,7 @@ export async function getTokenData() {
       let internalToken = data.token_type;
       return internalToken;
     }
-  } catch (e) { }
+  } catch (e) {}
   return false;
 }
 
@@ -46,7 +45,7 @@ function handleErrorMessage(error) {
       if ("__all__" in error) {
         error = error.__all__;
       }
-    } catch { }
+    } catch {}
   }
   if (Array.isArray(error)) {
     error = error.join("<br>");
@@ -76,7 +75,6 @@ export const AuthProvider = ({ children }) => {
 
 export const useAuthContext = () => useContext(AuthContext);
 
-
 export function useToken() {
   const { token, setToken } = useAuthContext();
   const navigate = useNavigate();
@@ -93,14 +91,14 @@ export function useToken() {
 
   async function logout() {
     if (token) {
-      console.log("token found")
+      console.log("token found");
       const url = `${process.env.REACT_APP_API_HOST}token`;
       await fetch(url, { method: "delete", credentials: "include" });
       internalToken = null;
       setToken(null);
       navigate("/");
     } else {
-      console.log("ERROR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+      console.log("ERROR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
     }
   }
 
@@ -115,7 +113,6 @@ export function useToken() {
       body: form,
     });
     if (response.ok) {
-
       const token = await getTokenInternal();
       setToken(token);
       return;

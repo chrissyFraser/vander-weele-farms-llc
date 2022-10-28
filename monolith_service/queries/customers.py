@@ -47,8 +47,11 @@ class CustomerRepository:
                 )
 
                 return [
-                    self.record_to_customer_out(record) for record in result
-                ]
+                    
+                        self.record_to_customer_out(record)
+                        for record in result
+                
+                    ]
         # except Exception as e:
         #     return {"message": "could not get all customers"}
 
@@ -100,7 +103,7 @@ class CustomerRepository:
             for i, column in enumerate(description):
                 if column.driver_id in customer_fields:
                     customer[column.driver_id] = row[i]
-                customer["id"] = customer["id"]
+                    customer["id"] = customer["id"]
             driver = {}
             driver_fields = ["id", "driver_name"]
             for i, column in enumerate(description):

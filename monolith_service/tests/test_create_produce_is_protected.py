@@ -11,7 +11,7 @@ class FakeCreateProduce:
 
 client = TestClient(app)
 # headers = {
-#     "Authorization": f"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI1MGE3N2FlMi0xNmQ5LTQ4YzItYjQ2YS1jMDg0ZWM5MmFlZTQiLCJleHAiOjE2NjY3NTExNzgsInN1YiI6InN0ZXZlLnN2aXJrb0BnbWFpbC5jb20iLCJhY2NvdW50Ijp7ImlkIjoiMSIsImVtYWlsIjoic3RldmUuc3ZpcmtvQGdtYWlsLmNvbSIsInVzZXJuYW1lIjoiYWRtaW4gc3RldmUiLCJoYXNoZWRfcGFzc3dvcmQiOiIkMmIkMTIkY0d1MTZLdDRhTW1ybDJRU3NHWHdkdTZGVkVMTnZ2czdBd0YubG13a29MNHIxcGtYVGNySzYifX0.Y64PPAq2IkRDTwFNls4RcSBhJOLTjjP_75C4mTh3eaI"
+#     "Authorization": f"Bearer "
 # }
 passing_response = {
     "id": 1,

@@ -1,8 +1,4 @@
-from sqlite3 import Cursor
-from typing import Union, List, Optional
-from optparse import Values
-import os
-from tkinter import INSERT
+from typing import Optional
 from pydantic import BaseModel
 from queries.pool import pool
 from dataclasses import dataclass
@@ -92,7 +88,7 @@ class ProduceQueries:
                 result = db.execute(
                     """
                     SELECT 
-                    id, 
+                    id,
                     product_name,
                     picture_file,
                     available,
