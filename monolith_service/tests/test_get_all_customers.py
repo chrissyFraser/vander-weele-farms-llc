@@ -24,6 +24,7 @@ class FakeAccountData:
 
 client = TestClient(app)
 
+
 def test_get_customers_is_protected():
     app.dependency_overrides[CustomerRepository] = FakeGetAllCustomers
     response = client.get("/api/customers")

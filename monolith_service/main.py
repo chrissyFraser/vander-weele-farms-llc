@@ -11,7 +11,6 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         os.environ.get("CORS_HOST", "REACT_APP_API_HOST_MONOLITH"),
-       
         "http://localhost:3000"
     ],
     allow_credentials=True,

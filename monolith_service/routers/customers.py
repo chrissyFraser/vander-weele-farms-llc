@@ -63,7 +63,9 @@ def get_one_customer(
     customer_id: int,
     response: Response,
     repo: CustomerRepository = Depends(),
-    # account_data: Optional[dict] = Depends(authenticator.get_current_account_data),
+    # account_data: Optional[dict] = Depends(
+        # authenticator.get_current_account_data
+        # ),
 ) -> CustomerOut:
     # if account_data:
     customer = repo.get_one_customer(customer_id)
