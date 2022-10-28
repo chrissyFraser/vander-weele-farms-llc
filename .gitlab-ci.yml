@@ -13,7 +13,7 @@ monolith-unit-test-job:
     S3_BUCKET:  THING
     REGION: THING
     ACCESS_KEY:  THING
-    SECRET_ACCES: THING
+    SECRET_ACCESS_KEY: THING
   script:
     - cd monolith_service
     - pip install -r requirements.txt
