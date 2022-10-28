@@ -88,7 +88,7 @@ class ProduceQueries:
                 result = db.execute(
                     """
                     SELECT 
-                    id, 
+                    id,
                     product_name,
                     picture_file,
                     available,

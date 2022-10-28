@@ -2,6 +2,10 @@ from typing import Union, List, Optional
 from tkinter import INSERT
 from pydantic import BaseModel
 from queries.pool import pool
+from dataclasses import dataclass
+from typing import Optional, List, Union
+from datetime import date, datetime
+
 
 
 class OrderIn(BaseModel):
@@ -168,7 +172,6 @@ class OrderRepository:
                         SELECT o.id AS order_id, c.customer_name AS cutomer_name,
                         p.product_name AS product_name,
                         o.qty, d.driver_name AS driver_name, o.order_date, o.printed
-                            
                         FROM orders AS o
                         LEFT OUTER JOIN customer c ON (o.customer_id=c.id)
                         LEFT OUTER JOIN produce p ON (o.produce_id=p.id)

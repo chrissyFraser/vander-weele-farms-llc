@@ -2,7 +2,6 @@ import boto3
 import os
 from fastapi import UploadFile, APIRouter
 
-
 S3_BUCKET = os.environ["S3_BUCKET"]
 REGION = os.environ["REGION"]
 ACCESS_KEY = os.environ["ACCESS_KEY"]

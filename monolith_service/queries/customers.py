@@ -99,7 +99,7 @@ class CustomerRepository:
             for i, column in enumerate(description):
                 if column.driver_id in customer_fields:
                     customer[column.driver_id] = row[i]
-                customer["id"] = customer["id"]
+                    customer["id"] = customer["id"]
             driver = {}
             driver_fields = ["id", "driver_name"]
             for i, column in enumerate(description):
