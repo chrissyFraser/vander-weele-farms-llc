@@ -47,8 +47,7 @@ class CustomerRepository:
                 )
 
                 return [
-                    self.record_to_customer_out(record)
-                    for record in result
+                    self.record_to_customer_out(record) for record in result
                 ]
         # except Exception as e:
         #     return {"message": "could not get all customers"}
