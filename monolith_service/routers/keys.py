@@ -1,8 +1,6 @@
 import boto3
 import os
-from fastapi import FastAPI, UploadFile, APIRouter
-from queries.pool import pool
-
+from fastapi import UploadFile, APIRouter
 
 S3_BUCKET = os.environ["S3_BUCKET"]
 REGION = os.environ["REGION"]

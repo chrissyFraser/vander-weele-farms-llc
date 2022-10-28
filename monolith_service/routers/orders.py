@@ -2,8 +2,7 @@ from queries.orders import (
     OrderIn,
     OrderOut,
     OrderRepository,
-    Error,
-    Order_Patch,
+    Error
 )
 from typing import Union, List, Optional
 from fastapi import APIRouter, Depends, Response
@@ -52,7 +51,8 @@ def get_one_order(
         return order
 
 
-@router.put("/api/orders/{order_id}", response_model=Union[OrderOut, Error])
+@router.put("/api/orders/{order_id}",
+            response_model=Union[OrderOut, Error])
 def update_order(
     order_id: int,
     order: OrderIn,
