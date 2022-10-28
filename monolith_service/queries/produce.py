@@ -1,4 +1,3 @@
-from sqlite3 import Cursor
 from typing import Optional
 from pydantic import BaseModel
 from queries.pool import pool
@@ -228,3 +227,5 @@ class ProduceQueries:
                     conn.commit()
                     return self.get_single_produce_item(produce_id)
         except Exception as e:
+            print(e)
+            return {"message": "Could not update that produce"}
