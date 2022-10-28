@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 export default function Basket(props) {
     console.log("cart", props)
     const { cartItems, onAdd, onRemove } = props;
-    const [data, setData] = useState();
+    // const [data, setData] = useState();
     // const [product_name, setProduct] = useState();
     // const [qty, setQty] = useState();
 
@@ -117,7 +117,7 @@ export default function Basket(props) {
 };
 }  
     
-console.log(data);
+// console.log(data);
 
  
     return (

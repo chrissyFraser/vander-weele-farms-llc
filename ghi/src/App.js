@@ -66,14 +66,14 @@ function App() {
                   <div className="container">
                     <div className="tabs is-centered" style={{ display: "flex"}}>
                     {/* <img className="logo" src="https://scontent-sjc3-1.xx.fbcdn.net/v/t39.30808-6/309061405_469280831892766_4474664018961093891_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=0FFC68GtDTgAX-AlbXs&_nc_ht=scontent-sjc3-1.xx&oh=00_AT9g2FzUrWsYkJFyDtW4gdLwtT5MJPFI9j1_2Ee-bF5Hsg&oe=63537D39" alt="logo" /> */}
-                      <ul>
-                        <li><NavLink to="/">Home Page</NavLink></li>
-                        <li><NavLink to="/cart">Shop Produce</NavLink></li>
-                        <li><NavLink to="/produce-admin">Admin Produce</NavLink></li>
-                        <li><NavLink to="/orders">Orders</NavLink></li>
-                        <li><NavLink to="/login">Login</NavLink></li>
-                        <li><NavLink to="/logout">Logout</NavLink></li>
-                        <li><NavLink to="/signup">Signup</NavLink></li>
+                      <ul class="nav nav-pills">
+                        <li class="nav-link active" aria-current="page" href="#"><NavLink to="/">Home Page</NavLink></li>
+                        <li class="nav-link active" aria-current="page" href="#"><NavLink to="/cart">Shop Produce</NavLink></li>
+                        <li class="nav-link active" aria-current="page" href="#"><NavLink to="/produce-admin">Admin Produce</NavLink></li>
+                        <li class="nav-link active" aria-current="page" href="#"><NavLink to="/orders">Orders</NavLink></li>
+                        <li class="nav-link active" aria-current="page" href="#"><NavLink to="/login">Login</NavLink></li>
+                        <li class="nav-link active" aria-current="page" href="#"><NavLink to="/logout">Logout</NavLink></li>
+                        <li class="nav-link active" aria-current="page" href="#"><NavLink to="/signup">Signup</NavLink></li>
                         {/* <li><NavLink to="/create-customer">Update User</NavLink></li> */}
                       
                       </ul>
