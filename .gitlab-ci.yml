@@ -17,7 +17,7 @@ account-unit-test-job:
   image: python:3-bullseye
   stage: test
   script:
-    - cd accounts_service
+    - cd accounts_service/test
     - pip install -r requirements.txt
     - python -m pytest 
 
