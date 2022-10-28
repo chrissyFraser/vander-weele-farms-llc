@@ -2,12 +2,8 @@ from sqlite3 import Cursor
 from typing import Union, List, Optional
 from optparse import Values
 import os
-from tkinter import INSERT
 from pydantic import BaseModel
 from queries.pool import pool
-from dataclasses import dataclass
-from typing import Optional, List, Union
-from datetime import date, datetime
 
 
 class OrderIn(BaseModel):
