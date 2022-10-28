@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from 'react';
 import {  useAuthContext } from '../Auth';
-import Alert from 'react-bootstrap/Alert';
+// import Alert from 'react-bootstrap/Alert';
 import { useNavigate } from "react-router-dom";
 // import datetime
 
@@ -25,52 +25,55 @@ export default function Basket(props) {
         return JSON.parse(jsonPayload);
     }
 
-        function cartAlert() {
-            return (
-                <>
-                {['success',
-                ].map((variant) => (
-                    <Alert key={variant} variant={variant}>
-                    Thank you for your order!
-                    </Alert>
-                ))}
-                </>
-            );
-            }
+    // function cartAlert() {
+    //     return (
+    //         <>
+    //         {['success',
+    //         ].map((variant) => (
+    //             <Alert key={variant} variant={variant}>
+    //             Thank you for your order!
+    //             </Alert>
+    //         ))}
+    //         </>
+    //     );
+    //     }
 
     
     const navigate = useNavigate();
 
+        const num1 = cartItems.map((item) => (item.id))
+        const num2 = cartItems.map((item) => (item.qty))
+        console.log("num1", num1)
+        console.log("num2", num2)
+       
+
+        let numLen = num1.length
+        console.log("num1 length", numLen)
+
+        
     const handleClick = async () => {
         
         
     
-        // cartItems.map((item) => setProduct(item.product_name))
-        // cartItems.map((item) => setQty(item.qty))
-        // console.log(product_name)
-        // console.log(qty)
-
+        
+        while (numLen > 0) { 
         
         const data1 = parseJwt(token)
         const user = Object.values(data1)
         const myUser = user[3]
         const valuesUser = Object.values(myUser)
-
-        const num1 = cartItems.map((item) => (item.id))
-        const num2 = cartItems.map((item) => (item.qty))
-        const produce_id = num1[0]
-        const qty = num2[0]
+        const customer_id = parseInt(valuesUser[0])
+        
         const printed = false
         const driver_id = 0
         const od = Date.now()
         const order_date = new Intl.DateTimeFormat('en-US', {year: 'numeric', month: '2-digit',day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit'}).format(od)
-        const customer_id = parseInt(valuesUser[0])
-
-        console.log("customer_id", customer_id)
-        console.log("date", order_date)
-        console.log("id", produce_id)
-        console.log("qty", qty)
-
+        
+        
+        let index = numLen - 1
+        let produce_id = num1[index]
+        let qty = num2[index]    
+        
         const data = {
                 customer_id,
                 produce_id,
@@ -81,29 +84,42 @@ export default function Basket(props) {
         };
 
         console.log("data", data);
-
-        const response = await fetch(`${process.env.REACT_APP_API_HOST_MONOLITH}/api/orders`, {
+        fetch(`${process.env.REACT_APP_API_HOST_MONOLITH}/api/orders`, {
             method: 'POST',
             body: JSON.stringify(data),
             headers: {
                 'Content-Type': 'application/json',
-                Accept: 'application/json',
+                "Authorization": `Bearer ${token}`
             },
-        });
+            
+        }).then(() =>{
+            navigate("/")
+        }
+        )
 
-        const result = await response.json();
+        // const response = await fetch(`${process.env.REACT_APP_API_HOST_MONOLITH}/api/orders`, {
+        //     method: 'POST',
+        //     body: JSON.stringify(data),
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //         Accept: 'application/json',
+        //     },
+        // });
 
-        console.log('result is: ', JSON.stringify(result));
+        // const result = await response.json();
 
-        setData(result);
-        cartAlert();
-        navigate("/")
-    
+        // console.log('result is: ', JSON.stringify(result));
+
+        // setData(result);
+        // cartAlert();
+        // navigate("/")
+        numLen -=1
 };
-
+}  
+    
 console.log(data);
 
-
+ 
     return (
         <aside className="block col-1">
             <h2>Basket</h2>

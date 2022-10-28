@@ -70,7 +70,7 @@ function ProduceList(props) {
                                                 onClick={() => {
                                                     navigate(`/produce-admin/${produce.id}`);
                                                     props.setProduceId(produce.id)
-                                                }}>view Item</button>
+                                                }}>View Item</button>
                                             </td>
                                             <td>
                                                 <button type="button" className="btn btn-warning" id="get_item button"

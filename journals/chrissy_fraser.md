@@ -1,5 +1,9 @@
+## Oct 26, 2022
+* Finished front-end Orders in a teamwork session with Megan & Josh.
+
 ## Oct 25, 2022
 * Worked as a group on merge requests
+* Worked on Front-end Orders 
 
 ## Oct 24, 2022
 * Completed Front-End Orders.js table

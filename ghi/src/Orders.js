@@ -1,11 +1,16 @@
 import { useAuthContext } from './Auth';
+import { useState } from 'react'; 
+
 
 
 
 
 function Orders(props) {
-    
     // const {get_all_orders} = props;
+    
+    const [printed, setPrint] = useState(false);
+
+
     console.log("orders", props)
     const { token } = useAuthContext();
     if (token) {
@@ -37,7 +42,7 @@ function Orders(props) {
                         <td>{order.qty}</td>
                         <td>{order.driver_name}</td>
                         <td>{order.order_date}</td>
-                        <td>{order.printed ? 'Yes' : 'No'}</td>
+                        <td><button onClick={() => setPrint(!printed)} type="button" className="btn btn-warning" id="printbtn">{printed ? 'Yes' : 'No'}</button></td>
                     </tr>
                     ))}
                 </tbody>

@@ -45,3 +45,10 @@ CREATE TABLE orders(
     order_date VARCHAR(500), 
     printed BOOLEAN DEFAULT false
 );
+
+CREATE TABLE cart (
+    id SERIAL NOT NULL UNIQUE,
+    customer_id INTEGER REFERENCES customer ("id"),
+    produce_id INTEGER REFERENCES produce ("id"),
+    qty INTEGER
+);
