@@ -1,8 +1,7 @@
 from fastapi.testclient import TestClient
 from main import app
-import os
 from queries.produce import ProduceQueries
-from unittest import TestCase, mock
+ 
 
 class FakeCreateProduce: 
      def create_produce(self, produce):
@@ -23,7 +22,7 @@ passing_response = {
   "width": 1,
 }
 
-@mock.post(os.environ['DATABASE_URL'])
+
 def test_create_produce_is_protected():
     app.dependency_overrides[ProduceQueries]=FakeCreateProduce
     response = client.post("/api/produce/", json={"product_name": "potato", "picture_file": "word", "available": True, "height": 1, "length": 1, "width": 1})
