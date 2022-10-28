@@ -40,7 +40,7 @@ class AccountQueries:
         with pool.connection() as conn:
             with conn.cursor() as db:
                 result = db.execute(
-                    """
+                        """
                         SELECT u.email as user_email, u.id, u.username, u.hashed_password
                         FROM accounts u
                         WHERE u.email = %s
