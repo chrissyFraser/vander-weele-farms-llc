@@ -10,6 +10,10 @@ monolith-unit-test-job:
   variables:
     DATABASE_URL: BAR
     SIGNING_KEY: BLIIP
+    S3_BUCKET:  THING
+    REGION: THING
+    ACCESS_KEY:  THING
+    SECRET_ACCES: THING
   script:
     - cd monolith_service
     - pip install -r requirements.txt
