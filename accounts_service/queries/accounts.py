@@ -59,10 +59,12 @@ class AccountQueries:
             id=record[1],
             email=record[0],
             username=record[2],
-            hashed_password=record[3]
+            hashed_password=record[3],
         )
 
-    def create(self, info: AccountIn, hashed_password: str) -> AccountOutWithPassword:
+    def create(
+        self, info: AccountIn, hashed_password: str
+    ) -> AccountOutWithPassword:
         id = None
 
         with pool.connection() as conn:

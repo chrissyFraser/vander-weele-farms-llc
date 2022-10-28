@@ -32,24 +32,26 @@ class Customer_Patch(BaseModel):
 
 class CustomerRepository:
     def get_all_customers(self) -> Union[Error, List[CustomerOut]]:
-        try:
-            with pool.connection() as conn:
-                with conn.cursor() as db:
-                    result = db.execute(
-                        """
-                        SELECT c.id as customer_id, c.customer_name, c.customer_address, c.customer_email, c.priority_id, 
-                             d.id as driver_id, d.id, d.driver_name
-                        FROM customer c
-                        JOIN driver d on(c.driver_id = d.id)
-                        """,
-                    )
+        # try:
+        with pool.connection() as conn:
+            with conn.cursor() as db:
+                result = db.execute(
+                    """
+                    SELECT c.id as customer_id, c.customer_name,
+                        c.customer_address,
+                        c.customer_email, c.priority_id,
+                        d.id as driver_id, d.id, d.driver_name
+                    FROM customer c
+                    JOIN driver d on(c.driver_id = d.id)
+                    """,
+                )
 
-                    return [
-                        self.record_to_customer_out(record)
-                        for record in result
-                    ]
-        except Exception as e:
-            return {"message": "could not get all customers"}
+                return [
+                    self.record_to_customer_out(record)
+                    for record in result
+                ]
+        # except Exception as e:
+        #     return {"message": "could not get all customers"}
 
     def create_customer(
         self, customer: CustomerIn
@@ -60,9 +62,9 @@ class CustomerRepository:
                 result = db.execute(
                     """
                     INSERT INTO customer(
-                        customer_name, 
-                        customer_address, 
-                        customer_email, 
+                        customer_name,
+                        customer_address,
+                        customer_email,
                         priority_id,
                         driver_id
                     )
@@ -131,7 +133,9 @@ class CustomerRepository:
                 with conn.cursor() as db:
                     result = db.execute(
                         """
-                        SELECT c.id as customer_id, c.customer_name, c.customer_address, c.customer_email, c.priority_id, 
+                        SELECT c.id as customer_id, c.customer_name,
+                                c.customer_address,
+                                c.customer_email, c.priority_id,
                                 d.id as driver_id, d.id, d.driver_name
                         FROM customer c
                         JOIN driver d on(c.driver_id = d.driver_id)
