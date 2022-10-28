@@ -18,19 +18,21 @@ class Error(BaseModel):
 
 class DriverRepository:
     def get_all_drivers(self) -> Union[Error, List[DriverOut]]:
-        try:
-            with pool.connection() as conn:
-                with conn.cursor() as db:
-                    result = db.execute(
-                        """
-                        SELECT id, driver_name
-                        FROM driver
-                        """
-                    )
+        # try:
+        with pool.connection() as conn:
+            with conn.cursor() as db:
+                result = db.execute(
+                    """
+                    SELECT id, driver_name
+                    FROM driver
+                    """
+                )
 
-                    return [self.record_to_driver_out(record) for record in result]
-        except Exception as e:
-            return {"message": "Could not get all drivers"}
+                return [
+                    self.record_to_driver_out(record) for record in result
+                ]
+        # except Exception as e:
+        #     return {"message": "Could not get all drivers"}
 
     def create_driver(self, driver: DriverIn) -> Union[DriverOut, Error]:
         id = None
@@ -97,18 +99,18 @@ class DriverRepository:
     def update_driver(
         self, driver_id: int, driver: DriverIn
     ) -> Union[DriverOut, Error]:
-        try:
-            with pool.connection() as conn:
-                with conn.cursor() as db:
-                    db.execute(
-                        """
-                            UPDATE driver
-                            SET driver_name = %s
-                            WHERE id = %s
-                            """,
-                        [driver.driver_name, driver_id],
-                    )
+        # try:
+        with pool.connection() as conn:
+            with conn.cursor() as db:
+                db.execute(
+                    """
+                        UPDATE driver
+                        SET driver_name = %s
+                        WHERE id = %s
+                        """,
+                    [driver.driver_name, driver_id],
+                )
 
-                    return self.driver_in_to_out(driver_id, driver)
-        except Exception as e:
-            return {"message": "Could not update that driver"}
+                return self.driver_in_to_out(driver_id, driver)
+        # except Exception as e:
+        #     return {"message": "Could not update that driver"}

@@ -1,8 +1,4 @@
-from sqlite3 import Cursor
-from typing import Union, List, Optional
-from optparse import Values
-import os
-from tkinter import INSERT
+from typing import Optional
 from pydantic import BaseModel
 from queries.pool import pool
 from dataclasses import dataclass
@@ -48,15 +44,12 @@ class Error(BaseModel):
 
 
 class Produce_update_available(BaseModel):
-    product_name: str| None = None
-    picture_file: Optional[str]| None = None
-    available: Optional[bool]| None = None
-    height: Optional[int]| None = None
-    length: Optional[int]| None = None
-    width: Optional[int]| None = None
-    
-    
-    
+    product_name: str | None = None
+    picture_file: Optional[str] | None = None
+    available: Optional[bool] | None = None
+    height: Optional[int] | None = None
+    length: Optional[int] | None = None
+    width: Optional[int] | None = None
 
 
 class ProduceQueries:
@@ -95,7 +88,7 @@ class ProduceQueries:
                 result = db.execute(
                     """
                     SELECT 
-                    id, 
+                    id,
                     product_name,
                     picture_file,
                     available,
@@ -135,7 +128,9 @@ class ProduceQueries:
         old_data = produce.dict()
         return Produce_get(id=id, **old_data)
 
-    def get_single_produce_item(self, produce_id: int) -> Optional[Produce_get]:
+    def get_single_produce_item(
+        self, produce_id: int
+    ) -> Optional[Produce_get]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -161,7 +156,9 @@ class ProduceQueries:
             print(e)
             return {"message": "could not get that customer"}
 
-    def update_produce(self, produce_id: int, produce: Produce_create) -> Produce_get:
+    def update_produce(
+        self, produce_id: int, produce: Produce_create
+    ) -> Produce_get:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -214,12 +211,16 @@ class ProduceQueries:
             with pool.connection() as conn:
                 with conn.cursor() as db:
                     lst = [
-                        item[0] for item in dict(produce).items() if item[1] is not None
+                        item[0]
+                        for item in dict(produce).items()
+                        if item[1] is not None
                     ]
                     print(lst)
                     columns = " = %s, ".join(lst) + " = %s"
                     lst_params = [
-                        item for item in dict(produce).values() if item is not None
+                        item
+                        for item in dict(produce).values()
+                        if item is not None
                     ]
                     print(lst_params)
                     lst_params.append(produce_id)

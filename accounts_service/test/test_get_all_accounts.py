@@ -3,9 +3,9 @@ from queries.accounts import AccountQueries, AccountOut
 from fastapi.testclient import TestClient
 
 
-
-
-get_all_accounts = AccountOut(id=111, email='me@123.com', password='helloworld', username='me')
+get_all_accounts = AccountOut(
+    id=111, email="me@123.com", password="helloworld", username="me"
+)
 get_accounts_list = [get_all_accounts]
 
 
@@ -14,9 +14,7 @@ class FakeGetAllAccounts:
         return get_accounts_list
 
 
-
 client = TestClient(app)
-
 
 
 def test_create_account():
@@ -24,4 +22,4 @@ def test_create_account():
     response = client.get("/api/accounts")
     assert response.status_code == 200
     assert response.json() == get_accounts_list
-    app.dependency_overrides = {}  
+    app.dependency_overrides = {}
