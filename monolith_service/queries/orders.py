@@ -1,8 +1,10 @@
 from typing import Union, List, Optional
-from optparse import Values
-import os
 from pydantic import BaseModel
 from queries.pool import pool
+from dataclasses import dataclass
+from typing import Optional, List, Union
+from datetime import date, datetime
+
 
 
 class OrderIn(BaseModel):
@@ -41,15 +43,15 @@ class OrderRepository:
             with conn.cursor() as db:
                 result = db.execute(
                     """
-                        SELECT o.id AS order_id, c.customer_name AS cutomer_name,
+                        SELECT o.id AS order_id,
+                        c.customer_name AS cutomer_name,
                         p.product_name AS product_name,
-                        o.qty, d.driver_name AS driver_name, o.order_date, o.printed
-                            
+                        o.qty, d.driver_name AS driver_name, o.order_date,
+                        o.printed
                         FROM orders AS o
                         LEFT OUTER JOIN customer c ON (o.customer_id=c.id)
                         LEFT OUTER JOIN produce p ON (o.produce_id=p.id)
-                        LEFT OUTER JOIN driver d ON (o.driver_id=d.id) 
-                        
+                        LEFT OUTER JOIN driver d ON (o.driver_id=d.id)
                         """,
                 )
                 print(result)
@@ -166,14 +168,15 @@ class OrderRepository:
                 with conn.cursor() as db:
                     result = db.execute(
                         """
-                        SELECT o.id AS order_id, c.customer_name AS cutomer_name,
+                        SELECT o.id AS order_id,
                         p.product_name AS product_name,
-                        o.qty, d.driver_name AS driver_name, o.order_date, o.printed
+                        o.qty, d.driver_name AS driver_name, o.order_date,
+                        o.printed
                         FROM orders AS o
                         LEFT OUTER JOIN customer c ON (o.customer_id=c.id)
                         LEFT OUTER JOIN produce p ON (o.produce_id=p.id)
                         LEFT OUTER JOIN driver d ON (o.driver_id=d.id)
-                        WHERE o.id = %s 
+                        WHERE o.id = %s
                         """,
                         [order_id],
                     )
