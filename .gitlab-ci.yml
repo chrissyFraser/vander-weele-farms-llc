@@ -9,6 +9,7 @@ monolith-unit-test-job:
   stage: test
   variables:
     DATABASE_URL: BAR
+    SIGNING_KEY: BLIIP
   script:
     - cd monolith_service
     - pip install -r requirements.txt
@@ -20,6 +21,7 @@ account-unit-test-job:
   stage: test
   variables:
     DATABASE_URL: FOO
+    SIGNING_KEY: BLIIP
   script:
     - cd accounts_service
     - pip install -r requirements.txt
