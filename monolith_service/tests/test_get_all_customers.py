@@ -1,15 +1,14 @@
-
-from imaplib import _Authenticator
-
 from main import app
 from queries.customers import CustomerRepository, CustomerOut
 from fastapi.testclient import TestClient
 
 
-
-
-
-get_all_customers = CustomerOut(id=8, name='Lolly', email='lolly@email.com', address='76 Sweets St', )
+get_all_customers = CustomerOut(
+    id=8,
+    name="Lolly",
+    email="lolly@email.com",
+    address="76 Sweets St",
+)
 get_accounts_list = [get_all_customers]
 
 
@@ -29,11 +28,10 @@ client = TestClient(app)
 # }
 
 
-
 def test_get_customers_is_protected():
     app.dependency_overrides[CustomerRepository] = FakeGetAllCustomers
     # app.dependency_overrides[authenticator.get_current_account_data] =FakeAccountData
     response = client.get("/api/customers")
     assert response.status_code == 401
     # assert response.json() == get_accounts_list
-    app.dependency_overrides = {}  
+    app.dependency_overrides = {}
