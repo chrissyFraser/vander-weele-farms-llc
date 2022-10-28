@@ -28,7 +28,9 @@ class DriverRepository:
                         """
                     )
 
-                    return [self.record_to_driver_out(record) for record in result]
+                    return [
+                        self.record_to_driver_out(record) for record in result
+                    ]
         except Exception as e:
             return {"message": "Could not get all drivers"}
 

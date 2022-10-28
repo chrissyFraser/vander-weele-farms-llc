@@ -15,7 +15,8 @@ app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        os.environ.get("CORS_HOST", "REACT_APP_API_HOST_MONOLITH"), "http://localhost:3000"
+        os.environ.get("CORS_HOST", "REACT_APP_API_HOST_MONOLITH"),
+        "http://localhost:3000"
         # os.environ.get("CORS_HOST", "https://vander-weele-farms-llc.gitlab.io/vander-weele-farms-llc")
     ],
     allow_credentials=True,
@@ -23,9 +24,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 @app.get("/is_working")
 def is_working():
     return {"message": "Hello World"}
+
 
 app.include_router(produce.router)
 app.include_router(customers.router)

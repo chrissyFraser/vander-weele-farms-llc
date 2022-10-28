@@ -44,11 +44,16 @@ class CustomerRepository:
                         """,
                     )
 
-                    return [self.record_to_customer_out(record) for record in result]
+                    return [
+                        self.record_to_customer_out(record)
+                        for record in result
+                    ]
         except Exception as e:
             return {"message": "could not get all customers"}
 
-    def create_customer(self, customer: CustomerIn) -> Union[CustomerOut, Error]:
+    def create_customer(
+        self, customer: CustomerIn
+    ) -> Union[CustomerOut, Error]:
         id = None
         with pool.connection() as conn:
             with conn.cursor() as db:
@@ -204,7 +209,9 @@ class CustomerRepository:
                     ]
                     columns = " = %s, ".join(lst) + " = %s"
                     lst_params = [
-                        item for item in dict(customer).values() if item is not None
+                        item
+                        for item in dict(customer).values()
+                        if item is not None
                     ]
                     lst_params.append(customer_id)
                     db.execute(
