@@ -4,6 +4,41 @@ stages:
   - deploy
 
 
+monolith-unit-test-job:
+  image: python:3-bullseye
+  stage: test
+  variables:
+    DATABASE_URL: BAR
+    SIGNING_KEY: BLIIP
+    S3_BUCKET:  THING
+    REGION: THING
+    ACCESS_KEY:  THING
+    SECRET_ACCESS_KEY: THING
+  script:
+    - cd monolith_service
+    - pip install -r requirements.txt
+    - python -m pytest 
+
+
+account-unit-test-job:
+  image: python:3-bullseye
+  stage: test
+  variables:
+    DATABASE_URL: FOO
+    SIGNING_KEY: BLIIP
+  script:
+    - cd accounts_service
+    - pip install -r requirements.txt
+    - python -m pytest 
+
+vander-weele-lint-job:
+  image: python:3-bullseye
+  stage: test
+  script:
+    - pip install flake8
+    - flake8 monolith_service accounts_service
+
+
 ## BUILD
 build-Vander-Weele-Front-end:
   stage: build
@@ -145,9 +180,3 @@ release-Vander-Weele-user-api-Image:  # deploy fastapi image
 
 
 
-# lint-job:
-#   image: python:3-bullseye
-#   stage: test
-#   script:
-#     - pip install flake8
-#     - flake8 monolith_service accounts_service

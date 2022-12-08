@@ -160,7 +160,7 @@ I did it!!!!!!!!!!!!!!!!
 Today I worked on:
 - Debugging Auth
 - Cleared pipeline
-Lots of back and forth overwriting each others merges. Found bugs, and cleared the pipelines.
+Lots of back and forth overwriting each others merges. Found bugs, and cleared the pipelines. Very stressed about contributions on team work. We still have a lot to do and communication is not always clear.
 
 10.24
 Today I worked on:
@@ -180,4 +180,10 @@ Today I worked on:
 - Redirecting user to intake form upon signup
 - Redirecting user to cart after intake form
 - Hiding that link so user only fills out form once upon signup
+- Lost by MIND trying to figure out deployment with Josh
 
+10.27
+Today I worked on:
+- Finalizing the project!
+- Wrote a readme
+I am tired.

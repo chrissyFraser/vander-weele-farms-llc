@@ -8,7 +8,7 @@ from fastapi import (
 )
 from jwtdown_fastapi.authentication import Token
 from authenticator import authenticator
-from typing import Union, List, Optional
+from typing import List, Optional
 from pydantic import BaseModel
 
 from queries.accounts import (
@@ -17,7 +17,6 @@ from queries.accounts import (
     AccountQueries,
     DuplicateAccountError,
 )
-from queries.accounts import AccountOutWithPassword
 
 
 class AccountForm(BaseModel):
@@ -50,17 +49,16 @@ async def create_account(
     hashed_password = authenticator.hash_password(info.password)
     try:
         account = accounts.create(info, hashed_password)
+        print(account)
     except DuplicateAccountError:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Cannot create an account with those credentials",
         )
     form = AccountForm(username=info.email, password=info.password)
+    print(form)
     print(info.username)
     return AccountStatus(status=True)
-    # form = AccountForm(username=info.email, password=info.password)
-    # token = await authenticator.login(response, request, form, accounts)
-    # return AccountToken(account=account, **token.dict())
 
 
 @router.get("/api/accounts/{account_id}", response_model=Optional[AccountOut])
@@ -79,7 +77,7 @@ def get_one_account(
 @router.get("/token/get", response_model=AccountToken | None)
 async def get_token(
     request: Request,
-    account: AccountOut = Depends(authenticator.try_get_current_account_data)
+    account: AccountOut = Depends(authenticator.try_get_current_account_data),
 ) -> AccountToken | None:
     if authenticator.cookie_name in request.cookies:
         return {
@@ -87,6 +85,7 @@ async def get_token(
             "type": "Bearer",
             "account": account,
         }
+
 
 @router.get("/api/accounts", response_model=List[AccountOut])
 def get_all_accounts(
@@ -100,12 +99,12 @@ def get_all_accounts(
 #     id: str,
 #     account: AccountIn,
 #     repo: AccountQueries = Depends(),
-    
-#     current_account: Optional[dict] = Depends(authenticator.get_current_account_data),
+
+#     current_account:
+#   Optional[dict] = Depends(authenticator.get_current_account_data),
 # ) -> AccountOutWithPassword:
 #     hashed_password=authenticator.hash_password(account.password)
-    
+
 #     id = current_account.get("id")
 #     # hashed_password = authenticator.hash_password(account.password)
 #     return repo.update_user(id, account, hashed_password)
-    

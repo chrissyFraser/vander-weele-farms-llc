@@ -41,36 +41,31 @@ function SignupComponent() {
       <center>
         <h2>Please enter your name, email, and password</h2>
         <form onSubmit={submitHandler}>
-          <div class="form-group">
-            <input
-              type="text"
-              class="form-control"
-              name="username"
-              placeholder="Name"
-              value={username}
-              onChange={(event) => setUsername(event.target.value)}
-            />
-            <br />
-            <input
-              type="email"
-              class="form-control"
-              name="email"
-              placeholder="Email"
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
-            />
-            <br />
-            <input
-              type="password"
-              class="form-control"
-              name="password"
-              placeholder="Password"
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
-            />
-            <br />
-            <input type="submit" class="btn btn-danger" name="submit" />
-          </div>
+          <input
+            type="text"
+            name="username"
+            placeholder="Name"
+            value={username}
+            onChange={(event) => setUsername(event.target.value)}
+          />
+          <br />
+          <input
+            type="text"
+            name="email"
+            placeholder="Email"
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
+          />
+          <br />
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+          />
+          <br />
+          <input type="submit" name="submit" />
         </form>
       </center>
     </div>

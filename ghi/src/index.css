@@ -1,18 +1,16 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
-
-
 
 a {
   text-decoration: none;
@@ -40,36 +38,35 @@ a {
   flex-basis: 100% !important;
 }
 
-
-@media screen and (min-width:800px) {
+@media screen and (min-width: 800px) {
   .col-1 {
     flex: 1 !important;
   }
-  
+
   .col-2 {
     flex: 2 !important;
   }
-  }
+}
 
+.block {
+  background-color: rgb(255, 247, 177) !important;
+  padding: 1rem !important;
+  margin: 0.5rem !important;
+  border-radius: 25px !important;
+  border: 1px solid #ffea31 !important;
+}
 
-  .block {
-    background-color: rgb(255, 247, 177) !important;
-    padding: 1rem !important;
-    margin: 0.5rem !important;
-    border-radius: 25px !important;
-    border: 1px solid #ffea31 !important;
+img {
+  width: 200px !important;
+  min-height: 200px !important;
+  border-radius: 25px !important;
+}
 
-  }
-
-  img {
-    width: 200px !important;
-    min-height: 200px !important;
-    border-radius: 25px !important;
-  }
-
-  h1, h2, h3 {
-    color: rgb(0, 0, 0);
-  }
+h1,
+h2,
+h3 {
+  color: rgb(0, 0, 0);
+}
 
 .link {
   color: rgb(196, 17, 17);
@@ -77,12 +74,12 @@ a {
 }
 
 button {
-  font-size: .8rem;
+  font-size: 0.8rem;
   color: rgb(255, 255, 255);
-  padding: .5rem;
-  margin: .5rem;
-  border-radius: .5rem;
-  border: .5rem;
+  padding: 0.5rem;
+  margin: 0.5rem;
+  border-radius: 0.5rem;
+  border: 0.5rem;
   background-color: rgb(172, 45, 45);
   width: 100%;
   cursor: pointer;
@@ -100,7 +97,7 @@ button.remove {
 button.badge {
   background-color: rgb(172, 45, 45);
   width: 1.5rem;
-  border: .1rem;
+  border: 0.1rem;
   color: rgb(255, 255, 255);
 }
 
