@@ -55,10 +55,8 @@ export default function Basket(props) {
     const myUser = user[3];
     const valuesUser = Object.values(myUser);
 
-    const num1 = cartItems.map((item) => item.id);
-    const num2 = cartItems.map((item) => item.qty);
-    const produce_id = num1[0];
-    const qty = num2[0];
+    const produce_id = cartItems.map((item) => item.id);
+    const qty = cartItems.map((item) => item.qty);
     const printed = false;
     const driver_id = 0;
     const od = Date.now();
@@ -79,9 +77,9 @@ export default function Basket(props) {
 
     const data = {
       customer_id,
+      driver_id,
       produce_id,
       qty,
-      driver_id,
       order_date,
       printed,
     };

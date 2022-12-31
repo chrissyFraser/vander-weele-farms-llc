@@ -5,8 +5,8 @@ from queries.pool import pool
 
 class OrderIn(BaseModel):
     customer_id: int
-    produce_id: int
-    qty: int
+    produce_id: List[int] = []
+    qty: List[int] = []
     driver_id: int
     order_date: str
     printed: bool
@@ -15,8 +15,8 @@ class OrderIn(BaseModel):
 class OrderOut(BaseModel):
     id: int | None = None
     customer_name: str | None = None
-    product_name: str | None = None
-    qty: int | None = None
+    product_name: List[str] = []
+    qty: List[int] = []
     driver_name: str | None = None
     order_date: str | None = None
     printed: bool | None = None
@@ -28,29 +28,31 @@ class Error(BaseModel):
 
 class Order_Patch(BaseModel):
     customer_id: int | None = None
-    produce_id: int | None = None
+    produce_id: List[int] = []
     driver_id: int | None = None
 
 
 class OrderRepository:
+
     def get_all_orders(self) -> Union[Error, List[OrderOut]]:
         # try:
         with pool.connection() as conn:
             with conn.cursor() as db:
                 result = db.execute(
                     """
-                        SELECT o.id AS order_id,
-                        c.customer_name AS cutomer_name,
-                        p.product_name AS product_name,
-                        o.qty, d.driver_name AS driver_name, o.order_date,
-                        o.printed
+                        SELECT o.id,
+                        c.customer_name AS customer_name,
+                        d.driver_name AS driver_name, ARRAY_AGG(p.product_name), o.qty,
+                        order_date, printed
                         FROM orders AS o
+                        LEFT OUTER JOIN produce p ON p.id = ANY(o.produce_id)
                         LEFT OUTER JOIN customer c ON (o.customer_id=c.id)
-                        LEFT OUTER JOIN produce p ON (o.produce_id=p.id)
                         LEFT OUTER JOIN driver d ON (o.driver_id=d.id)
-                        """,
-                )
-                print(result)
+                        GROUP BY o.id, c.customer_name, d.driver_name, order_date, o.qty, printed
+                        ORDER BY o.id
+                        """
+                    )
+                print("THIS ONE: ", result)
                 return [self.record_to_order_out(record) for record in result]
 
     # except Exception as e:
@@ -60,13 +62,14 @@ class OrderRepository:
         id = None
         with pool.connection() as conn:
             with conn.cursor() as db:
+                print(orders.produce_id)
                 result = db.execute(
                     """
                     INSERT INTO orders(
                         customer_id,
+                        driver_id,
                         produce_id,
                         qty,
-                        driver_id,
                         order_date,
                         printed
                     )
@@ -76,9 +79,9 @@ class OrderRepository:
                     """,
                     [
                         orders.customer_id,
+                        orders.driver_id,
                         orders.produce_id,
                         orders.qty,
-                        orders.driver_id,
                         orders.order_date,
                         orders.printed,
                     ],
@@ -89,71 +92,72 @@ class OrderRepository:
                 print(orders)
                 return self.order_in_to_out(id, orders)
 
-    def order_record_to_dict(self, row, description):
-        orders = None
-        if row is not None:
-            orders = {}
-            orders_fields = [
-                "id",
-                "customer_id",
-                "produce_id",
-                "qty",
-                "driver_id",
-                "order_date",
-                "printed",
-            ]
-            for i, column in enumerate(description):
-                if column.driver_id in orders_fields:
-                    orders[column.driver_id] = row[i]
-                orders["id"] = orders["id"]
-            driver = {}
-            driver_fields = ["id", "driver_name"]
-            for i, column in enumerate(description):
-                if column.id in driver_fields:
-                    driver["id"] = driver["id"]
-            orders["driver_id"] = driver["id"]
+    # def order_record_to_dict(self, row, description):
+    #     orders = None
+    #     if row is not None:
+    #         orders = {}
+    #         orders_fields = [
+    #             "id",
+    #             "customer_id",
+    #             "driver_id",
+    #             "produce_id",
+    #             "qty",
+    #             "order_date",
+    #             "printed",
+    #         ]
+    #         for i, column in enumerate(description):
+    #             if column.driver_id in orders_fields:
+    #                 orders[column.driver_id] = row[i]
+    #             orders["id"] = orders["id"]
+    #         driver = {}
+    #         driver_fields = ["id", "driver_name"]
+    #         for i, column in enumerate(description):
+    #             if column.id in driver_fields:
+    #                 driver["id"] = driver["id"]
+    #         orders["driver_id"] = driver["id"]
 
-            for i, column in enumerate(description):
-                if column.produce_id in orders_fields:
-                    orders[column.produce_id] = row[i]
-                orders["id"] = orders["id"]
-            produce = {}
-            produce_fields = ["id", "product_name"]
-            for i, column in enumerate(description):
-                if column.id in produce_fields:
-                    produce["id"] = produce["id"]
-            orders["produce_id"] = produce["id"]
-            for i, column in enumerate(description):
-                if column.id in produce_fields:
-                    produce["id"] = produce["id"]
-            orders["produce_id"] = produce["id"]
+    #         for i, column in enumerate(description):
+    #             if column.produce_id in orders_fields:
+    #                 orders[column.produce_id] = row[i]
+    #             orders["id"] = orders["id"]
+    #         produce = {}
+    #         produce_fields = ["id", "product_name"]
+    #         for i, column in enumerate(description):
+    #             if column.id in produce_fields:
+    #                 produce["id"] = produce["id"]
+    #         orders["produce_id"] = produce["id"]
+    #         for i, column in enumerate(description):
+    #             if column.id in produce_fields:
+    #                 produce["id"] = produce["id"]
+    #         orders["produce_id"] = produce["id"]
 
-            for i, column in enumerate(description):
-                if column.customer_id in orders_fields:
-                    orders[column.customer_id] = row[i]
-                orders["id"] = orders["id"]
-            customer = {}
-            customer_fields = ["id", "customer_name"]
-            for i, column in enumerate(description):
-                if column.id in customer_fields:
-                    customer["id"] = customer["id"]
-            orders["customer_id"] = customer["id"]
 
-        return orders
+    #         for i, column in enumerate(description):
+    #             if column.customer_id in orders_fields:
+    #                 orders[column.customer_id] = row[i]
+    #             orders["id"] = orders["id"]
+    #         customer = {}
+    #         customer_fields = ["id", "customer_name"]
+    #         for i, column in enumerate(description):
+    #             if column.id in customer_fields:
+    #                 customer["id"] = customer["id"]
+    #         orders["customer_id"] = customer["id"]
+    #         print(orders)
+    #     return orders
 
     def order_in_to_out(self, id: int, orders: OrderIn):
         old_data = orders.dict()
-        print(old_data)
+        print("OLD DATA: ", old_data)
         return OrderOut(id=id, **old_data)
 
     def record_to_order_out(self, record):
-        print(record)
+        print("RECORD: ", record)
         return OrderOut(
             id=record[0],
             customer_name=record[1],
-            product_name=record[2],
-            qty=record[3],
-            driver_name=record[4],
+            driver_name=record[2],
+            product_name=record[3],
+            qty=record[4],
             order_date=record[5],
             printed=record[6],
         )

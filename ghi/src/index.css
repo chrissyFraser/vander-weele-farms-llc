@@ -1,3 +1,7 @@
+:root {
+  --bs-indigo: #6610f2;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -65,37 +69,37 @@ img {
 h1,
 h2,
 h3 {
-  color: rgb(0, 0, 0);
+  color: rgb(55, 120, 87);
 }
 
 .link {
-  color: rgb(196, 17, 17);
+  color: rgb(55, 120, 87);
   font-weight: bold;
 }
 
 button {
   font-size: 0.8rem;
-  color: rgb(255, 255, 255);
+  color: white !important;
   padding: 0.5rem;
   margin: 0.5rem;
   border-radius: 0.5rem;
   border: 0.5rem;
-  background-color: rgb(172, 45, 45);
+  background-color: rgb(55, 120, 87);
   width: 100%;
   cursor: pointer;
 }
 
 button.add {
-  background-color: rgb(95, 199, 98);
+  background-color: rgb(55, 120, 87);
   width: 1.5rem;
 }
 button.remove {
-  background-color: rgb(172, 45, 45);
+  background-color: rgb(55, 120, 87);
   width: 1.5rem;
 }
 
 button.badge {
-  background-color: rgb(172, 45, 45);
+  background-color: rgb(55, 120, 87);
   width: 1.5rem;
   border: 0.1rem;
   color: rgb(255, 255, 255);
@@ -104,6 +108,8 @@ button.badge {
 .card {
   width: 15rem !important;
 }
+
+
 
 .title {
   text-align: center;
@@ -114,7 +120,31 @@ button.badge {
   justify-content: center;
 }
 
-.nav-link {
+.nav-pills .nav-link.active {
   margin: .5rem;
-  color: white;
+  color: rgb(55, 120, 87);
+  background-color:rgb(55, 120, 87) !important;
 }
+
+
+.navbar-brand {
+  font-stretch: expanded;
+  color: rgb(55, 120, 87);
+}
+
+.nav-pills>li.active>a {
+  color: rgb(55, 120, 87);
+  background-color: rgb(255, 247, 177);
+}
+
+.nav-pills>li.active>a:hover, .nav-pills>li.active>a:focus {
+  background-color:rgba(217, 255, 199, 0.734) !important;
+}
+
+.nav-link {
+  width: 150px;
+  text-align: center;
+  font-size: 150% !important;
+}
+
+

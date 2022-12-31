@@ -35,20 +35,20 @@ CREATE TABLE customer (
     
 );
 
-    
+-- CREATE TABLE cart (
+--     id SERIAL NOT NULL UNIQUE,
+--     customer_id INTEGER REFERENCES customer ("id"),
+--     produce_id INTEGER [] REFERENCES produce ("id"),
+--     qty INTEGER []
+-- );
+
 CREATE TABLE orders(
     id SERIAL NOT NULL UNIQUE,
     customer_id INTEGER REFERENCES customer ("id"),
-    produce_id INTEGER REFERENCES produce ("id"),
-    qty INTEGER,
+    produce_id INTEGER [],
+    qty INTEGER [],
     driver_id INTEGER REFERENCES driver ("id"),
     order_date VARCHAR(500), 
     printed BOOLEAN DEFAULT false
 );
 
-CREATE TABLE cart (
-    id SERIAL NOT NULL UNIQUE,
-    customer_id INTEGER REFERENCES customer ("id"),
-    produce_id INTEGER REFERENCES produce ("id"),
-    qty INTEGER
-);

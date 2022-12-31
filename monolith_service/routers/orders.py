@@ -23,16 +23,31 @@ def create_order(
     if account_data:
         response.status_code = 200
         return repo.create_order(orders)
+    # else:
+    #     raise HTTPException(
+    #         status_code=status.HTTP_401_UNAUTHORIZED,
+    #         detail="Invalid token",
+    #         headers={"WWW-Authenticate": "Bearer"},
+    #     )
 
 
 @router.get("/api/orders", response_model=Union[List[OrderOut], Error])
 def get_all_orders(
     repo: OrderRepository = Depends(),
-    # account_data: dict = Depends(authenticator.get_current_account_data),
+    # account_data: dict = Depends(
+    #     authenticator.get_current_account_data
+    #     ),
 ):
+    print("COOOOOKIES")
     # if "admin" in account_data.get("username"):
     # if account_data:
     return repo.get_all_orders()
+    # else:
+    #     raise HTTPException(
+    #         status_code=status.HTTP_401_UNAUTHORIZED,
+    #         detail="Invalid token",
+    #         headers={"WWW-Authenticate": "Bearer"},
+    #     )
 
 
 @router.get("/api/orders/{order_id}", response_model=Optional[OrderOut])
