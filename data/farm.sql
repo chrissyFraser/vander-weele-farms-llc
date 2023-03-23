@@ -6,7 +6,7 @@ DROP TABLE IF EXISTS orders;
 
 CREATE TABLE produce(
     id SERIAL NOT NULL UNIQUE,
-    product_name TEXT NOT NULL,
+    product_name TEXT NOT NULL UNIQUE,
     picture_file TEXT,
     available BOOLEAN NOT NULL,
     height INTEGER NOT NULL,
@@ -45,7 +45,7 @@ CREATE TABLE customer (
 CREATE TABLE orders(
     id SERIAL NOT NULL UNIQUE,
     customer_id INTEGER REFERENCES customer ("id"),
-    produce_id INTEGER [],
+    product TEXT [],
     qty INTEGER [],
     driver_id INTEGER REFERENCES driver ("id"),
     order_date VARCHAR(500), 

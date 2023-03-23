@@ -9,7 +9,7 @@ export default function Produce(props) {
       <Card>
         <Card.Img
           variant="top"
-          src={`https://vwimageuploads.s3.us-west-2.amazonaws.com/${produce.picture_file}`}
+          src={`https://vwfpix.s3.us-west-1.amazonaws.com/${produce.picture_file}`}
           alt={produce.product_name}
         />
         <Card.Body>

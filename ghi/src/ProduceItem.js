@@ -86,7 +86,7 @@ function ProduceItem(props) {
               </td>
               <td>
                 <img
-                  src={`https://vwimageuploads.s3.us-west-2.amazonaws.com/${item.picture_file}`}
+                  src={`https://vwfpix.s3.us-west-1.amazonaws.com/${item.picture_file}`}
                   id="image"
                   alt="Thumbnail"
                   className="user-post"
@@ -99,7 +99,7 @@ function ProduceItem(props) {
               <td>
                 <button
                   type="button"
-                  className="btn btn-warning"
+                  className="create-btn"
                   id="delete_item button"
                   onClick={() =>
                     handleDelete(`/produce-admin/${item.produce_id}`)
@@ -116,7 +116,7 @@ function ProduceItem(props) {
   } else {
     return (
       <>
-        <h2>ou do not have access to this page.</h2>
+        <h2>You do not have access to this page.</h2>
       </>
     );
   }

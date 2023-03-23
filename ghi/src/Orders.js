@@ -54,7 +54,7 @@ function Orders(props) {
                     <tr key={order.id}>
                       <td>{order.id}</td>
                       <td>{order.customer_name}</td>
-                      <td>{order.product_name.map((product_name) => <ol>{product_name}</ol>)}</td>
+                      <td>{order.product.map((product) => <ol>{product}</ol>)}</td>
                       <td>{order.qty.map((qty) => <ul>{qty}</ul>)}</td>
                       <td>{order.driver_name}</td>
                       <td>{order.order_date}</td>
@@ -62,8 +62,8 @@ function Orders(props) {
                         <button
                           onClick={() => setPrint(!printed)}
                           type="button"
-                          className="btn btn-warning"
-                          id="printbtn"
+                          className="create-btn"
+                          id="printbtn" width="fit-content"
                         >
                           {printed ? "Yes" : "No"}
                         </button>

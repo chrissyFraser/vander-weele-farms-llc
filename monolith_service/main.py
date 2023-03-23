@@ -29,9 +29,9 @@ app.add_middleware(
 )
 
 
-@app.get("/is_working")
-def is_working():
-    return {"message": "Hello World"}
+# @app.get("/is_working")
+# def is_working():
+#     return {"message": "Hello World"}
 
 
 app.include_router(produce.router)

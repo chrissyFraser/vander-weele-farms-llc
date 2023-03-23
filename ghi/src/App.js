@@ -1,7 +1,5 @@
 import {BrowserRouter, NavLink, Routes, Route } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-// import Construct from './Construct.js'
-// import ErrorNotification from './ErrorNotification';
 import './App.css';
 import ProduceList from './ProduceList';
 import ProduceCreate from './ProduceCreate';
@@ -18,7 +16,6 @@ import UserUpdateComponent from './UserEdit'
 
 function GetToken() {
     useToken();
-    // return null
 }
 
 function App() {
@@ -26,7 +23,6 @@ function App() {
   const [get_all_produce, setProduce] = useState([]);
   const [produce_id, setProduceId] = useState([]);
   const [cart] = useState([]);
-  // const [cartItems] = useState([]);
   const [get_all_orders, setOrders] = useState([]);
 
   useEffect(() => {
@@ -66,7 +62,8 @@ function App() {
               <div>
                   <div className="container">
                     <nav className="tabs is-centered navbar navbar-expand-lg" style={{ display: "flex"}}>
-                      <ul className="navbar-brand">VanderWeele Farm</ul> 
+                      <div className="navbar-brand pos-1">VanderWeele Farm</div>
+                      <div className="pos-2"><img className="nav-logo" src={require("./images/vander-removebg.png")} alt="logo"/> </div>
                       <ul className="navbar-nav nav nav-pills">
                         <li className="nav-link active" aria-current="page" href="#"><NavLink to="/">Home Page</NavLink></li>
                         <li className="nav-link active" aria-current="page" href="#"><NavLink to="/cart">Shop Produce</NavLink></li>
@@ -104,6 +101,3 @@ function App() {
 }
 
 export default App;
-
-
- /* <img className="logo" src="https://scontent-sjc3-1.xx.fbcdn.net/v/t39.30808-6/309061405_469280831892766_4474664018961093891_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=0FFC68GtDTgAX-AlbXs&_nc_ht=scontent-sjc3-1.xx&oh=00_AT9g2FzUrWsYkJFyDtW4gdLwtT5MJPFI9j1_2Ee-bF5Hsg&oe=63537D39" alt="logo" /> */

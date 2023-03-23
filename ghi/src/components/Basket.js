@@ -55,7 +55,7 @@ export default function Basket(props) {
     const myUser = user[3];
     const valuesUser = Object.values(myUser);
 
-    const produce_id = cartItems.map((item) => item.id);
+    const product = cartItems.map((item) => item.product_name);
     const qty = cartItems.map((item) => item.qty);
     const printed = false;
     const driver_id = 0;
@@ -72,13 +72,13 @@ export default function Basket(props) {
 
     console.log("customer_id", customer_id);
     console.log("date", order_date);
-    console.log("id", produce_id);
+    console.log("name", product);
     console.log("qty", qty);
 
     const data = {
       customer_id,
       driver_id,
-      produce_id,
+      product,
       qty,
       order_date,
       printed,
@@ -114,16 +114,17 @@ export default function Basket(props) {
       {cartItems.length === 0 && <div>Basket is Empty</div>}
       {cartItems.map((item) => (
         <div key={item.id} className="row">
-          <div className="col-2">{item.product_name}</div>
-          <div className="col-2">
+          <div className="col-3">{item.product_name}</div>
+          <div className="col-3">
             <button onClick={() => onRemove(item)} className="remove">
               -
             </button>
+            <space> </space>
             <button onClick={() => onAdd(item)} className="add">
               +
             </button>
           </div>
-          <div className="col-2">{item.qty}</div>
+          <div className="col-3">{item.qty}</div>
         </div>
       ))}
       {cartItems.length !== 0 && (

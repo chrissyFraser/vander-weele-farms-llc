@@ -5,7 +5,7 @@ from queries.pool import pool
 
 class OrderIn(BaseModel):
     customer_id: int
-    produce_id: List[int] = []
+    product: List[str] = []
     qty: List[int] = []
     driver_id: int
     order_date: str
@@ -15,7 +15,7 @@ class OrderIn(BaseModel):
 class OrderOut(BaseModel):
     id: int | None = None
     customer_name: str | None = None
-    product_name: List[str] = []
+    product: List[str] = []
     qty: List[int] = []
     driver_name: str | None = None
     order_date: str | None = None
@@ -28,7 +28,7 @@ class Error(BaseModel):
 
 class Order_Patch(BaseModel):
     customer_id: int | None = None
-    produce_id: List[int] = []
+    # product: List[str] = []
     driver_id: int | None = None
 
 
@@ -42,13 +42,13 @@ class OrderRepository:
                     """
                         SELECT o.id,
                         c.customer_name AS customer_name,
-                        d.driver_name AS driver_name, ARRAY_AGG(p.product_name), o.qty,
+                        d.driver_name AS driver_name, o.product, o.qty,
                         order_date, printed
                         FROM orders AS o
-                        LEFT OUTER JOIN produce p ON p.id = ANY(o.produce_id)
+                        LEFT OUTER JOIN produce p ON p.product_name = ANY(o.product)
                         LEFT OUTER JOIN customer c ON (o.customer_id=c.id)
                         LEFT OUTER JOIN driver d ON (o.driver_id=d.id)
-                        GROUP BY o.id, c.customer_name, d.driver_name, order_date, o.qty, printed
+                        GROUP BY o.id, c.customer_name, d.driver_name, order_date, o.product, o.qty, printed
                         ORDER BY o.id
                         """
                     )
@@ -62,13 +62,12 @@ class OrderRepository:
         id = None
         with pool.connection() as conn:
             with conn.cursor() as db:
-                print(orders.produce_id)
                 result = db.execute(
                     """
                     INSERT INTO orders(
                         customer_id,
                         driver_id,
-                        produce_id,
+                        product,
                         qty,
                         order_date,
                         printed
@@ -80,7 +79,7 @@ class OrderRepository:
                     [
                         orders.customer_id,
                         orders.driver_id,
-                        orders.produce_id,
+                        orders.product,
                         orders.qty,
                         orders.order_date,
                         orders.printed,
@@ -156,7 +155,7 @@ class OrderRepository:
             id=record[0],
             customer_name=record[1],
             driver_name=record[2],
-            product_name=record[3],
+            product=record[3],
             qty=record[4],
             order_date=record[5],
             printed=record[6],
@@ -169,12 +168,12 @@ class OrderRepository:
                     result = db.execute(
                         """
                         SELECT o.id AS order_id,
-                        p.product_name AS product_name,
+                        p.product_name AS o.product,
                         o.qty, d.driver_name AS driver_name, o.order_date,
                         o.printed
                         FROM orders AS o
                         LEFT OUTER JOIN customer c ON (o.customer_id=c.id)
-                        LEFT OUTER JOIN produce p ON (o.produce_id=p.id)
+                        LEFT OUTER JOIN produce p ON (o.product=p.product_name)
                         LEFT OUTER JOIN driver d ON (o.driver_id=d.id)
                         WHERE o.id = %s
                         """,
@@ -215,7 +214,7 @@ class OrderRepository:
                         """
                         UPDATE orders
                         SET customer_id = %s
-                          , produce_id = %s
+                          , product = %s
                           , qty = %s
                           , driver_id = %s
                           , order_date = %s
@@ -224,7 +223,7 @@ class OrderRepository:
                         """,
                         [
                             orders.customer_id,
-                            orders.produce_id,
+                            orders.product,
                             orders.qty,
                             orders.driver_id,
                             orders.order_date,

@@ -124,7 +124,7 @@ function ProduceItemEdit(props) {
             <img
               src={
                 image ||
-                `https://vwimageuploads.s3.us-west-2.amazonaws.com/${item.picture_file}`
+                `https://vwfpix.s3.us-west-1.amazonaws.com/${item.picture_file}`
               }
               id="picture_file"
               alt="Thumbnail"

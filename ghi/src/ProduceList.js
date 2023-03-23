@@ -41,7 +41,7 @@ function ProduceList(props) {
         <>
           <button
             type="button"
-            className="btn btn-danger"
+            className="create-btn"
             id="create-new button"
             onClick={() => navigate(createProduce)}
           >
@@ -68,7 +68,7 @@ function ProduceList(props) {
                       </td>
                       <td>
                         <img
-                          src={`https://vwimageuploads.s3.us-west-2.amazonaws.com/${produce.picture_file}`}
+                          src={`https://vwfpix.s3.us-west-1.amazonaws.com/${produce.picture_file}`}
                           id="image"
                           alt="Thumbnail"
                           className="user-post"
@@ -78,7 +78,7 @@ function ProduceList(props) {
                       <td>
                         <button
                           type="button"
-                          className="btn btn-warning"
+                          className="create-btn"
                           id="get_item button"
                           produce_id={produce.id}
                           onClick={() => {
@@ -92,7 +92,7 @@ function ProduceList(props) {
                       <td>
                         <button
                           type="button"
-                          className="btn btn-warning"
+                          className="create-btn"
                           id="get_item button"
                           produce_id={produce.id}
                           onClick={() => {

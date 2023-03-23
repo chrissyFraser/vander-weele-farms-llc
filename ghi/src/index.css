@@ -18,6 +18,7 @@ code {
 
 a {
   text-decoration: none;
+  padding: 3px !important
 }
 /* code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
@@ -27,7 +28,7 @@ a {
 .row {
   display: flex !important;
   flex-wrap: wrap !important;
-  justify-content: space-between !important;
+  padding-left: 20px;
 }
 
 .row.center {
@@ -61,52 +62,84 @@ a {
 }
 
 img {
-  width: 200px !important;
-  min-height: 200px !important;
+  width: 175px !important;
+  height:175px;
   border-radius: 25px !important;
+  padding: 5px;
+  margin:5px;
 }
+
 
 h1,
 h2,
 h3 {
-  color: rgb(55, 120, 87);
+  color: rgb(81, 208, 145);
 }
 
 .link {
-  color: rgb(55, 120, 87);
+  color: rgb(81, 208, 145);
   font-weight: bold;
 }
 
 button {
-  font-size: 0.8rem;
+  
+  font-size: 18px !important;
   color: white !important;
-  padding: 0.5rem;
+  padding: 2px 10px;
   margin: 0.5rem;
-  border-radius: 0.5rem;
+  border-radius: 2rem !important;
   border: 0.5rem;
-  background-color: rgb(55, 120, 87);
-  width: 100%;
+  background-color: rgb(81, 208, 145);
+  width: fit-content;
   cursor: pointer;
+
+  display: inline-block;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
+}
+
+button:hover {
+  background-color:rgb(123, 196, 160);
+}
+
+button:active {
+background-color: rgb(100, 161, 131);
+box-shadow: 0 5px #666;
+transform: translateY(2px);
 }
 
 button.add {
-  background-color: rgb(55, 120, 87);
+  background-color: rgb(81, 208, 145);
   width: 1.5rem;
+  height: 1.5rem;
+  padding: 0px;
+  margin: 2px;
+  border-radius: 5rem !important;
 }
 button.remove {
-  background-color: rgb(55, 120, 87);
+  background-color: rgb(178, 44, 44);
   width: 1.5rem;
+  height: 1.5rem;
+  padding: 0px;
+  margin: 2px;
+  border-radius: 5rem !important;
 }
 
 button.badge {
-  background-color: rgb(55, 120, 87);
+  background-color: rgb(81, 208, 145);
   width: 1.5rem;
   border: 0.1rem;
   color: rgb(255, 255, 255);
 }
 
 .card {
-  width: 15rem !important;
+  width:200px !important;
+  align-content: center !important;
 }
 
 
@@ -115,6 +148,7 @@ button.badge {
   text-align: center;
 }
 
+
 .nav {
   padding: .5rem;
   justify-content: center;
@@ -122,23 +156,25 @@ button.badge {
 
 .nav-pills .nav-link.active {
   margin: .5rem;
-  color: rgb(55, 120, 87);
-  background-color:rgb(55, 120, 87) !important;
+  color: rgb(81, 208, 145);
+  font-weight: 600 !important;
+  background-color:rgb(81, 208, 145) !important;
 }
 
 
 .navbar-brand {
   font-stretch: expanded;
-  color: rgb(55, 120, 87);
+  color: rgb(81, 208, 145);
 }
 
 .nav-pills>li.active>a {
-  color: rgb(55, 120, 87);
-  background-color: rgb(255, 247, 177);
+  color: rgb(81, 208, 145);
+  background-color: rgb(223, 241, 214);
 }
 
 .nav-pills>li.active>a:hover, .nav-pills>li.active>a:focus {
   background-color:rgba(217, 255, 199, 0.734) !important;
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
 
 .nav-link {
@@ -147,4 +183,39 @@ button.badge {
   font-size: 150% !important;
 }
 
+.nav-logo {
+  width:100px !important;
+  height:auto !important;
+  display:flex;
+}
 
+.pos-1 {
+  font-family:Georgia, 'Times New Roman', Times, serif;
+  font-size:8pt !important;
+  font-weight: 900;
+  color: rgb(81, 208, 145) !important;
+  position: absolute;
+  top:10px;
+  left:-5px;
+}
+
+.pos-2 {
+  position: relative;
+  top: 20px;
+  left: 10px;
+}
+
+.green1 {
+  color: rgb(81, 208, 145) !important;
+}
+
+.green2 {
+  color: rgba(217, 255, 199, 0.734) !important;
+}
+
+.create-btn {
+  color: white !important;
+  background-color: rgb(81, 208, 145);
+  margin: 20px;
+  width:200px;
+}
